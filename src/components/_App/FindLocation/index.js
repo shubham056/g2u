@@ -8,7 +8,11 @@ const index = () => {
                     <img src="assets/img/no-location-opt.png" className="no-location-icon" />
                 </div>
                 <h2 className="text-center no-border ti-dark-blue-text">Find a Location!</h2>
-                <form method="post" id="frmlocationBox" name="frmLocationBox" action="/">
+                <form method="post"
+                    //id="frmlocationBox"
+                    //name="frmLocationBox"
+                    action="/"
+                >
                     <div className="banner-zip-input-container">
                         <input type="hidden" id="franchiseNameLocBox" name="franchiseName" defaultValue />
                         <div className="ti-input">
