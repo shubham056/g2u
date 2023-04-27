@@ -19,8 +19,8 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function Home() {
   // redux dispatch
   const dispatch = useDispatch();
-  const { message } = useSelector((state) => state.message);
-  console.log("message", message)
+ // const { message } = useSelector((state) => state.message);
+  //console.log("message", message)
   return (
     <>
       <Head>
