@@ -14,7 +14,7 @@ const ZipCodeFormFooter = () => {
                     <div className="ti-input col-xs-12">
                         <label htmlFor="footerZipcode">Enter Your ZIP Code</label>
                         <input type="tel" id="footerZipcode" />
-                        <button id="btnFooter" className="ti-yellow-button pull-right">GO!</button>
+                        <button id="btnFooter" type='button' className="ti-yellow-button pull-right">GO!</button>
                     </div>
                 </form>
             </div>
