@@ -1,5 +1,5 @@
 module.exports = {
-    title: "Austin Game Trucks, Laser Tag & Hamster Balls from Games2U ",
+    title: "Austin Game Trucks, Laser Tag & Hamster Balls from Games2U",
     description: "Austin's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience they'll never forget!",
     openGraph: {
         type: 'website',

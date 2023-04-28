@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 const index = () => {
     return (
@@ -106,7 +107,7 @@ const index = () => {
                             </div>
                         </div>
                         <div className="no-padding" id="g2uExperience">
-                            <a href="theg2udifference.html">THE G2U DIFFERENCE</a>
+                            <Link href="/theg2udifference">THE G2U DIFFERENCE</Link>
                         </div>
                         <div className="no-padding" id="corporateEventsNav">
                             <a href="corporateevents.html">CORPORATE EVENTS</a>

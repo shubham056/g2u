@@ -11,6 +11,8 @@ const Layout = ({ children }) => {
         <>
             <DefaultSeo {...SEO} />
 
+            <Header/>
+
             {children}
 
             <Footer />
