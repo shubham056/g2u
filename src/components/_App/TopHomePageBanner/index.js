@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const TopHomePageBanner = () => {
     return (
         <div className="row ti-row no-margin" id="topHomepageBanner">
             <div className="col-xs-12">
@@ -27,4 +27,4 @@ const index = () => {
     )
 }
 
-export default index
+export default TopHomePageBanner

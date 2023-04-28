@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const GamesForEveryOne = () => {
     return (
         <div className="row something-for-everyone no-margin no-padding">
             <div className="col-xs-12 no-padding">
@@ -22,4 +22,4 @@ const index = () => {
     )
 }
 
-export default index
+export default GamesForEveryOne

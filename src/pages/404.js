@@ -6,7 +6,7 @@ const Custom404 = () => {
     return (
         <>
             <div className="container-fluid">
-                <Header />
+                {/* <Header /> */}
 
                 <div className="row no-padding not-home all-events-page" id="headerBanner">
                     <div className="ti-page-header row clearfix">

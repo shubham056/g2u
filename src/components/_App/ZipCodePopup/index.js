@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const ZipCodePopup = () => {
     return (
         <div className="modal-overlay">
             <div className="modal" id="zipModal" tabIndex={-1} role="dialog" style={{ paddingRight: '0px !important' }}>
@@ -31,4 +31,4 @@ const index = () => {
     )
 }
 
-export default index
+export default ZipCodePopup

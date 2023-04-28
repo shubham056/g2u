@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const FindLocation = () => {
     return (
         <div className="location-box no-zipcode-parent" id="locationBox">
             <div className="location-container">
@@ -10,9 +10,9 @@ const index = () => {
                 <h2 className="text-center no-border ti-dark-blue-text">Find a Location!</h2>
                 <form
                     method="post"
-                    //id="frmlocationBox"
-                    //name="frmLocationBox"
-                    //action="/"
+                //id="frmlocationBox"
+                //name="frmLocationBox"
+                //action="/"
                 >
                     <div className="banner-zip-input-container">
                         <input type="hidden" id="franchiseNameLocBox" name="franchiseName" defaultValue />
@@ -37,4 +37,4 @@ const index = () => {
     )
 }
 
-export default index
+export default FindLocation

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const BrandLogo = () => {
     return (
         <div className="ti-blue-background as-seen-banner clearfix">
             <div className="col-xs-12">
@@ -31,4 +31,4 @@ const index = () => {
     )
 }
 
-export default index
+export default BrandLogo

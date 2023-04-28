@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = (props) => {
+const RequestInfo = (props) => {
     console.log("props", props)
     const { content, classNameStyle } = props
     return (
@@ -13,4 +13,4 @@ const index = (props) => {
     )
 }
 
-export default index
+export default RequestInfo

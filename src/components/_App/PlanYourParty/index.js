@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = () => {
+const PlanYourParty = () => {
     return (
         <div className="row ti-blue-background ti-row-top no-margin" id="planYourParty">
             <div className="col-xs-12">
@@ -53,4 +53,4 @@ const index = () => {
     )
 }
 
-export default index
+export default PlanYourParty

@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import Script from 'next/script'
 
 export default function Document() {
   return (
@@ -8,7 +7,8 @@ export default function Document() {
 
         <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" />
 
-        <script src="/assets/js/jquery-2.2.4.min.js"></script>
+        {/* <script src="/assets/js/jquery-2.2.4.min.js"></script> */}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="/assets/js/slick-1.9.0.min.js"></script>
 
         <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7.min.css" />
