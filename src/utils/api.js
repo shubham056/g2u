@@ -1,9 +1,15 @@
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-console.log("baseURL", baseURL)
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_KEY = process.env.NEXT_PUBLIC_G2U_API_KEY
+console.log("API_BASE_URL", API_BASE_URL)
 
-export async function getAllBlogPosts() {
+export async function getGamesList(zipcode) {
 
-    // const postsRes = await fetch(API_BASE_URL + `blogs_dubai_collection_?fields=id,title,slug`);
-    //const posts = await postsRes.json();
-    return "posts";
+    const gamesRes = await fetch(`${API_BASE_URL}/games/${zipcode}`, {
+        method: "GET",
+        headers: {
+            'x-api-key': API_KEY
+          },
+    });
+    const games = await gamesRes.json();
+    return games;
 }

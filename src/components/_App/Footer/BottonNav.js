@@ -8,12 +8,12 @@ const BottonNav = () => {
                 <div className="row limited-width">
                     <div className="page-links col-md-9 col-sm-8 col-xs-12">
                         <ul className="page-link-columns">
-                            <li className="ti-nav-content"><Link href="/ourgames">Our Games</Link></li>
-                            <li className="ti-nav-content"><Link href="/theg2udifference">The G2U Difference</Link></li>
-                            <li className="ti-nav-content"><Link href="/corporateevents">Corporate Events</Link></li>
+                            <li className="ti-nav-content"><Link href="/our-games">Our Games</Link></li>
+                            <li className="ti-nav-content"><Link href="/theg2u-difference">The G2U Difference</Link></li>
+                            <li className="ti-nav-content"><Link href="/corporate-events">Corporate Events</Link></li>
                         </ul>
                         <ul className="page-link-columns">
-                            <li className="ti-nav-content"><Link href="/franchiseinformation">Own a Franchise</Link></li>
+                            <li className="ti-nav-content"><Link href="/franchise-information">Own a Franchise</Link></li>
                             <li className="ti-nav-content"><Link href="/contactus">Contact Us</Link></li>
                             <li className="ti-nav-content"><Link href="/aboutus">About Us</Link></li>
                             <li className="ti-nav-content"><Link href="/faq">FAQ</Link></li>

@@ -8,7 +8,9 @@ import RequestInfo from '@/components/_App/RequestInfo';
 import dynamic from 'next/dynamic';
 import CommonSlider from '@/components/_App/Slider';
 import GamesSlider from '@/components/_App/GamesSlider';
+import TopBanner from '@/components/GameDetails/TopBanner';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
+import { useRouter } from 'next/router';
 
 const options = {
     loop: true,
@@ -69,6 +71,9 @@ const gamesSliderOptions = {
 
 
 const GamesDetails = () => {
+    const router = useRouter();
+    const { slug } = router.query;
+    console.log("slug", slug)
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);
@@ -114,22 +119,9 @@ const GamesDetails = () => {
                 <Header />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
-                <div className="row no-padding not-home game-page video-game-theater" id="headerBanner">
-                    <div className="ti-page-header row clearfix">
-                        <div className="row ti-row">
-                            <div className="limited-width">
-                                <div className="text-center">
-                                    <img src="https://www.g2u.com/assets//img/ico-video-theater-2x.png" />
-                                </div>
-                                <h1>Video Game Truck</h1>
-                                <p>Play the hottest games in one of our climate controlled mobile game theaters!</p>
-                                <div className="text-center">
-                                    <a href="javascript:void(0);" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-video-game-truck.mp4"><i className="fa fa-lg fa-play-circle-o" aria-hidden="true" /> SEE IT IN ACTION!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <TopBanner
+
+                />
 
             </div >
             {/* <!-- top header and banner with mobile menu section start --> */}
@@ -183,7 +175,7 @@ const GamesDetails = () => {
                     </div>
                 </div>
                 <div className="row ti-row no-padding no-side-margin remove-overflow" id="tiImageSlider">
-                    <div className="ti-slider-parent ti-slider-gallery">
+                    <div className="ti-slider-parents ti-slider-gallery">
                         {
                             display ?
                                 <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
@@ -223,7 +215,7 @@ const GamesDetails = () => {
                         <h2 className="orange-border ti-dark-blue-text">You May Also Enjoy</h2>
                     </div>
                     <div className="row ti-row no-top-padding no-side-margin remove-overflow">
-                        <div className="ti-slider-parent">
+                        <div className="ti-slider-parents">
                             {
                                 display ?
                                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...gamesSliderOptions} >
@@ -274,3 +266,5 @@ const GamesDetails = () => {
 }
 
 export default GamesDetails
+
+
