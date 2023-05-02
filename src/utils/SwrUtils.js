@@ -16,7 +16,7 @@ export const SwrUtils = (url) => {
         // revalidateOnReconnect: false,
         // refreshWhenOffline: false,
         // refreshWhenHidden: false,
-        refreshInterval: 2000
+        //refreshInterval: 2000
     })
     return {
         data,
