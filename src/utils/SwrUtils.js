@@ -11,7 +11,7 @@ export const SwrUtils = (url) => {
             })
             .then((res) => res.data);
     const { data, error, mutate, isLoading, isValidating } = useSWR(url, fetcher, {
-        // revalidateOnFocus: false,
+        revalidateOnFocus: true,
         // revalidateOnMount: false,
         // revalidateOnReconnect: false,
         // refreshWhenOffline: false,
