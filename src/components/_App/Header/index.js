@@ -24,8 +24,8 @@ const Header = (
     // { categoryData, affiliate, onSubmitTopBarChangeLocation, register, handleSubmit, errors, isOpen }
 ) => {
     const zipCode = useRef(0)
-    let g2uZipCode = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
-    const [open, setOpen] = useState((g2uZipCode != null && g2uZipCode != 'undefined') ? false : true);
+    zipCode.current = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
+    const [open, setOpen] = useState((zipCode.current != null && zipCode.current != 0) ? false : true);
     const onCloseModal = () => setOpen(false);
 
     const [isShownMenu, setIsShownMenu] = useState(false);
@@ -39,7 +39,7 @@ const Header = (
 
     useEffect(() => {
         console.log("call use effect in header")
-        zipCode.current = g2uZipCode ? g2uZipCode : "00000"
+        //zipCode.current = g2uZipCode ? g2uZipCode : "00000"
     }, [])
 
     const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
