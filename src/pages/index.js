@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 //import { Inter } from 'next/font/google'
@@ -13,10 +13,6 @@ import TopHomePageBanner from '@/components/_App/TopHomePageBanner';
 import PlanYourParty from '@/components/_App/PlanYourParty';
 import RequestInfo from '@/components/_App/RequestInfo';
 import GamesForEveryOne from '@/components/_App/GamesForEveryOne';
-import ZipCodePopup from '@/components/_App/ZipCodePopup';
-import { useSelector, useDispatch } from 'react-redux';
-import dynamic from 'next/dynamic';
-const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 import GamesList from '@/components/_App/GamesList';
 import GamesSlider from '@/components/_App/GamesSlider';
 import 'react-responsive-modal/styles.css';
@@ -27,48 +23,17 @@ import * as Yup from 'yup'
 import {
   getGamesList
 } from '../utils/api'
-import useSWR from "swr";
-import { apiBaseUrl, fetchApi } from "../utils/fetchApi";
+import { getClientInputs } from "../redux/features/GamesSlice";
+import { SwrUtils } from '../utils/SwrUtils';
 
 
 
-
-
-const options = {
-  loop: true,
-  nav: true,
-  navText:
-    [
-      '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-      '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-    ],
-  dots: false,
-  smartSpeed: 500,
-  margin: 30,
-  autoplayHoverPause: true,
-  autoplay: false,
-  responsive: {
-    0: {
-      items: 1
-    },
-    576: {
-      items: 1
-    },
-    768: {
-      items: 2
-    },
-    1200: {
-      items: 4
-    }
-  }
-};
 const modalSchema = Yup.object().shape({
   zipcode: Yup.number()
     .required('Zip code is a required field')// optional
     .typeError('Please enter valid zip code.')// optional as well
   // .test('len', 'Please enter valid zip code.', val => val.toString().length === 5)
 })
-
 const bg = {
   overlay: {
     background: "rgba(128, 128, 128, 0.5)"
@@ -76,110 +41,59 @@ const bg = {
 };
 
 export default function Home() {
+  // const zipCode = useRef(0)
 
-  let g2uZipCode = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
+  // let g2uZipCode = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
 
-  const [open, setOpen] = useState((g2uZipCode != null && g2uZipCode != 'undefined') ? false : true);
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-  const [zipCode, setzipCode] = useState('00000');
-  const [submittedZipCode, setSubmittedZipCode] = useState();
-  const [gamesData, setGamesData] = useState([])
-  const [zipCodeServiceStaus, setZipCodeServiceStatus] = useState('')
-
-  const modalFormOptions = { resolver: yupResolver(modalSchema) }
-  const { register, setValue, formState: { errors, isSubmitting }, handleSubmit, } = useForm(modalFormOptions);
-
-  const [display, setDisplay] = useState(false);
-  useEffect(() => {
-    setDisplay(true);
-  }, [])
-
-  useEffect(() => {
-    if (g2uZipCode != null && g2uZipCode != 'undefined') {
-      console.log("use effect zipcode", g2uZipCode)
-      getGamesList(g2uZipCode).then(res => {
-        console.log("res", res.data)
-        const { games } = res.data
-        if (games !== "") {
-          console.log(games.affiliate)
-          setGamesData(games)
-          setOpen(false)
-          localStorage.setItem('g2u_zipcode', g2uZipCode);
-        }
-      }).catch(err => console.log("fetch err", err))
-
-    }
-  }, [])
+  // const [open, setOpen] = useState((g2uZipCode != null && g2uZipCode != 'undefined') ? false : true);
+  // const onCloseModal = () => setOpen(false);
+  // const [zipCodeServiceStaus, setZipCodeServiceStatus] = useState('')
+  // const [isOpenTopChangeLocation, setIsOpenTopChangeLocation] = useState('');
+  // const modalFormOptions = { resolver: yupResolver(modalSchema) }
+  // const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
+  // const { register: register1, setValue: setValue1, formState: { errors: errors1, isSubmitting: isSubmitting1 }, handleSubmit: handleSubmit1 } = useForm(modalFormOptions); //for topbar change location
 
 
+  //Games They'll Love Slider
+  // useEffect(() => {
+  //   console.log("call use effect **********************88")
+  //   zipCode.current = g2uZipCode ? g2uZipCode : "00000"
+  // }, [])
 
 
-
-  console.log("zipcode from local stroage", g2uZipCode)
-
-  // let apicallUrl;
-
-  // if (submittedZipCode != null) {
-  //   console.log("ssss")
-  //   apicallUrl = `${apiBaseUrl}/games/${submittedZipCode}`
-  // } else if (g2uZipCode != null && g2uZipCode != 'undefined') {
-  //   console.log("dddd", g2uZipCode)
-  //   apicallUrl = `${apiBaseUrl}/games/${g2uZipCode}`
-  // } else {
-  //   console.log('vv')
-  //   apicallUrl = `${apiBaseUrl}/games/${zipCode}`
-  // }
-  // console.log("api call urll ++++++", apicallUrl)
-
-  // const fetcher = async (payload) => await fetchApi(payload).then(res => res.data);
-  // const { data: gamesData, error, isLoading, isValidating, mutate } = useSWR({ url: apicallUrl, method: 'GET' }, fetcher, { refreshInterval: 20000 })
-
-
-  // console.log("isLoading", isLoading)
-  // console.log("isValidating", isValidating)
-  // console.log("games data !!!!!", gamesData?.games ?? "")
-
-  // if (gamesData?.games != null) {
-  //   if (gamesData.games !== "" && gamesData.games.affiliate) {
-  //     localStorage.setItem('g2u_zipcode', submittedZipCode);
+  // const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+  // const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${zipCode.current}`)
+  // console.log("swr data!!!!!!!", gamesData)
+  // if (gamesData && gamesData.data?.games != null) {
+  //   if (gamesData.data.games !== "" && gamesData.data.games.affiliate) {
+  //     localStorage.setItem('g2u_zipcode', zipCode.current);
+  //     open ? setOpen(false) : ''
+  //     display ? '' : setDisplay(true)
   //   }
   // }
 
-  //login submit handler
-  const onSubmit = async formValue => {
+  // //Main popup submit handler
+  // const onSubmit = async formValue => {
+  //   const { zipcode } = formValue
+  //   zipCode.current = zipcode
+  //   mutate(`${apicallUrl}/games/${zipCode.current}`)
+  // }
 
-    const { zipcode } = formValue
-    //setzipCode(zipcode)
+  // //topbar change location submit handler
+  // const onSubmitTopBarChangeLocation = async formValue => {
+  //   const { zipcode } = formValue
 
-    // setSubmittedZipCode(zipcode)
-    // mutate(`${apiBaseUrl}/games/${zipcode}`, fetcher)
+  // };
+  // if (errors1?.zipcode != null) {
+  //   setValue1('zipcode', '')
+  //   console.log("errrrTopBar", errors1)
+  // }
 
+  // if (errors?.zipcode != null) {
+  //   setValue('zipcode', '')
+  //   console.log("errrr", errors)
+  // }
 
-    // setisLoading(true)
-
-    getGamesList(zipcode).then(res => {
-      console.log("res", res.data)
-      const { games } = res.data
-      if (games !== "") {
-        console.log(games.affiliate)
-        setGamesData(games)
-        setOpen(false)
-        localStorage.setItem('g2u_zipcode', zipcode);
-      } else {
-        alert(res.message)
-        setValue('zipcode', '')
-        setZipCodeServiceStatus(res.message)
-      }
-    }).catch(err => console.log("fetch err", err))
-
-  }
-
-  if (errors?.zipcode != null) {
-    setValue('zipcode', '')
-    console.log("errrr", errors)
-  }
-  console.log("zipCodeServiceStaus", zipCodeServiceStaus)
 
   return (
     <>
@@ -197,56 +111,19 @@ export default function Home() {
 
       {/* <ZipCodePopup /> */}
 
-      <Modal
-        open={open}
-        onClose={onCloseModal}
-        closeOnOverlayClick={false}
-        styles={{ bg }}
-      >
-        <div className="container-modal">
-          <div className="logo-container">
-            <img data-em="logo" src="assets/img/g2u-logo.png" />
-          </div>
-          <div className="text-container">
-            <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
-              with local pricing and options:</div>
-            <div className="border-container">
-              <span className="arrow arrow-bg-color" />
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <input type="hidden" id="modalFranchiseName" name="modalFranchiseName" defaultValue />
-                <div className="template-inputs">
-                  <input
-                    {...register("zipcode")}
-                    type="zip"
-                    placeholder={errors?.zipcode != null ? (errors.zipcode.message) ? errors.zipcode.message : zipCodeServiceStaus : "Enter your zip code"}
-                    data-required="Zip code is required"
-                    autoComplete="off"
-                    className={`form-control ${errors.zipcode ? 'is-invalid' : ''}`}
-                  />
-                  {/* <span style={{ color: 'red' }}>{errors.zipcode?.message}</span> */}
-                </div>
-                <div className="buttons-container">
-                  <button
-                    data-em="button"
-                    type="submit"
-                    className="submit btn-bg-color jsBtnPopupSubmit"
-                    //id="submit-button"
-                    target
-                  >Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </Modal >
+
 
       {/* /.modal box*/}
       < div className="container-fluid" >
         {/* ----------- Header section start with mobile naviagtion --------  */}
         < Header
-          categoryData={gamesData.categories}
-          affiliate={gamesData.affiliate}
-          
+        // categoryData={gamesData?.data.games.categories}
+        // affiliate={gamesData?.data.games.affiliate}
+        // register={register1}
+        // handleSubmit={handleSubmit1}
+        // errors={errors1}
+        // onSubmitTopBarChangeLocation={onSubmitTopBarChangeLocation}
+        // isOpen={isOpenTopChangeLocation}
         />
         {/* ----------- End Header section start with mobile naviagtion ------ */}
 
@@ -254,9 +131,7 @@ export default function Home() {
         <div className="row no-padding " id="headerBanner">
           <div className="ti-page-header row clearfix">
             <Video />
-            <FindLocation
-              affiliate={gamesData.affiliate}
-            />
+            <FindLocation />
             <BrandLogo />
           </div>
         </div>
@@ -274,19 +149,10 @@ export default function Home() {
                 <h2 className="limited-width">Games They'll Love!</h2>
                 <div className="row ti-row no-side-padding no-side-margin remove-overflow">
                   <div className="ti-slider-parents">
-                    {
-                      display ?
-                        <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
-                          <GamesSlider
-                            sliderData={gamesData.categories}
-                          />
-                        </OwlCarousel> : ''
-                    }
+                    <GamesSlider />
                   </div>
                 </div>
-                <GamesList
-                  categoryData={gamesData.categories}
-                />
+                <GamesList />
               </div>
             </div>
           </div>

@@ -132,12 +132,7 @@ const Theg2udifferenceContent = () => {
                     <h2 className="blue-border ti-dark-blue-text">Games They'll Love!</h2>
                     <div className="row ti-row no-padding no-side-margin remove-overflow">
                         <div className="ti-slider-parents">
-                            {
-                                display ?
-                                    <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
-                                        <GamesSlider />
-                                    </OwlCarousel> : ''
-                            }
+                            <GamesSlider />
                         </div>
                     </div>
                 </div>

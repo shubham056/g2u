@@ -4,7 +4,10 @@ import Theg2udifferenceContent from '@/components/_App/WebPages/theg2udifference
 import { NextSeo } from 'next-seo';
 
 
+
 const theg2udifference = () => {
+  let g2uZipCode = localStorage.getItem('g2u_zipcode') ? localStorage.getItem('g2u_zipcode') : '00000'; // get zipcode from local storage
+
   const SEO = {
     title: "The Games2U Difference | As Seen on Shark Tank | Games2U",
     description: "Find out why Games2U is America's #1 rated provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, photo booths and more! Book today for an experience they'll never forget!",
