@@ -37,10 +37,6 @@ const Header = (
     const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
     const { register: register1, setValue: setValue1, formState: { errors: errors1, isSubmitting: isSubmitting1 }, handleSubmit: handleSubmit1 } = useForm(modalFormOptions); //for topbar change location
 
-    useEffect(() => {
-        console.log("call use effect in header")
-        //zipCode.current = g2uZipCode ? g2uZipCode : "00000"
-    }, [])
 
     const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
     const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${zipCode.current}`)
