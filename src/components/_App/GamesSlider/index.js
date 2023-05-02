@@ -65,7 +65,7 @@ const GamesSlider = () => {
                                                 </div>
                                                 <div className="circle-img"><img src={item.icon != '' ? item.icon : "/assets/img/ico-video-theater-2x.png"} /></div>
                                                 <h3>{item.category_name}</h3>
-                                                <p>{trimString(item.category_caption, 88)}</p>
+                                                <p>{trimString(item.category_caption, 85)}</p>
                                                 <span className="explore-link">Explore {item.category_name} »</span>
                                             </a>
                                         </div>
