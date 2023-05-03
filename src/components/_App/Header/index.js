@@ -91,7 +91,7 @@ const Header = (
                                     (gamesData != undefined && gamesData && gamesData.data?.games.affiliate != undefined)
                                         ?
                                         <span class="selected-location" style={{ display: changeLocation ? 'none' : '' }}>
-                                            <span id="navbarLocation"><strong>{gamesData.data.games.affiliate.company_name} {changeLocation}</strong></span>
+                                            <span id="navbarLocation"><strong>{gamesData.data.games.affiliate.city} {changeLocation}</strong></span>
                                             <span class="ti-light-orange-text">(&nbsp;<a href="javascript:void(0);" class="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
                                         :
