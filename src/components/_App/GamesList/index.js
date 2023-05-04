@@ -1,20 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
 import { SwrUtils } from '@/utils/SwrUtils';
+import useGamesData from '@/states/stores/games-data';
 
 const GamesList = () => {
-    let g2uZipCode = localStorage.getItem('g2u_zipcode') ? localStorage.getItem('g2u_zipcode') : '00000'; // get zipcode from local storage
-    const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-    const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${g2uZipCode}`)
+    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    console.log('games=======gamesList', games, zipcode)
 
     return (
         <>
 
             <div className="row no-padding limited-width" id="gamesWithIcons">
                 <div className="row">
-                    {(gamesData && gamesData.data?.games.categories != undefined && gamesData.data?.games.categories.length > 0)
+                    {(!loading && games && games?.categories.length > 0)
                         ?
-                        gamesData.data?.games.categories.map(item => {
+                        games?.categories.map(item => {
                             return (
                                 <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3">
                                     <div className="ti-inline-block home-icon">

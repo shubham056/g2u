@@ -1,24 +1,23 @@
-import React, { useState } from 'react'
-import { SwrUtils } from '@/utils/SwrUtils';
+import React from 'react'
+import useGamesData from '@/states/stores/games-data';
 
 const FindLocation = () => {
-    let g2uZipCode = localStorage.getItem('g2u_zipcode') ? localStorage.getItem('g2u_zipcode') : '00000'; // get zipcode from local storage
-    const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-    const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${g2uZipCode}`)
+    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    console.log('games=======find location', games, zipcode)
 
     return (
         <>
-            {(gamesData != undefined && gamesData && gamesData.data?.games.affiliate != undefined)
+            {(!loading && games && games?.affiliate != undefined)
                 ?
                 <div className="location-box">
                     <div className="location-container">
                         <div className="location-holder location-update-wrap" id="locationBox">
                             <div className="selected-location">
                                 <div className="ti-inline-block">
-                                    <img src={gamesData && gamesData.data?.games.affiliate.logo != '' ? gamesData && gamesData.data?.games.affiliate.logo : "https://www.g2u.com/assets/img/franchise/franchise-swa.png"} />
+                                    <img src={games && games?.affiliate.logo != '' ? games && games?.affiliate.logo : "https://www.g2u.com/assets/img/franchise/franchise-swa.png"} />
                                 </div>
                                 <div className="ti-inline-block location-holder-place">
-                                    <h3> <span id="locationBoxName"><strong>{gamesData && gamesData.data?.games.affiliate.company_name}</strong></span></h3>
+                                    <h3> <span id="locationBoxName"><strong>{games && games?.affiliate.company_name}</strong></span></h3>
                                     <a href="javascript:void(0);" className="ti-orange-text location-edit-link">( change location )</a>
                                 </div>
                             </div>

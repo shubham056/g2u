@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link'
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
-import { SwrUtils } from '@/utils/SwrUtils';
-
+import useGamesData from '@/states/stores/games-data';
 
 const modalSchema = Yup.object().shape({
     zipcode: Yup.number()
@@ -20,50 +19,34 @@ const bg = {
     }
 };
 
-const Header = (
-    // { categoryData, affiliate, onSubmitTopBarChangeLocation, register, handleSubmit, errors, isOpen }
-) => {
-    const zipCode = useRef(0)
-    let g2uZipCode = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
-    const [open, setOpen] = useState((g2uZipCode != null && g2uZipCode != 'undefined') ? false : true);
+const Header = () => {
+    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    console.log('games============', games, zipcode)
+
+    const [open, setOpen] = useState((zipcode != 0 && zipcode != undefined) ? false : true);
     const onCloseModal = () => setOpen(false);
+    console.log("modal open data +++++++", open)
 
     const [isShownMenu, setIsShownMenu] = useState(false);
     const [changeLocation, setChangeLocation] = useState(false)
-
-    console.log("modal open data +++++++", open)
 
     const modalFormOptions = { resolver: yupResolver(modalSchema) }
     const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
     const { register: register1, setValue: setValue1, formState: { errors: errors1, isSubmitting: isSubmitting1 }, handleSubmit: handleSubmit1 } = useForm(modalFormOptions); //for topbar change location
 
-    useEffect(() => {
-        console.log("call use effect in header")
-        zipCode.current = g2uZipCode ? g2uZipCode : "00000"
-    }, [])
-
-    const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-    const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${zipCode.current}`)
-    console.log("swr data in header ++++++", gamesData)
-    if (gamesData && gamesData.data?.games != null) {
-        if (gamesData.data.games !== "" && gamesData.data.games.affiliate) {
-            localStorage.setItem('g2u_zipcode', zipCode.current);
-            open ? setOpen(false) : ''
-        }
-    }
-
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
-        zipCode.current = zipcode
-        mutate(`${apicallUrl}/games/${zipCode.current}`)
+        await updateGamesData(zipcode)
+        open ? setOpen(false) : ''
     }
+
     //topbar change location submit handler
     const onSubmitTopBarChangeLocation = async formValue => {
         const { zipcode } = formValue
-        zipCode.current = zipcode
-        mutate(`${apicallUrl}/games/${zipCode.current}`)
+        await updateGamesData(zipcode)
     };
+
     if (errors1?.zipcode != null) {
         setValue1('zipcode', '')
         console.log("errrrTopBar", errors1)
@@ -86,12 +69,11 @@ const Header = (
                             <span className="ti-sprite location-pin" />
                             <span className="selected-location">
                                 <span id="navbarLocation"><strong /></span>
-
                                 {
-                                    (gamesData != undefined && gamesData && gamesData.data?.games.affiliate != undefined)
+                                    (!loading && games && games?.affiliate != undefined)
                                         ?
                                         <span class="selected-location" style={{ display: changeLocation ? 'none' : '' }}>
-                                            <span id="navbarLocation"><strong>{gamesData.data.games.affiliate.city} {changeLocation}</strong></span>
+                                            <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
                                             <span class="ti-light-orange-text">(&nbsp;<a href="javascript:void(0);" class="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
                                         :
@@ -104,9 +86,6 @@ const Header = (
                                 <span className="update-location" style={{ display: (changeLocation) ? 'block' : 'none', margin: '-25px', paddingLeft: 40 }}>
                                     <form
                                         onSubmit={handleSubmit(onSubmitTopBarChangeLocation)}
-                                    // id="frmLocNav"
-                                    // name="frmLocNav"
-                                    // method="post" action="/"
                                     >
                                         <span className="close-btn" onClick={() => setChangeLocation(false)} />
                                         <input type="hidden" id="franchiseNameNav" name="franchiseName" defaultValue />
@@ -114,8 +93,6 @@ const Header = (
                                             <input
                                                 {...register("zipcode")}
                                                 type="text"
-                                                // id="headerZip"
-                                                // name="headerZip"
                                                 placeholder={errors?.zipcode != null ? (errors.zipcode.message) ? errors.zipcode.message : zipCodeServiceStaus : "Enter your zip code"}
                                                 className="zip-code-input"
                                             />
@@ -167,9 +144,9 @@ const Header = (
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (gamesData != undefined && gamesData && gamesData.data?.games.categories != undefined && gamesData.data?.games.categories.length > 0)
+                                            (!loading && games && games?.categories != undefined && games?.categories.length > 0)
                                                 ?
-                                                gamesData.data.games.categories.map(item => {
+                                                games.categories.map(item => {
                                                     return (
                                                         <Link href={`/game/${item.category_name}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )

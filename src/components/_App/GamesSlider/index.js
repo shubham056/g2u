@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import trimString from '@/utils/trimString'
 import dynamic from 'next/dynamic';
-import { SwrUtils } from '@/utils/SwrUtils';
+import useGamesData from '@/states/stores/games-data';
+
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 
 const options = {
@@ -38,25 +39,21 @@ const options = {
 const GamesSlider = () => {
     const [display, setDisplay] = useState(false);
 
-    let g2uZipCode = localStorage.getItem('g2u_zipcode') ? localStorage.getItem('g2u_zipcode') : '00000'; // get zipcode from local storage
-    const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-    const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${g2uZipCode}`)
-    if (gamesData && gamesData.data?.games != null) {
-        if (gamesData.data.games !== "" && gamesData.data.games.affiliate) {
-            display ? '' : setDisplay(true)
-        }
+    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    console.log('games=======gamesSlider', games, zipcode)
+    if(!loading && games && games?.categories.length > 0){
+        display ? '' : setDisplay(true)
     }
-
+    
     return (
         <>
             {
                 display ?
                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
                         {
-
-                            (gamesData != undefined && gamesData && gamesData.data?.games.categories != undefined && gamesData.data?.games.categories.length > 0)
+                            (!loading && games && games?.categories.length > 0)
                                 ?
-                                gamesData?.data.games.categories.map(item => {
+                                games?.categories.map(item => {
                                     return (
                                         <div className="col-ie-4 ti-box game-1" data-original="true">
                                             <a href="game/videogametruck.html">

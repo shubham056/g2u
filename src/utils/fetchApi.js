@@ -22,7 +22,7 @@ export const fetchApi = async (payload) => {
   return await fetch(payload.url, options)
     .then(response => response.json())
     .then(returnData => {
-      console.log('returnData', returnData);
+      //console.log('returnData', returnData);
       return returnData
     })
     .catch((err) => {
