@@ -39,14 +39,24 @@ const Header = () => {
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
-        await setZipcode(zipcode).then(updateGamesData(zipcode))
-        open ? setOpen(false) : ''
+        try{
+            await setZipcode(zipcode).then(updateGamesData(zipcode))
+            open ? setOpen(false) : ''
+        } catch(e) {
+            //error handling logic
+            console.log(e)
+        }
     }
 
     //topbar change location submit handler
     const onSubmitTopBarChangeLocation = async formValue => {
         const { zipcode } = formValue
-        await setZipcode(zipcode).then(updateGamesData(zipcode))
+        try{
+            await setZipcode(zipcode).then(updateGamesData(zipcode))
+        } catch(e) {
+            //error handling logic
+            console.log(e)
+        }
     };
 
     if (errors1?.zipcode != null) {

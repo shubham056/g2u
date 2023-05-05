@@ -91,7 +91,6 @@ function useGamesData() {
     }
     else{
       const cachedGames = localStoragePersistor.onGet(KEY)
-      console.log('cachedGames.affiliate.zipcode',cachedGames.affiliate.zipcode)
       cachedGames && cachedGames.affiliate ? setZipcode(Number(cachedGames.affiliate.zipcode)) : setZipcode(0)
     }
     setLoading(false);
