@@ -40,8 +40,11 @@ const Header = () => {
     const onSubmit = async formValue => {
         const { zipcode } = formValue
         try{
-            await setZipcode(zipcode).then(updateGamesData(zipcode))
-            open ? setOpen(false) : ''
+            await setZipcode(zipcode).then(updateGamesData(zipcode)).then(()=>{
+                setTimeout(() => {
+                    open && zipcode !=0 ? setOpen(false) : ''
+                }, 1000); 
+            })
         } catch(e) {
             //error handling logic
             console.log(e)
