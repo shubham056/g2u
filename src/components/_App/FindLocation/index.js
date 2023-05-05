@@ -2,12 +2,12 @@ import React from 'react'
 import useGamesData from '@/states/stores/games-data';
 
 const FindLocation = () => {
-    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    const { zipcode, games, loading, error } = useGamesData();
     console.log('games=======find location', games, zipcode)
 
     return (
         <>
-            {(!loading && games && games?.affiliate != undefined)
+            {(!loading && games && games.affiliate != undefined)
                 ?
                 <div className="location-box">
                     <div className="location-container">
@@ -18,7 +18,7 @@ const FindLocation = () => {
                                 </div>
                                 <div className="ti-inline-block location-holder-place">
                                     <h3> <span id="locationBoxName"><strong>{games && games?.affiliate.company_name}</strong></span></h3>
-                                    <a href="javascript:void(0);" className="ti-orange-text location-edit-link">( change location )</a>
+                                    <a href="#" className="ti-orange-text location-edit-link">( change location )</a>
                                 </div>
                             </div>
                             <div className="update-location">

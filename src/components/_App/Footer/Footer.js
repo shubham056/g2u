@@ -16,11 +16,11 @@ const Footer = () => {
       </div>
       <div id="overlay" />
       <div id="videoModal">
-        <a href="javascript:void(0);" id="videoModalClose">Close X</a>
+        <a href="#" id="videoModalClose">Close X</a>
       </div>
       <div id="mobile-bottom-nav">
         <div className="location-update-wrap">
-          <a href="javascript:void(0);" className="location-edit-link"><span className="ti-sprite location-pin" /> (
+          <a href="#" className="location-edit-link"><span className="ti-sprite location-pin" /> (
             <span className="mobile-underline">change location</span> )</a>
           <span className="update-location">
             <span className="close-btn" />

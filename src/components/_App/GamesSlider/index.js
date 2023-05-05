@@ -34,14 +34,12 @@ const options = {
     }
 };
 
-
-
 const GamesSlider = () => {
-    const [display, setDisplay] = useState(false);
-
-    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    const { zipcode, games, loading, error } = useGamesData();
     console.log('games=======gamesSlider', games, zipcode)
-    if(!loading && games && games?.categories.length > 0){
+
+    const [display, setDisplay] = useState(false);
+    if(!loading && games && games.categories && games.categories.length > 0){
         display ? '' : setDisplay(true)
     }
     
@@ -51,11 +49,11 @@ const GamesSlider = () => {
                 display ?
                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
                         {
-                            (!loading && games && games?.categories.length > 0)
+                            (!loading && games && games.categories && games.categories.length > 0)
                                 ?
                                 games?.categories.map(item => {
                                     return (
-                                        <div className="col-ie-4 ti-box game-1" data-original="true">
+                                        <div className="col-ie-4 ti-box game-1" data-original="true" key={`game-slider-${item.id}`}>
                                             <a href="game/videogametruck.html">
                                                 <div className="box-heading video-game-theater" >
                                                     <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />

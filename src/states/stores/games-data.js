@@ -12,7 +12,7 @@ function useGamesData() {
   const [zipcode, setZipcode] = useStore({
     key: `${KEY}-zipcode`,
     initial: 0,
-    //persistor: localStoragePersistor
+    persistor: localStoragePersistor
   });
   const [games, setGames, swrDefaultResponse] = useStore(
     {
@@ -21,32 +21,32 @@ function useGamesData() {
       persistor: {
         onSet: localStoragePersistor.onSet,
         onGet: async(key) => {
-            try { 
+            try {
+              console.log('get zipcode',zipcode)
                 if (window.navigator.onLine && zipcode) {
                     const remoteGames = await fetchApi({url : `${apiBaseUrl}/games/${zipcode}`, method : 'GET'});
                     if (remoteGames && remoteGames.data?.games != null && remoteGames.data?.games != '') {
-                        console.log('remoteGames',remoteGames)
-                        localStoragePersistor.onSet(key, remoteData);
-                        let affiliate = remoteGames.data.games.affiliate
-                        affiliate ? setZipcode(affiliate.zipcode) : ''
-                        return remoteGames.data.games;
+                      localStoragePersistor.onSet(key, remoteGames.data.games);
+                      console.log('remoteGames',remoteGames.data.games)
+                      return remoteGames.data.games;
                     }
                     remoteGames.data.message = remoteGames?.message;
                     return remoteGames.data;
                 }
-                const cachedGames = window.localStorage.getItem(String(key));
+                const cachedGames = localStoragePersistor.onGet(key);
                 setLoading(false);
-                //return JSON.parse(cachedGames);
+                return cachedGames;
             } catch (err) {
                 if (window.navigator.onLine) {
                   if (err?.status !== 401) {
                     console.log('An error occured, returned cached data');
+                    console.log(err)
                   } else {
                     throw err;
                   }
                 }
-                const cachedData = localStoragePersistor.onGet(key);
-                //return cachedData;
+                const cachedGames = localStoragePersistor.onGet(key);
+                return cachedGames;
               } finally {
                 setLoading(false);
             }
@@ -74,6 +74,7 @@ function useGamesData() {
   const destroyGamesData = async () => {
     setLoading(true);
     window.localStorage.removeItem(KEY);
+    window.localStorage.removeItem(`${KEY}-zipcode`);
     // use default `mutate` from SWR to avoid `onSet` callback in `persistor`
     mutate(null);
     setLoading(false);
@@ -84,11 +85,14 @@ function useGamesData() {
     setLoading(true);
     const newGamesData = await fetchApi({url : `${apiBaseUrl}/games/${newZipcode}`, method : 'GET'});
     if (newGamesData && newGamesData.data?.games != null && newGamesData.data?.games != '') {
-        console.log('newGamesData',newGamesData)
-        //localStoragePersistor.onSet(KEY, newGamesData);
-        setGames(newGamesData.data.games)
-        let affiliate = newGamesData.data.games.affiliate
-        affiliate ? setZipcode(affiliate.zipcode) : ''
+      setGames(newGamesData.data.games)
+      localStoragePersistor.onSet(KEY, newGamesData.data.games);
+      console.log('newGamesData',newGamesData)
+    }
+    else{
+      const cachedGames = localStoragePersistor.onGet(KEY)
+      console.log('cachedGames.affiliate.zipcode',cachedGames.affiliate.zipcode)
+      cachedGames && cachedGames.affiliate ? setZipcode(Number(cachedGames.affiliate.zipcode)) : setZipcode(0)
     }
     setLoading(false);
   };
@@ -99,6 +103,7 @@ function useGamesData() {
     loading,
     error,
     zipcode,
+    setZipcode,
     games,
     destroyGamesData,
     updateGamesData

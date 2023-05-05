@@ -12,11 +12,11 @@ const GamesList = () => {
 
             <div className="row no-padding limited-width" id="gamesWithIcons">
                 <div className="row">
-                    {(!loading && games && games?.categories.length > 0)
+                    {(!loading && games && games.categories && games.categories.length > 0)
                         ?
                         games?.categories.map(item => {
                             return (
-                                <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3">
+                                <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3" key={`game-list-${item.id}`}>
                                     <div className="ti-inline-block home-icon">
                                         <Link href="/game/videogametruck">
                                             <img src={item.icon_dark != '' ? item.icon_dark : "assets/img/ico-video-game-theater-blue-2x.png"} />

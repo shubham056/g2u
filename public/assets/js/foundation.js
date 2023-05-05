@@ -277,8 +277,7 @@ $(document).ready(function () {
                     var isValidZipCode = isValidPostalCode(myZipCode);
 
                     if (isValidZipCode) {
-                        var formID = '
-                        ';
+                        var formID = '';
                         var fieldID = 'franchiseNameLocBox';
                         var formZipID = 'locationBoxZip';
                         getFranchise(myZipCode, formID, fieldID, formZipID);

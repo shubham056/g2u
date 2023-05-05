@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link'
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
@@ -20,12 +20,14 @@ const bg = {
 };
 
 const Header = () => {
-    const { zipcode, games, loading, error, updateGamesData } = useGamesData();
+    const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
     console.log('games============', games, zipcode)
 
-    const [open, setOpen] = useState((zipcode != 0 && zipcode != undefined) ? false : true);
+    const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);
-    console.log("modal open data +++++++", open)
+    if(!loading && zipcode == 0){
+        open ? '' : setOpen(true)
+    }
 
     const [isShownMenu, setIsShownMenu] = useState(false);
     const [changeLocation, setChangeLocation] = useState(false)
@@ -37,14 +39,14 @@ const Header = () => {
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
-        await updateGamesData(zipcode)
+        await setZipcode(zipcode).then(updateGamesData(zipcode))
         open ? setOpen(false) : ''
     }
 
     //topbar change location submit handler
     const onSubmitTopBarChangeLocation = async formValue => {
         const { zipcode } = formValue
-        await updateGamesData(zipcode)
+        await setZipcode(zipcode).then(updateGamesData(zipcode))
     };
 
     if (errors1?.zipcode != null) {
@@ -72,13 +74,13 @@ const Header = () => {
                                 {
                                     (!loading && games && games?.affiliate != undefined)
                                         ?
-                                        <span class="selected-location" style={{ display: changeLocation ? 'none' : '' }}>
+                                        <span className="selected-location" style={{ display: changeLocation ? 'none' : '' }}>
                                             <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
-                                            <span class="ti-light-orange-text">(&nbsp;<a href="javascript:void(0);" class="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text">(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
                                         :
                                         <>
-                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<a href="javascript:void(0);" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</a>&nbsp;)</span>
                                         </>
 
 
@@ -108,7 +110,7 @@ const Header = () => {
                     <div id="navLinks" className="clearfix">
                         <span id="mobileMenu"><span className="ti-sprite hamburger-icon" /><span className="hidden-xs">
                             MENU</span></span>
-                        <a href="javascript:void(0);" className="visible-sm" id="mobileLocationIcon">
+                        <a href="#" className="visible-sm" id="mobileLocationIcon">
                             <span className="ti-sprite blue-location-pin" />
                         </a>
                         <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon">
@@ -119,7 +121,7 @@ const Header = () => {
                                 <span className="ti-sprite location-pin" />
                                 <span className="selected-location">
                                     <strong />
-                                    <span className="ti-light-orange-text">( <a href="javascript:void(0);" className="ti-light-orange-text location-edit-link">change location</a> )</span>
+                                    <span className="ti-light-orange-text">( <a href="#" className="ti-light-orange-text location-edit-link">change location</a> )</span>
                                 </span>
                                 <span className="update-location" >
                                     <form method="post" id="frmMobileZipNav" name="frmMobileZipNav" action="/">
@@ -148,7 +150,7 @@ const Header = () => {
                                                 ?
                                                 games.categories.map(item => {
                                                     return (
-                                                        <Link href={`/game/${item.category_name}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                        <Link href={`/game/${item.category_name}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )
                                                 })
 
