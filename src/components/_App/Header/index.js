@@ -42,7 +42,7 @@ const Header = () => {
         try{
             await setZipcode(zipcode).then(updateGamesData(zipcode)).then(()=>{
                 setTimeout(() => {
-                    open && zipcode !=0 ? setOpen(false) : ''
+                    open && zipcode !=0 ? setOpen(false) : setOpen(true)
                 }, 1000); 
             })
         } catch(e) {
