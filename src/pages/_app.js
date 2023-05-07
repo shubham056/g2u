@@ -6,7 +6,6 @@ import { store } from "../redux/store";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Layout from '../components/_App/Layout';
-import { SWRConfig } from 'swr';
 import axios from "axios";
 
 let persistor = persistStore(store);
