@@ -80,7 +80,7 @@ function useGamesData() {
     setLoading(false);
   };
 
-  const updateGamesData = async (newZipcode) => {
+  const updateGamesData = async (newZipcode, result) => {
     console.log('updateGamesData', newZipcode)
     setLoading(true);
     const newGamesData = await fetchApi({url : `${apiBaseUrl}/games/${newZipcode}`, method : 'GET'});
@@ -88,12 +88,15 @@ function useGamesData() {
       setGames(newGamesData.data.games)
       localStoragePersistor.onSet(KEY, newGamesData.data.games);
       console.log('newGamesData',newGamesData)
+      setLoading(false);
+      result(null,newGamesData)
     }
     else{
       const cachedGames = localStoragePersistor.onGet(KEY)
       cachedGames && cachedGames.affiliate ? setZipcode(Number(cachedGames.affiliate.zipcode)) : setZipcode(0)
+      setLoading(false);
+      result(newGamesData,null)
     }
-    setLoading(false);
   };
 
   // custom mutator/dispatcher

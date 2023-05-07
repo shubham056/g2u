@@ -20,6 +20,7 @@ const bg = {
 };
 
 const Header = () => {
+    const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
     console.log('games============', games, zipcode)
 
@@ -40,11 +41,18 @@ const Header = () => {
     const onSubmit = async formValue => {
         const { zipcode } = formValue
         try{
-            await setZipcode(zipcode).then(updateGamesData(zipcode)).then(()=>{
-                setTimeout(() => {
-                    open && zipcode !=0 ? setOpen(false) : setOpen(true)
-                }, 1000); 
-            })
+            await setZipcode(zipcode).then(
+                updateGamesData(zipcode, async function (err, callBackRes){
+                if(err){
+                    console.log(err?.message)
+                    let errorMsg = err?.message !=null ? err.message : 'This Zip is not serviced.'
+                    setZipCodeServiceStaus(errorMsg)
+                    setValue('zipcode', '')
+                }
+                else{
+                    setOpen(false)
+                }
+            }))
         } catch(e) {
             //error handling logic
             console.log(e)
@@ -55,7 +63,15 @@ const Header = () => {
     const onSubmitTopBarChangeLocation = async formValue => {
         const { zipcode } = formValue
         try{
-            await setZipcode(zipcode).then(updateGamesData(zipcode))
+            await setZipcode(zipcode).then(
+                updateGamesData(zipcode, async function (err, callBackRes){
+                if(err){
+                    console.log(err?.message)
+                    let errorMsg = err?.message !=null ? err.message : 'This Zip is not serviced.'
+                    setZipCodeServiceStaus(errorMsg)
+                    setValue('zipcode', '')
+                }
+            }))
         } catch(e) {
             //error handling logic
             console.log(e)
@@ -108,7 +124,7 @@ const Header = () => {
                                             <input
                                                 {...register("zipcode")}
                                                 type="text"
-                                                placeholder={errors?.zipcode != null ? (errors.zipcode.message) ? errors.zipcode.message : zipCodeServiceStaus : "Enter your zip code"}
+                                                placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
                                                 className="zip-code-input"
                                             />
                                         </div>
@@ -211,7 +227,7 @@ const Header = () => {
                                     <input
                                         {...register("zipcode")}
                                         type="zip"
-                                        placeholder={errors?.zipcode != null ? (errors.zipcode.message) ? errors.zipcode.message : zipCodeServiceStaus : "Enter your zip code"}
+                                        placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
                                         data-required="Zip code is required"
                                         autoComplete="off"
                                         className={`form-control ${errors.zipcode ? 'is-invalid' : ''}`}
