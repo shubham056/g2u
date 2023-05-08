@@ -6,12 +6,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import useGamesData from '@/states/stores/games-data';
+import { useRouter } from 'next/router'
 
 const modalSchema = Yup.object().shape({
     zipcode: Yup.number()
         .required('Zip code is a required field')// optional
         .typeError('Please enter valid zip code.')// optional as well
-    // .test('len', 'Please enter valid zip code.', val => val.toString().length === 5)
+        //.test('len', 'Please enter valid zip code.', val => val.toString().length === 5)
 })
 const bg = {
     overlay: {
@@ -20,13 +21,14 @@ const bg = {
 };
 
 const Header = () => {
+    const router = useRouter()
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
     console.log('games============', games, zipcode)
 
     const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);
-    if(!loading && zipcode == 0){
+    if (!loading && zipcode == 0) {
         open ? '' : setOpen(true)
     }
 
@@ -40,20 +42,20 @@ const Header = () => {
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
-        try{
+        try {
             await setZipcode(zipcode).then(
-                updateGamesData(zipcode, async function (err, callBackRes){
-                if(err){
-                    console.log(err?.message)
-                    let errorMsg = err?.message !=null ? err.message : 'This Zip is not serviced.'
-                    setZipCodeServiceStaus(errorMsg)
-                    setValue('zipcode', '')
-                }
-                else{
-                    setOpen(false)
-                }
-            }))
-        } catch(e) {
+                updateGamesData(zipcode, async function (err, callBackRes) {
+                    if (err) {
+                        console.log(err?.message)
+                        let errorMsg = err?.message != null ? err.message : 'This Zip is not serviced.'
+                        setZipCodeServiceStaus(errorMsg)
+                        setValue('zipcode', '')
+                    }
+                    else {
+                        setOpen(false)
+                    }
+                }))
+        } catch (e) {
             //error handling logic
             console.log(e)
         }
@@ -62,17 +64,20 @@ const Header = () => {
     //topbar change location submit handler
     const onSubmitTopBarChangeLocation = async formValue => {
         const { zipcode } = formValue
-        try{
+        try {
             await setZipcode(zipcode).then(
-                updateGamesData(zipcode, async function (err, callBackRes){
-                if(err){
-                    console.log(err?.message)
-                    let errorMsg = err?.message !=null ? err.message : 'This Zip is not serviced.'
-                    setZipCodeServiceStaus(errorMsg)
-                    setValue('zipcode', '')
-                }
-            }))
-        } catch(e) {
+                updateGamesData(zipcode, async function (err, callBackRes) {
+                    if (err) {
+                        console.log(err?.message)
+                        let errorMsg = err?.message != null ? err.message : 'This Zip is not serviced.'
+                        setZipCodeServiceStaus(errorMsg)
+                        setValue('zipcode', '')
+                    } else {
+                        setChangeLocation(false)
+                        router.push("/")
+                    }
+                }))
+        } catch (e) {
             //error handling logic
             console.log(e)
         }
@@ -98,12 +103,12 @@ const Header = () => {
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
                         <div className="col-sm-6 ti-location location-update-wrap" id="locationNav">
                             <span className="ti-sprite location-pin" />
-                            <span className="selected-location">
+                            <span className="selected-location" >
                                 <span id="navbarLocation"><strong /></span>
                                 {
                                     (!loading && games && games?.affiliate != undefined)
                                         ?
-                                        <span className="selected-location" style={{ display: changeLocation ? 'none' : 'block',margin: '-21px', paddingLeft: 44 }}>
+                                        <span className="selected-location" style={{ display: changeLocation ? 'none' : 'block', margin: '-21px', paddingLeft: 44 }}>
                                             <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
                                             <span className="ti-light-orange-text">(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
@@ -117,6 +122,7 @@ const Header = () => {
                                 <span className="update-location" style={{ display: (changeLocation) ? 'block' : 'none', margin: '-25px', paddingLeft: 40 }}>
                                     <form
                                         onSubmit={handleSubmit(onSubmitTopBarChangeLocation)}
+                                        autoComplete='off'
                                     >
                                         <span className="close-btn" onClick={() => setChangeLocation(false)} />
                                         <input type="hidden" id="franchiseNameNav" name="franchiseName" defaultValue />
@@ -126,6 +132,7 @@ const Header = () => {
                                                 type="text"
                                                 placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
                                                 className="zip-code-input"
+                                                maxLength={5}
                                             />
                                         </div>
                                         <button className="ti-yellow-button" type="submit">Go!</button>
@@ -166,11 +173,11 @@ const Header = () => {
                             <div className="no-padding" id="ourGamesNav" onMouseEnter={() => setIsShownMenu(true)} onMouseLeave={() => setIsShownMenu(false)}>
                                 <a href="#footerContact" className="visible-sm visible-xs ti-blue-background">BOOK YOUR
                                     EVENT</a>
-                                <a href="/ourgames">OUR GAMES</a>
+                                <Link href="/our-games">OUR GAMES</Link>
                                 <div className="sub-menu" style={{ display: isShownMenu ? 'block' : 'none' }}>
                                     <div className="ti-sub-head clearfix">
                                         <h2 className="no-border ti-dark-blue-text pull-left">Games They'll Love!</h2>
-                                        <Link href="/ourgames" className="ti-orange-text pull-right ti-inline-block">View All
+                                        <Link href="/our-games" className="ti-orange-text pull-right ti-inline-block">View All
                                             Available Games</Link>
                                     </div>
                                     <div className="col-md-4 padding-top">
@@ -231,6 +238,7 @@ const Header = () => {
                                         data-required="Zip code is required"
                                         autoComplete="off"
                                         className={`form-control ${errors.zipcode ? 'is-invalid' : ''}`}
+                                        maxLength={5}
                                     />
                                     {/* <span style={{ color: 'red' }}>{errors.zipcode?.message}</span> */}
                                 </div>

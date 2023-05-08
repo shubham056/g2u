@@ -2515,9 +2515,7 @@ html,body {
     display: inline-block;
     vertical-align: middle;
 }
-.edit .selected-location {
-    display: none;
-}
+
 .location-update-wrap .location-pin {
     vertical-align: middle;
 }
