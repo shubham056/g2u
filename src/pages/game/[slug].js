@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NextSeo } from 'next-seo';
-import {
-    getAllBlogPosts
-} from '../../utils/api';
 import Header from '@/components/_App/Header';
-import RequestInfo from '@/components/_App/RequestInfo';
 import dynamic from 'next/dynamic';
 import CommonSlider from '@/components/_App/Slider';
 import GamesSlider from '@/components/_App/GamesSlider';

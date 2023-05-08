@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { SwrUtils } from '@/utils/SwrUtils';
 import useGamesData from '@/states/stores/games-data';
 
 const GamesList = () => {

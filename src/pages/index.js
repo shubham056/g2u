@@ -20,12 +20,6 @@ import { Modal } from 'react-responsive-modal';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
-import {
-  getGamesList
-} from '../utils/api'
-import { getClientInputs } from "../redux/features/GamesSlice";
-import { SwrUtils } from '../utils/SwrUtils';
-
 
 
 const modalSchema = Yup.object().shape({
