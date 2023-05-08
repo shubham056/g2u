@@ -121,7 +121,7 @@ const ZipCodeFormFooter = () => {
                                                 <span class={`ti-sprite ${errors.phone_number ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-md-6 col-xs-12 required">
-                                                <input {...register("zipcode")} type="text" defaultValue={games.affiliate.zipcode} className="jsFrmZipcode form-control" data-ov={games.affiliate.zipcode} placeholder='Zip Code' readOnly />
+                                                <input {...register("zipcode")} type="text" defaultValue={zipcode} className="jsFrmZipcode form-control" data-ov={zipcode} placeholder='Zip Code' readOnly />
                                                 <span style={{ color: 'red' }}>{errors.zipcode?.message}</span>
                                                 <span class={`ti-sprite ${errors.zipcode ? 'input-error-icon' : ''}`}></span>
                                             </div>

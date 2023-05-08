@@ -103,7 +103,7 @@ const Header = () => {
                                 {
                                     (!loading && games && games?.affiliate != undefined)
                                         ?
-                                        <span className="selected-location" style={{ display: changeLocation ? 'none' : '' }}>
+                                        <span className="selected-location" style={{ display: changeLocation ? 'none' : 'block',margin: '-21px', paddingLeft: 44 }}>
                                             <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
                                             <span className="ti-light-orange-text">(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
