@@ -6,8 +6,13 @@
     display: none !important;
 }
 
-.is-invalid{
+.is-invalid {
     border-color: red !important;
+}
+
+.is-valid {
+    /* border: 1px solid green !important;
+    box-shadow: none !important; */
 }
 
 /* Media Query for Tablets Ipads portrait mode */

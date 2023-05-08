@@ -660,7 +660,7 @@ $(document).ready(function () {
         $(self).toggleClass('active');
     });
 
-    $('.ti-input.required input').blur(function () {
+    $('.ti-inputs.required input').blur(function () {
         var self = this;
         var type = $(self).attr('type');
         switch (type) {

@@ -35,59 +35,6 @@ const bg = {
 };
 
 export default function Home() {
-  // const zipCode = useRef(0)
-
-  // let g2uZipCode = localStorage.getItem('g2u_zipcode'); // get zipcode from local storage
-
-  // const [open, setOpen] = useState((g2uZipCode != null && g2uZipCode != 'undefined') ? false : true);
-  // const onCloseModal = () => setOpen(false);
-  // const [zipCodeServiceStaus, setZipCodeServiceStatus] = useState('')
-  // const [isOpenTopChangeLocation, setIsOpenTopChangeLocation] = useState('');
-  // const modalFormOptions = { resolver: yupResolver(modalSchema) }
-  // const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
-  // const { register: register1, setValue: setValue1, formState: { errors: errors1, isSubmitting: isSubmitting1 }, handleSubmit: handleSubmit1 } = useForm(modalFormOptions); //for topbar change location
-
-
-  //Games They'll Love Slider
-  // useEffect(() => {
-  //   console.log("call use effect **********************88")
-  //   zipCode.current = g2uZipCode ? g2uZipCode : "00000"
-  // }, [])
-
-
-  // const apicallUrl = process.env.NEXT_PUBLIC_API_BASE_URL
-  // const { data: gamesData, isLoading, isError, mutate } = SwrUtils(`${apicallUrl}/games/${zipCode.current}`)
-  // console.log("swr data!!!!!!!", gamesData)
-  // if (gamesData && gamesData.data?.games != null) {
-  //   if (gamesData.data.games !== "" && gamesData.data.games.affiliate) {
-  //     localStorage.setItem('g2u_zipcode', zipCode.current);
-  //     open ? setOpen(false) : ''
-  //     display ? '' : setDisplay(true)
-  //   }
-  // }
-
-  // //Main popup submit handler
-  // const onSubmit = async formValue => {
-  //   const { zipcode } = formValue
-  //   zipCode.current = zipcode
-  //   mutate(`${apicallUrl}/games/${zipCode.current}`)
-  // }
-
-  // //topbar change location submit handler
-  // const onSubmitTopBarChangeLocation = async formValue => {
-  //   const { zipcode } = formValue
-
-  // };
-  // if (errors1?.zipcode != null) {
-  //   setValue1('zipcode', '')
-  //   console.log("errrrTopBar", errors1)
-  // }
-
-  // if (errors?.zipcode != null) {
-  //   setValue('zipcode', '')
-  //   console.log("errrr", errors)
-  // }
-
 
   return (
     <>
@@ -105,33 +52,28 @@ export default function Home() {
 
       {/* <ZipCodePopup /> */}
 
-
-
       {/* /.modal box*/}
       < div className="container-fluid" >
         {/* ----------- Header section start with mobile naviagtion --------  */}
-        < Header
-        // categoryData={gamesData?.data.games.categories}
-        // affiliate={gamesData?.data.games.affiliate}
-        // register={register1}
-        // handleSubmit={handleSubmit1}
-        // errors={errors1}
-        // onSubmitTopBarChangeLocation={onSubmitTopBarChangeLocation}
-        // isOpen={isOpenTopChangeLocation}
-        />
+        < Header />
         {/* ----------- End Header section start with mobile naviagtion ------ */}
 
         {/* ----------- Start section for Video, Find a Location and Brand Logo ------ */}
         <div className="row no-padding " id="headerBanner">
           <div className="ti-page-header row clearfix">
+
             <Video />
+
             <FindLocation />
+
             <BrandLogo />
+
           </div>
         </div>
         {/* ----------- End section for Video, Find a Location and Brand Logo --------- */}
       </div >
       <div className="container-fluid">
+
         <TopHomePageBanner />
 
         <GamesForEveryOne />
@@ -146,13 +88,13 @@ export default function Home() {
                     <GamesSlider />
                   </div>
                 </div>
+
                 <GamesList />
+
               </div>
             </div>
           </div>
         </div>
-
-
 
         <RequestInfo
           content="Ready to host the event they'll never forget?"

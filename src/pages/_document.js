@@ -32,11 +32,12 @@ export default function Document() {
         <NextScript />
 
         <script src="/assets/js/jstracker.min.js"></script>
+        <script src="/assets/js/custom.js" />
         <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJxVHORCgo3I1WOhbDoEnqKkRrq7VDmdY&callback=initMap"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDSHCpBtznuI6eYsYIK9KAy74hcrS4SAM&callback=initMap"
           type="text/javascript"></script>
 
-        <script src="/assets/js/custom.js" />
+
       </body>
     </Html>
   )
