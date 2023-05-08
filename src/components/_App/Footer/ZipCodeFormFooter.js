@@ -116,7 +116,7 @@ const ZipCodeFormFooter = () => {
                                                 <span class={`ti-sprite ${errors.email ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-md-6 col-xs-12 required">
-                                                <input {...register("phone_number")} className={`form-control ${errors.phone_number ? 'is-invalid' : 'is-valid'} `} type="tel" maxLength={14} placeholder='Your phone number' id="phone" />
+                                                <input {...register("phone_number")} className={`form-control ${errors.phone_number ? 'is-invalid' : 'is-valid'} `} type="tel" maxLength={14} placeholder='Phone number (213) 213-1312' id="phone" />
                                                 <span style={{ color: 'red' }}>{errors.phone_number?.message}</span>
                                                 <span class={`ti-sprite ${errors.phone_number ? 'input-error-icon' : ''}`}></span>
                                             </div>
