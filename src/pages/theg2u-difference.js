@@ -6,7 +6,6 @@ import { NextSeo } from 'next-seo';
 
 
 const theg2udifference = () => {
-  let g2uZipCode = localStorage.getItem('g2u_zipcode') ? localStorage.getItem('g2u_zipcode') : '00000'; // get zipcode from local storage
 
   const SEO = {
     title: "The Games2U Difference | As Seen on Shark Tank | Games2U",
