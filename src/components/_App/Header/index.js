@@ -9,10 +9,8 @@ import useGamesData from '@/states/stores/games-data';
 import { useRouter } from 'next/router'
 
 const modalSchema = Yup.object().shape({
-    zipcode: Yup.number()
-        .required('Zip code is a required field')// optional
-        .typeError('Please enter valid zip code.')// optional as well
-        //.test('len', 'Please enter valid zip code.', val => val.toString().length === 5)
+    zipcode: Yup.string()
+        .matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
 })
 const bg = {
     overlay: {
