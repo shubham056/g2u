@@ -9,8 +9,7 @@ import useGamesData from '@/states/stores/games-data';
 import { useRouter } from 'next/router'
 
 const modalSchema = Yup.object().shape({
-    zipcode: Yup.string()
-        .matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
+    zipcode: Yup.string().matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
 })
 const bg = {
     overlay: {
@@ -35,7 +34,6 @@ const Header = () => {
 
     const modalFormOptions = { resolver: yupResolver(modalSchema) }
     const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
-    const { register: register1, setValue: setValue1, formState: { errors: errors1, isSubmitting: isSubmitting1 }, handleSubmit: handleSubmit1 } = useForm(modalFormOptions); //for topbar change location
 
     //Main popup submit handler
     const onSubmit = async formValue => {
@@ -81,11 +79,6 @@ const Header = () => {
         }
     };
 
-    if (errors1?.zipcode != null) {
-        setValue1('zipcode', '')
-        console.log("errrrTopBar", errors1)
-    }
-
     if (errors?.zipcode != null) {
         setValue('zipcode', '')
         console.log("errrr", errors)
@@ -108,11 +101,11 @@ const Header = () => {
                                         ?
                                         <span className="selected-location" style={{ display: changeLocation ? 'none' : 'block', margin: '-21px', paddingLeft: 44 }}>
                                             <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
-                                            <span className="ti-light-orange-text">(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text">(&nbsp;<a style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
                                         </span>
                                         :
                                         <>
-                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<a href="#" className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<a style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</a>&nbsp;)</span>
                                         </>
 
 

@@ -17,6 +17,7 @@ export default function Document() {
         <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" />
         <link rel="stylesheet" href="/assets/css/font-awesome-4-latest.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/assets/css/foundation.css" />
 
         <link rel="stylesheet" href="/assets/css/modal.css" />

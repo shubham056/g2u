@@ -108,6 +108,18 @@ const GamesDetails = () => {
 
     return (
         <>
+            <div className="modal" id="priceModal" tabIndex={-1} role="dialog">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <p>Rate quoted is for weekday, off-peak, zero-travel, multiple-hour events. Other rates may be higher.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>{/* /.modal-content */}
+                </div>{/* /.modal-dialog */}
+            </div>{/* /.modal */}
             <NextSeo {...SEO} />
             {/* <!-- top header and banner with mobile menu section start --> */}
             <div className="container-fluid">
@@ -137,20 +149,15 @@ const GamesDetails = () => {
                         </h2>
                         <div className="row ti-box-row">
                             <div className="ti-box">
-                                <img src="../assets/img/ico-starting-price-2x.png" />
+                                <img src="https://www.g2u.com/assets/img/ico-starting-price-2x.png" />
                                 <div>
                                     <h3 className="text-uppercase">Starting Price</h3>
-                                    <p className="text-sm">Enter a zip code to see pricing in your area</p>
-                                    <form method="post" className="ti-box-form" id="frmStartPrice" name="frmStartPrice" action="/">
-                                        <input type="hidden" id="franchiseNamePrix" name="franchiseNamePrix" defaultValue />
-                                        <input type="hidden" id="pathInfo" name="pathInfo" defaultValue="/game/videogametruck.html" />
-                                        <div className="ti-input">
-                                            <input type="tel" name="startPriceZip" id="startPriceZip" placeholder="Enter Your Zip Code" className="zip-code-input" />
-                                        </div>
-                                        <a id="btnStartPrice" className="ti-yellow-button price-button">Go!</a>
-                                    </form>
+                                    <p>as low as <strong> $99</strong>
+                                        per hour <button type="button" className="btn btn-link"><i className="fa fa-question-circle-o" data-toggle="modal" data-target="#priceModal" /></button>
+                                    </p>
                                 </div>
                             </div>
+
                             <div className="ti-box-spacer" />
                             <div className="ti-box">
                                 <img src="../assets/img/ico-ages-2x.png" />
@@ -212,13 +219,9 @@ const GamesDetails = () => {
                     </div>
                     <div className="row ti-row no-top-padding no-side-margin remove-overflow">
                         <div className="ti-slider-parents">
-                            {
-                                display ?
-                                    <OwlCarousel className="clients-slides owl-carousel owl-theme " {...gamesSliderOptions} >
-                                        <GamesSlider />
-                                    </OwlCarousel> : ''
-                            }
 
+                            <GamesSlider />
+                            
                         </div>
                     </div>
                 </div>

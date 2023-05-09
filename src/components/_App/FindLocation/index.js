@@ -1,9 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 import useGamesData from '@/states/stores/games-data';
+import { useRouter } from 'next/router'
+
+const modalSchema = Yup.object().shape({
+    zipcode: Yup.string().matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
+})
 
 const FindLocation = () => {
-    const { zipcode, games, loading, error } = useGamesData();
+    const router = useRouter()
+    const [changeLocation, setChangeLocation] = useState(false)
+    const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
+    const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
     console.log('games=======find location', games, zipcode)
+
+    const modalFormOptions = { resolver: yupResolver(modalSchema) }
+    const { register, setValue, formState: { errors, isSubmitting }, handleSubmit, reset } = useForm(modalFormOptions);
+
+    const onSubmitTopBarChangeLocation = async formValue => {
+        console.log("zipcode",formValue)
+        const { zipcode } = formValue
+        try {
+            await setZipcode(zipcode).then(
+                updateGamesData(zipcode, async function (err, callBackRes) {
+                    if (err) {
+                        console.log(err?.message)
+                        let errorMsg = err?.message != null ? err.message : 'This Zip is not serviced.'
+                        setZipCodeServiceStaus(errorMsg)
+                        setValue('zipcode', '')
+                    } else {
+                        setChangeLocation(false)
+                        router.push("/")
+                        reset()
+                    }
+                }))
+        } catch (e) {
+            //error handling logic
+            console.log(e)
+        }
+    };
+
+    if (errors?.zipcode != null) {
+        setValue('zipcode', '')
+        console.log("errrr", errors)
+    }
 
     return (
         <>
@@ -12,23 +54,32 @@ const FindLocation = () => {
                 <div className="location-box">
                     <div className="location-container">
                         <div className="location-holder location-update-wrap" id="locationBox">
-                            <div className="selected-location">
+                            <div className="selected-location" style={{ display: changeLocation ? 'none' : 'block' }}>
                                 <div className="ti-inline-block">
                                     <img src={games && games?.affiliate.logo != '' ? games && games?.affiliate.logo : "https://www.g2u.com/assets/img/franchise/franchise-swa.png"} />
                                 </div>
                                 <div className="ti-inline-block location-holder-place">
                                     <h3> <span id="locationBoxName"><strong>{games && games?.affiliate.company_name}</strong></span></h3>
-                                    <a href="#" className="ti-orange-text location-edit-link">( change location )</a>
+                                    <a style={{ cursor: 'pointer' }} className="ti-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>( change location )</a>
                                 </div>
                             </div>
-                            <div className="update-location">
-                                <form method="post" id="frmlocationBox" name="frmLocationBox" action="/">
-                                    <span className="close-btn" />
+                            <div className="update-location" style={{ display: (changeLocation) ? 'block' : 'none' }}>
+                                <form
+                                    onSubmit={handleSubmit(onSubmitTopBarChangeLocation)}
+                                    autoComplete='off'
+                                >
+                                    <span className="close-btn" onClick={() => setChangeLocation(false)} />
                                     <input type="hidden" id="franchiseNameLocBox" name="franchiseName" defaultValue />
                                     <div className="ti-input">
-                                        <input type="tel" name="locationBoxZip" id="locationBoxZip" placeholder="Enter Your Zip Code" className="zip-code-input" />
+                                        <input
+                                            {...register("zipcode")}
+                                            type="text"
+                                            placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
+                                            className="zip-code-input"
+                                            maxLength={5}
+                                        />
                                     </div>
-                                    <a className="ti-yellow-button location-button">Go!</a>
+                                    <button className="ti-yellow-button location-button" type="submit">Go!</button>
                                 </form>
                             </div>
                         </div>
