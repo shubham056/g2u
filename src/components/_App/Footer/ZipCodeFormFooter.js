@@ -26,7 +26,7 @@ const ZipCodeFormFooter = () => {
     //const address = "00501"
 
     const bookAnEventFormOptions = { resolver: yupResolver(BookanEventSchema) }
-    const { register,setValue, formState: { errors, isSubmitting }, handleSubmit, reset } = useForm(bookAnEventFormOptions);
+    const { register, setValue, formState: { errors, isSubmitting }, handleSubmit, reset } = useForm(bookAnEventFormOptions);
     //submit handler
     const onSubmit = async formValue => {
         formValue.affiliate_id = games.affiliate.id
@@ -57,8 +57,10 @@ const ZipCodeFormFooter = () => {
         setSubmitBtnText("Submit Query") // change submit btn text
     }
     if (!loading && games && games.affiliate != undefined && zipcode != '0000') {
-        setValue('zipcode',zipcode)
+        setValue('zipcode', zipcode)
     }
+
+
 
     return (
         <>
@@ -119,7 +121,28 @@ const ZipCodeFormFooter = () => {
                                                 <span class={`ti-sprite ${errors.email ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-md-6 col-xs-12 required">
-                                                <input {...register("phone_number")} className={`form-control ${errors.phone_number ? 'is-invalid' : 'is-valid'} `} type="tel" maxLength={14} placeholder='(213) 213-1312' id="phone" />
+                                                <input
+                                                    {...register("phone_number")}
+                                                    className={`form-control ${errors.phone_number ? 'is-invalid' : 'is-valid'} `}
+                                                    type="tel"
+                                                    maxLength={14}
+                                                    placeholder='(213) 213-1312'
+                                                    id="phone"
+                                                    onKeyUp={(e) => {
+                                                        let val = e.target.value;
+                                                        e.target.value = val
+                                                            .replace(/\D/g, '')
+                                                            .replace(/(\d{1,3})(\d{1,3})?(\d{1,4})?/g, function (txt, f, s, t) {
+                                                                if (t) {
+                                                                    return `(${f}) ${s}-${t}`
+                                                                } else if (s) {
+                                                                    return `(${f}) ${s}`
+                                                                } else if (f) {
+                                                                    return `(${f})`
+                                                                }
+                                                            });
+                                                    }}
+                                                />
                                                 <span style={{ color: 'red' }}>{errors.phone_number?.message}</span>
                                                 <span class={`ti-sprite ${errors.phone_number ? 'input-error-icon' : ''}`}></span>
                                             </div>
