@@ -2425,7 +2425,7 @@ html,body {
     right: 0;
     top: 0;
     padding: 30px 50px 0 50px;
-    z-index: 9999;
+    z-index: 1;
 }
 /* button hover */
 .ti-yellow-button:hover {
