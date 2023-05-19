@@ -34,11 +34,6 @@ export default function Document() {
 
         <script src="/assets/js/jstracker.min.js"></script>
         <script src="/assets/js/custom.js" />
-        <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDSHCpBtznuI6eYsYIK9KAy74hcrS4SAM&callback=initMap"
-          type="text/javascript"></script>
-
-
       </body>
     </Html>
   )
