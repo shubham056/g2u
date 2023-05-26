@@ -17,7 +17,7 @@ const options = {
     smartSpeed: 500,
     margin: 30,
     autoplayHoverPause: true,
-    autoplay: true,
+    autoplay: false,
     responsive: {
         0: {
             items: 1
