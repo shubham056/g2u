@@ -177,7 +177,7 @@ const Header = () => {
                                                 ?
                                                 games.categories.map(item => {
                                                     return (
-                                                        <Link href={`/game/${item.category_name}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                        <Link href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )
                                                 })
 

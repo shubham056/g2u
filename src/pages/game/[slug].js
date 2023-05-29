@@ -7,6 +7,8 @@ import GamesSlider from '@/components/_App/GamesSlider';
 import TopBanner from '@/components/GameDetails/TopBanner';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 import { useRouter } from 'next/router';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+
 
 const options = {
     loop: true,
@@ -66,7 +68,8 @@ const gamesSliderOptions = {
 };
 
 
-const GamesDetails = () => {
+const GamesDetails = ({ categoryDetails }) => {
+    console.log("categoryDetails#########!!!!!!!!!", categoryDetails)
     const router = useRouter();
     const { slug } = router.query;
     console.log("slug", slug)
@@ -128,7 +131,9 @@ const GamesDetails = () => {
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 <TopBanner
-
+                    icon={categoryDetails.icon}
+                    title={categoryDetails.category_name}
+                    caption={categoryDetails.category_caption}
                 />
 
             </div >
@@ -189,21 +194,17 @@ const GamesDetails = () => {
                 </div>
                 <div className="row ti-row game-content">
                     <div className="limited-width">
-                        <h2 className="orange-border ti-dark-blue-text">Laser Tag</h2>
+                        <h2 className="orange-border ti-dark-blue-text">{categoryDetails.category_name}</h2>
                         <div className="row">
-                            <div className="col-md-6">
-                                <p>Laser Tag is an exciting combination of tag and hide &amp; seek with a little Star Trek thrown in for good measure.
-                                    Players compete in teams to find and tag their opponents using high-tech lasers. Obstacles on the battlefield
-                                    create opportunities to hide and ambush opponents. With a little bit of strategy, some quick wits (and even
-                                    quicker reflexes) your team will emerge victorious. It's a blast for kids from 8 to 80, and an awesome way to
-                                    boost office morale.</p>
+                            <div className="col-md-12">
+                                <div dangerouslySetInnerHTML={{__html: categoryDetails.category_description}}></div>
                             </div>
-                            <div className="col-md-6">
+                            {/* <div className="col-md-6">
                                 <p>Laser Tag is just one of the exhilarating activities available when you book your event with Games2U. Since 2007
                                     we’ve entertained millions of kids, teenagers and grownups all over the world and created memories that will
                                     last a lifetime. Book your event today and find out why Games2U is America's most popular and most trusted
                                     provider of mobile entertainment!</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -221,7 +222,7 @@ const GamesDetails = () => {
                         <div className="ti-slider-parents">
 
                             <GamesSlider />
-                            
+
                         </div>
                     </div>
                 </div>
@@ -265,5 +266,53 @@ const GamesDetails = () => {
 }
 
 export default GamesDetails
+
+export const getStaticPaths = async () => {
+    try {
+        const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
+        let categories = await fetchApi(payload);
+        categories = categories.data.slug
+        if (categories && categories.lenght > 0) {
+            const slugs = categories.map(category => category.slug);
+            const paths = slugs.map(slug => ({ params: { slug } }));
+            return {
+                paths,
+                fallback: false
+            };
+        } else {
+            return { paths: [], fallback: false };
+        }
+    } catch (error) {
+        return { paths: [], fallback: false };
+    }
+};
+
+export const getStaticProps = async ({ params: { slug }, res }) => {
+    console.log("slug!!!", slug)
+    try {
+        const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+        const categories = await fetchApi(payload);
+        const categoriesData = categories.data
+        if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
+            return {
+                notFound: true
+            };
+        } else {
+            const { categoryDetails } = categoriesData
+            return {
+                props: {
+                    categoryDetails
+                },
+                revalidate: 10, // In seconds
+            };
+        }
+    } catch (error) {
+        console.log('error in detail api call', error)
+        return {
+            notFound: true
+        };
+    }
+
+};
 
 

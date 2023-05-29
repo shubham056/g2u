@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import trimString from '@/utils/trimString'
 import dynamic from 'next/dynamic';
 import useGamesData from '@/states/stores/games-data';
+import Link from 'next/link'
+
 
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 
@@ -54,7 +56,7 @@ const GamesSlider = () => {
                                 games?.categories.map(item => {
                                     return (
                                         <div className="col-ie-4 ti-box game-1" data-original="true" key={`game-slider-${item.id}`}>
-                                            <a href="game/videogametruck.html">
+                                            <Link href={`/game/${item.slug}`}>
                                                 <div className="box-heading video-game-theater" >
                                                     <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
                                                 </div>
@@ -62,7 +64,7 @@ const GamesSlider = () => {
                                                 <h3>{item.category_name}</h3>
                                                 <p>{trimString(item.category_caption, 85)}</p>
                                                 <span className="explore-link">Explore {item.category_name} »</span>
-                                            </a>
+                                            </Link>
                                         </div>
                                     )
                                 })

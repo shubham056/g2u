@@ -17,12 +17,12 @@ const GamesList = () => {
                             return (
                                 <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3" key={`game-list-${item.id}`}>
                                     <div className="ti-inline-block home-icon">
-                                        <Link href="/game/videogametruck">
+                                        <Link href={`/game/${item.slug}`}>
                                             <img src={item.icon_dark != '' ? item.icon_dark : "assets/img/ico-video-game-theater-blue-2x.png"} />
                                         </Link>
                                     </div>
                                     <div className="ti-inline-block home-game-name">
-                                        <Link href="/game/videogametruck">
+                                        <Link href={`/game/${item.slug}`}>
                                             <p>{item.category_name}</p>
                                         </Link>
                                     </div>
