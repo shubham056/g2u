@@ -130,11 +130,11 @@ const GamesDetails = ({ categoryDetails }) => {
                 <Header />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
-                <TopBanner
+                {categoryDetails && <TopBanner
                     icon={categoryDetails.icon}
                     title={categoryDetails.category_name}
                     caption={categoryDetails.category_caption}
-                />
+                />}
 
             </div >
             {/* <!-- top header and banner with mobile menu section start --> */}
@@ -194,10 +194,10 @@ const GamesDetails = ({ categoryDetails }) => {
                 </div>
                 <div className="row ti-row game-content">
                     <div className="limited-width">
-                        <h2 className="orange-border ti-dark-blue-text">{categoryDetails.category_name}</h2>
+                        <h2 className="orange-border ti-dark-blue-text">{categoryDetails && categoryDetails.category_name}</h2>
                         <div className="row">
                             <div className="col-md-12">
-                                <div dangerouslySetInnerHTML={{__html: categoryDetails.category_description}}></div>
+                                {categoryDetails && <div dangerouslySetInnerHTML={{ __html: categoryDetails.category_description }}></div>}
                             </div>
                             {/* <div className="col-md-6">
                                 <p>Laser Tag is just one of the exhilarating activities available when you book your event with Games2U. Since 2007
@@ -272,7 +272,7 @@ export const getStaticPaths = async () => {
         const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
         let categories = await fetchApi(payload);
         categories = categories.data.slug
-        if (categories && categories.lenght > 0) {
+        if (categories && categories.length > 0) {
             const slugs = categories.map(category => category.slug);
             const paths = slugs.map(slug => ({ params: { slug } }));
             return {
@@ -291,6 +291,7 @@ export const getStaticProps = async ({ params: { slug }, res }) => {
     console.log("slug!!!", slug)
     try {
         const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+        console.log("playload!!!!!!!!!!!!!!!!!!!!!!!", payload)
         const categories = await fetchApi(payload);
         const categoriesData = categories.data
         if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
