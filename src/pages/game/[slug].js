@@ -287,11 +287,9 @@ export const getStaticPaths = async () => {
     }
 };
 
-export const getStaticProps = async ({ params: { slug }, res }) => {
-    console.log("slug!!!", slug)
+export const getStaticProps = async ({ params: { slug } }) => {
     try {
         const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
-        console.log("playload!!!!!!!!!!!!!!!!!!!!!!!", payload)
         const categories = await fetchApi(payload);
         const categoriesData = categories.data
         if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
