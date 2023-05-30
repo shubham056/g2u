@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import GamesSlider from '../../GamesSlider';
+import Link from 'next/link';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 const options = {
     loop: true,
@@ -67,58 +68,58 @@ const Theg2udifferenceContent = () => {
                     <div className="limited-width">
                         <h2>Perfect for Any Event!</h2>
                         <div className="row">
-                            <a className="col-md-4 col-sm-6" href="event/kidsparties.html">
+                            <Link className="col-md-4 col-sm-6" href="event/kids-parties">
                                 <div><img src="/assets/img/ico-kids-parties-2x.png" /></div>
                                 <div>Kids Parties</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/schoolfundraisers.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/school-fundraisers">
                                 <div><img src="/assets/img/ico-school-fundraiser-2x.png" /></div>
                                 <div>School Fundraisers</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/teenparties.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/teenparties">
                                 <div><img src="/assets/img/ico-teen-parties-2x.png" /></div>
                                 <div>Teen Parties</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/churchfundraisers.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/church-fundraisers">
                                 <div><img src="/assets/img/ico-church-fundraisers-2x.png" /></div>
                                 <div>Church Fundraisers</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/birthdayparties.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/birthday-parties">
                                 <div><img src="/assets/img/ico-birthday-parties-2x.png" /></div>
                                 <div>Birthday Parties</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/charityevents.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/charity-events">
                                 <div><img src="/assets/img/ico-charity-2x.png" /></div>
                                 <div>Charity Events</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/graduationparties.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/graduation-parties">
                                 <div><img src="/assets/img/ico-graduation-parties-2x.png" /></div>
                                 <div>Graduation Parties</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/festivalsandcarnivals.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/festivals-and-carnivals">
                                 <div><img src="/assets/img/ico-festival-2x.png" /></div>
                                 <div>Festivals &amp; Carnivals</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/summercamps.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/summercamps">
                                 <div><img src="/assets/img/ico-summer-camps-2x.png" /></div>
                                 <div>Summer Camps</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/communityevents.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/community-events">
                                 <div><img src="/assets/img/ico-community-2x.png" /></div>
                                 <div>Community Events</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/companyparties.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/company-parties">
                                 <div><img src="/assets/img/ico-company-parties-2x.png" /></div>
                                 <div>Company Parties</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/barmitzvahsbatmitzvahs.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/barmitzvahsbatmitzvahs">
                                 <div><img src="/assets/img/ico-mitzvahs-2x.png" /></div>
                                 <div>Bar &amp; Bat Mitzvahs</div>
-                            </a>
-                            <a className="col-md-4 col-sm-6" href="event/customeremployeeappreciation.html">
+                            </Link>
+                            <Link className="col-md-4 col-sm-6" href="event/customer-employee-appreciation">
                                 <div><img src="/assets/img/ico-appreciation-2x.png" /></div>
                                 <div>Customer &amp; Employee Appreciation</div>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

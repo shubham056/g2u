@@ -55,6 +55,9 @@ const ZipCodeFormFooter = () => {
         reset(); // reset the form values
         setShowSuccessMsg(true) // show success message div
         setSubmitBtnText("Submit Query") // change submit btn text
+        setTimeout(() => {
+            setShowSuccessMsg(false)
+        }, 5000)
     }
     if (!loading && games && games.affiliate != undefined && zipcode != '0000') {
         setValue('zipcode', zipcode)

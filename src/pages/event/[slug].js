@@ -8,6 +8,7 @@ import TopBanner from '@/components/GameDetails/TopBanner';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 import { useRouter } from 'next/router';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import RequestInfo from '@/components/_App/RequestInfo';
 
 
 const options = {
@@ -68,8 +69,8 @@ const gamesSliderOptions = {
 };
 
 
-const GamesDetails = ({ categoryDetails }) => {
-    console.log("categoryDetails#########!!!!!!!!!", categoryDetails)
+const EventDetails = ({ eventDetails }) => {
+    console.log("eventDetails#########!!!!!!!!!", eventDetails)
     const router = useRouter();
     const { slug } = router.query;
     console.log("slug", slug)
@@ -130,99 +131,41 @@ const GamesDetails = ({ categoryDetails }) => {
                 <Header />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
-                {categoryDetails && <TopBanner
-                    icon={categoryDetails.icon}
-                    title={categoryDetails.category_name}
-                    caption={categoryDetails.category_caption}
+                {eventDetails && <TopBanner
+                    icon={eventDetails.icon}
+                    title={eventDetails.title}
+                    caption={eventDetails.sub_title}
                 />}
 
             </div >
             {/* <!-- top header and banner with mobile menu section start --> */}
 
             {/* Get the Stats! include seven section start */}
-            <div className="container-fluid" id="gamePage">
-                <div className="row ti-dark-orange-background ti-row ti-small-banner no-margin">
-                    <div className="col-xs-12">
-                        <h2>Ready to book the most epic video game truck party?</h2>
-                        <a href="#footerContact" className="ti-yellow-button">Request Info</a>
-                    </div>
-                </div>
-                <div className="row ti-row ti-orange-background ti-box-container">
-                    <div className="limited-width">
-                        <h2>Get the Stats! <p className="ti-white-text">Check out these stats to see if the Video Game Truck Party is a
-                            great fit for your next event.</p>
-                        </h2>
-                        <div className="row ti-box-row">
-                            <div className="ti-box">
-                                <img src="https://www.g2u.com/assets/img/ico-starting-price-2x.png" />
-                                <div>
-                                    <h3 className="text-uppercase">Starting Price</h3>
-                                    <p>as low as <strong> $99</strong>
-                                        per hour <button type="button" className="btn btn-link"><i className="fa fa-question-circle-o" data-toggle="modal" data-target="#priceModal" /></button>
-                                    </p>
-                                </div>
-                            </div>
+            <div className="container-fluid" id="eventPage">
 
-                            <div className="ti-box-spacer" />
-                            <div className="ti-box">
-                                <img src="../assets/img/ico-ages-2x.png" />
-                                <div>
-                                    <h3 className="text-uppercase">Recommended Age Range</h3>
-                                    <p><strong>6 &amp; Older</strong></p>
-                                </div>
-                            </div>
-                            <div className="ti-box-spacer" />
-                            <div className="ti-box">
-                                <img src="../assets/img/ico-participants-2x.png" />
-                                <div>
-                                    <h3 className="text-uppercase">Number of Participants</h3>
-                                    <p><strong>20+ players</strong> at a time!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row ti-row no-padding no-side-margin remove-overflow" id="tiImageSlider">
-                    <div className="ti-slider-parents ti-slider-gallery">
-                        {
-                            display ?
-                                <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
-                                    <CommonSlider />
-                                </OwlCarousel> : ''
-                        }
-                    </div>
-                </div>
-                <div className="row ti-row game-content">
+                <div className="row ti-row ti-blue-background games" id="">
                     <div className="limited-width">
-                        <h2 className="orange-border ti-dark-blue-text">{categoryDetails && categoryDetails.category_name}</h2>
-                        <div className="row">
-                            <div className="col-md-12">
-                                {categoryDetails && <div dangerouslySetInnerHTML={{ __html: categoryDetails.category_description }}></div>}
-                            </div>
-                            {/* <div className="col-md-6">
-                                <p>Laser Tag is just one of the exhilarating activities available when you book your event with Games2U. Since 2007
-                                    we’ve entertained millions of kids, teenagers and grownups all over the world and created memories that will
-                                    last a lifetime. Book your event today and find out why Games2U is America's most popular and most trusted
-                                    provider of mobile entertainment!</p>
-                            </div> */}
-                        </div>
-                    </div>
-                </div>
-                <div className="row ti-blue-gradient-background ti-row ti-small-banner no-margin">
-                    <div className="col-xs-12">
-                        <h2>Sound like a perfect fit for your group?</h2>
-                        <a href="#footerContact" className="ti-yellow-button">Request Info</a>
-                    </div>
-                </div>
-                <div className="row" id="recentlyViewed">
-                    <div className="limited-width">
-                        <h2 className="orange-border ti-dark-blue-text">You May Also Enjoy</h2>
+                        <h2 className="">We've got the games they'll love!</h2>
                     </div>
                     <div className="row ti-row no-top-padding no-side-margin remove-overflow">
                         <div className="ti-slider-parents">
 
                             <GamesSlider />
 
+                        </div>
+                    </div>
+                </div>
+                <RequestInfo
+                    content="Ready to host the event they'll never forget?"
+                    classNameStyle="ti-light-blue-background"
+                />
+                <div className="row ti-row game-content">
+                    <div className="limited-width">
+                        <h2 className="orange-border ti-dark-blue-text">{eventDetails && eventDetails.title}</h2>
+                        <div className="row">
+                            <div className="col-md-12">
+                                {eventDetails && <div dangerouslySetInnerHTML={{ __html: eventDetails.sub_title }}></div>}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,56 +208,71 @@ const GamesDetails = ({ categoryDetails }) => {
     )
 }
 
-export default GamesDetails
+export default EventDetails
 
 export const getStaticPaths = async () => {
-    try {
-        const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
-        let categories = await fetchApi(payload);
-        //console.log("datata", payload, categories)
-        categories = categories.data.slug
-        if (categories && categories.length > 0) {
-            const slugs = categories.map(category => category.slug);
-            const paths = slugs.map(slug => ({ params: { slug } }));
-            console.log("path!!!!!", paths)
-            return {
-                paths,
-                fallback: false
-            };
-        } else {
-            console.log("else path")
-            return { paths: [], fallback: false };
-        }
-    } catch (error) {
-        //console.log("path errrr!!!",error)
-        return { paths: [], fallback: false };
-    }
+    // try {
+    //     const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
+    //     let categories = await fetchApi(payload);
+    //     console.log("datata", payload, categories)
+    //     categories = categories.data.slug
+    //     if (categories && categories.length > 0) {
+    //         const slugs = categories.map(category => category.slug);
+    //         const paths = slugs.map(slug => ({ params: { slug } }));
+    //         console.log("path!!!!!", paths)
+    //         return {
+    //             paths,
+    //             fallback: false
+    //         };
+    //     } else {
+    //         console.log("else path")
+    //         return { paths: [], fallback: false };
+    //     }
+    // } catch (error) {
+    //     console.log("path errrr!!!",error)
+    //     return { paths: [], fallback: false };
+    // }
+
+    return { paths: [], fallback: false };
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-    try {
-        const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
-        const categories = await fetchApi(payload);
-        const categoriesData = categories.data
-        if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
-            return {
-                notFound: true
-            };
-        } else {
-            const { categoryDetails } = categoriesData
-            return {
-                props: {
-                    categoryDetails
-                },
-                revalidate: 10, // In seconds
-            };
-        }
-    } catch (error) {
-        console.log('error in detail api call', error)
-        return {
-            notFound: true
-        };
+    console.log("event slug", slug)
+    let eventDetails = {
+        // icon: slug,
+        title: slug,
+        sub_title: slug,
+
     }
+
+    return {
+        props: {
+            eventDetails
+        },
+    }
+    // try {
+    //     const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+    //     const categories = await fetchApi(payload);
+    //     const categoriesData = categories.data
+    //     if (categoriesData && categoriesData.eventDetails != undefined && categoriesData.eventDetails == '') {
+    //         return {
+    //             notFound: true
+    //         };
+    //     } else {
+    //         const { eventDetails } = categoriesData
+    //         return {
+    //             props: {
+    //                 eventDetails
+    //             },
+    //             revalidate: 10, // In seconds
+    //         };
+    //     }
+    // } catch (error) {
+    //     console.log('error in detail api call', error)
+    //     return {
+    //         notFound: true
+    //     };
+    // }
 
 };
 
