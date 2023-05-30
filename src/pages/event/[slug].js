@@ -238,6 +238,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
     console.log("event slug", slug)
+
     let eventDetails = {
         // icon: slug,
         title: slug,
