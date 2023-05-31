@@ -133,17 +133,7 @@ const ZipCodeFormFooter = () => {
                                                     id="phone"
                                                     onKeyUp={(e) => {
                                                         let val = e.target.value;
-                                                        e.target.value = val
-                                                            .replace(/\D/g, '')
-                                                            .replace(/(\d{1,3})(\d{1,3})?(\d{1,4})?/g, function (txt, f, s, t) {
-                                                                if (t) {
-                                                                    return `(${f}) ${s}-${t}`
-                                                                } else if (s) {
-                                                                    return `(${f}) ${s}`
-                                                                } else if (f) {
-                                                                    return `(${f})`
-                                                                }
-                                                            });
+                                                        e.target.value = val.replace(/(\d{3})(\d{3})(\d{4})/,"($1) $2-$3");
                                                     }}
                                                 />
                                                 <span style={{ color: 'red' }}>{errors.phone_number?.message}</span>
