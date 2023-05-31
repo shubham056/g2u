@@ -6,7 +6,7 @@ const ZipCodePopup = () => {
             <div className="modal" id="zipModal" tabIndex={-1} role="dialog" style={{ paddingRight: '0px !important' }}>
                 <div className="container-modal">
                     <div className="logo-container">
-                        <img data-em="logo" src="assets/img/g2u-logo.png" alt="g2u-logo"/>
+                        <img data-em="logo" src="assets/img/g2u-logo.png" alt="g2u-logo" />
                     </div>
                     <div className="text-container">
                         <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
