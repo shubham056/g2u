@@ -101,11 +101,11 @@ const Header = () => {
                                         ?
                                         <span className="selected-location" style={{ display: changeLocation ? 'none' : 'block', margin: '-21px', paddingLeft: 44 }}>
                                             <span id="navbarLocation"><strong>{games.affiliate.city} {changeLocation}</strong></span>
-                                            <span className="ti-light-orange-text">(&nbsp;<a href='javascript:void(0)' style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text">(&nbsp;<span style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)} >change location</span>&nbsp;)</span>
                                         </span>
                                         :
                                         <>
-                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<a href='javascript:void(0)' style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</a>&nbsp;)</span>
+                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<span style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</span>&nbsp;)</span>
                                         </>
 
 
@@ -148,7 +148,7 @@ const Header = () => {
                                 <span className="ti-sprite location-pin" />
                                 <span className="selected-location">
                                     <strong />
-                                    <span className="ti-light-orange-text">( <a href='javascript:void(0)' className="ti-light-orange-text location-edit-link">change location</a> )</span>
+                                    <span className="ti-light-orange-text">( <span className="ti-light-orange-text location-edit-link">change location</span> )</span>
                                 </span>
                                 <span className="update-location" >
                                     <form method="post" id="frmMobileZipNav" name="frmMobileZipNav" action="/">
