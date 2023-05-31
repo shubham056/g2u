@@ -10,6 +10,7 @@ const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 const options = {
     loop: true,
     nav: true,
+    startPosition: 0,
     navText:
         [
             '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
@@ -41,10 +42,10 @@ const GamesSlider = () => {
     console.log('games=======gamesSlider', games, zipcode)
 
     const [display, setDisplay] = useState(false);
-    if(!loading && games && games.categories && games.categories.length > 0){
+    if (!loading && games && games.categories && games.categories.length > 0) {
         display ? '' : setDisplay(true)
     }
-    
+
     return (
         <>
             {
