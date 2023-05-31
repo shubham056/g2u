@@ -60,7 +60,7 @@ const FindLocation = () => {
                                 </div>
                                 <div className="ti-inline-block location-holder-place">
                                     <h3> <span id="locationBoxName"><strong>{games && games?.affiliate.company_name}</strong></span></h3>
-                                    <a style={{ cursor: 'pointer' }} className="ti-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>( change location )</a>
+                                    <span style={{ cursor: 'pointer' }} className="ti-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>( Change location )</span>
                                 </div>
                             </div>
                             <div className="update-location" style={{ display: (changeLocation) ? 'block' : 'none' }}>
