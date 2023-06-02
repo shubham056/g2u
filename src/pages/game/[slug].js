@@ -69,10 +69,8 @@ const gamesSliderOptions = {
 
 
 const GamesDetails = ({ categoryDetails }) => {
-    console.log("categoryDetails#########!!!!!!!!!", categoryDetails)
     const router = useRouter();
     const { slug } = router.query;
-    console.log("slug", slug)
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);
@@ -271,22 +269,18 @@ export const getStaticPaths = async () => {
     try {
         const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
         let categories = await fetchApi(payload);
-        //console.log("datata", payload, categories)
         categories = categories.data.slug
         if (categories && categories.length > 0) {
             const slugs = categories.map(category => category.slug);
             const paths = slugs.map(slug => ({ params: { slug } }));
-            console.log("path!!!!!", paths)
             return {
                 paths,
                 fallback: false
             };
         } else {
-            console.log("else path")
             return { paths: [], fallback: false };
         }
     } catch (error) {
-        //console.log("path errrr!!!",error)
         return { paths: [], fallback: false };
     }
 };

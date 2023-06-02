@@ -120,11 +120,11 @@ const custStyles = [{
     "featureType": "road",
     "elementType": "geometry.fill",
     "stylers": [{
-            "color": "#234e6b"
-        },
-        {
-            "weight": 2
-        }
+        "color": "#234e6b"
+    },
+    {
+        "weight": 2
+    }
     ]
 },
 {
@@ -247,15 +247,17 @@ const custStyles = [{
 ]
 
 const Map = ({ address }) => {
-    console.log("map zipcode",address)
+    console.log("map zipcode", address)
     const [map, setMap] = useState(null);
     useEffect(() => {
-        
+
         loader.load().then(() => {
             const geocoder = new window.google.maps.Geocoder();
             geocoder.geocode({ address }, (results, status) => {
                 if (status === 'OK') {
-                    var offsetx = $(window).width() / 2;
+                    let offsetx = $(window).width() / 4;
+                    let latlng = results[0].geometry.location
+                    console.log("map latlong",results[0].geometry.location)
                     const mapOptions = {
                         center: results[0].geometry.location,
                         zoom: 8,
@@ -272,11 +274,27 @@ const Map = ({ address }) => {
                         document.getElementById('map'),
                         mapOptions
                     );
-                    
+
                     const marker = new window.google.maps.Marker({
                         position: results[0].geometry.location,
                         map: newMap,
                     });
+                    google.maps.Map.prototype.setCenterWithOffset = function (latlng, offsetX, offsetY) {
+                        var map = newMap;
+                        var ov = new google.maps.OverlayView();
+                        ov.onAdd = function () {
+                            var proj = this.getProjection();
+                            var aPoint = proj.fromLatLngToContainerPixel(latlng);
+                            aPoint.x = aPoint.x + offsetX;
+                            aPoint.y = aPoint.y + offsetY;
+                            map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
+                        };
+                        ov.draw = function () { };
+                        ov.setMap(map);
+                    };
+                    if (windowCheck().indexOf('desktop') > -1) {
+                        google.maps.Map.prototype.setCenterWithOffset(latlng, offsetx, 0);
+                    }
                     setMap(newMap);
                 }
             });

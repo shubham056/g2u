@@ -9,7 +9,6 @@ import Link from 'next/link';
 const ourgames = () => {
 
   const { zipcode, games, loading, error } = useGamesData();
-  console.log('games==', games, zipcode)
 
   const SEO = {
     title: "Our Games | Video Game Trucks, Laser Tag & More | Games2U",

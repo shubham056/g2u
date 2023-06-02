@@ -21,7 +21,6 @@ const Header = () => {
     const router = useRouter()
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
-    console.log('games============', games, zipcode)
 
     const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);

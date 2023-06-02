@@ -1,7 +1,6 @@
 import React from 'react'
 
 const RequestInfo = (props) => {
-    //console.log("props", props)
     const { content, classNameStyle } = props
     return (
         <div className={`row ${classNameStyle} ti-row ti-small-banner no-margin`}>

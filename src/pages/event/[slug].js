@@ -70,10 +70,8 @@ const gamesSliderOptions = {
 
 
 const EventDetails = ({ eventDetails }) => {
-    console.log("eventDetails#########!!!!!!!!!", eventDetails)
     const router = useRouter();
     const { slug } = router.query;
-    console.log("slug", slug)
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);
