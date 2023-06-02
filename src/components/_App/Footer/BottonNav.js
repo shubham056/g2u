@@ -9,7 +9,7 @@ const BottonNav = () => {
                     <div className="page-links col-md-9 col-sm-8 col-xs-12">
                         <ul className="page-link-columns">
                             <li className="ti-nav-content"><Link href="/our-games">Our Games</Link></li>
-                            <li className="ti-nav-content"><Link href="/theg2u-difference">The G2U Difference</Link></li>
+                            <li className="ti-nav-content"><Link href="/the-g2u-difference">The G2U Difference</Link></li>
                             <li className="ti-nav-content"><Link href="/corporate-events">Corporate Events</Link></li>
                         </ul>
                         <ul className="page-link-columns">

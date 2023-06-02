@@ -105,7 +105,7 @@ const Header = () => {
                                         </span>
                                         :
                                         <>
-                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : '' }}>(&nbsp;<span style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</span>&nbsp;)</span>
+                                            <span className="ti-light-orange-text" style={{ display: changeLocation ? 'none' : 'block' }}>(&nbsp;<span style={{ cursor: 'pointer' }} className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Enter Zip Code</span>&nbsp;)</span>
                                         </>
 
 
@@ -188,7 +188,7 @@ const Header = () => {
                                 </div>
                             </div>
                             <div className="no-padding" id="g2uExperience">
-                                <Link href="/theg2u-difference">THE G2U DIFFERENCE</Link>
+                                <Link href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
                             </div>
                             <div className="no-padding" id="corporateEventsNav">
                                 <Link href="/corporate-events">CORPORATE EVENTS</Link>

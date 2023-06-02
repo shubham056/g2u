@@ -116,12 +116,12 @@ const ZipCodeFormFooter = () => {
                                             <div className="ti-input  col-xs-12 required">
                                                 <input {...register("name")} type="text" className={`form-control ${errors.name ? 'is-invalid' : 'is-valid'} `} placeholder='Your Name' />
                                                 <span style={{ color: 'red' }}>{errors.name?.message}</span>
-                                                <span class={`ti-sprite ${errors.name ? 'input-error-icon' : ''}`}></span>
+                                                <span className={`ti-sprite ${errors.name ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-xs-12 required">
                                                 <input {...register("email")} type="email" className={`form-control ${errors.email ? 'is-invalid' : 'is-valid'} `} placeholder='Your email address' />
                                                 <span style={{ color: 'red' }}>{errors.email?.message}</span>
-                                                <span class={`ti-sprite ${errors.email ? 'input-error-icon' : ''}`}></span>
+                                                <span className={`ti-sprite ${errors.email ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-md-6 col-xs-12 required">
                                                 <input
@@ -137,15 +137,15 @@ const ZipCodeFormFooter = () => {
                                                     }}
                                                 />
                                                 <span style={{ color: 'red' }}>{errors.phone_number?.message}</span>
-                                                <span class={`ti-sprite ${errors.phone_number ? 'input-error-icon' : ''}`}></span>
+                                                <span className={`ti-sprite ${errors.phone_number ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-input col-md-6 col-xs-12 required">
                                                 <input {...register("zipcode")} type="text" defaultValue={zipcode} className="jsFrmZipcode form-control" data-ov={zipcode} placeholder='Zip Code' readOnly />
                                                 <span style={{ color: 'red' }}>{errors.zipcode?.message}</span>
-                                                <span class={`ti-sprite ${errors.zipcode ? 'input-error-icon' : ''}`}></span>
+                                                <span className={`ti-sprite ${errors.zipcode ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-textarea col-xs-12">
-                                                <textarea {...register("about_event")} rows={4} className placeholder='Tell us more about your event' />
+                                                <textarea {...register("about_event")} rows={4} placeholder='Tell us more about your event' />
                                             </div>
                                             <input id="btnBook" name="btnBook" type="submit" defaultValue="Request Info" className="ti-yellow-button pull-right" disabled={isSubmitting} />
                                         </form>
