@@ -15,7 +15,7 @@ const BottonNav = () => {
                         <ul className="page-link-columns">
                             <li className="ti-nav-content"><Link href="/franchise-information">Own a Franchise</Link></li>
                             <li className="ti-nav-content"><Link href="/contactus">Contact Us</Link></li>
-                            <li className="ti-nav-content"><Link href="/aboutus">About Us</Link></li>
+                            <li className="ti-nav-content"><Link href="/about-us">About Us</Link></li>
                             <li className="ti-nav-content"><Link href="/faq">FAQ</Link></li>
                             <li className="ti-nav-content"><Link href="/sitemap">Site Map</Link></li>
                         </ul>
