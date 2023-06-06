@@ -257,7 +257,6 @@ const Map = ({ address }) => {
                 if (status === 'OK') {
                     let offsetx = $(window).width() / 4;
                     let latlng = results[0].geometry.location
-                    console.log("map latlong",results[0].geometry.location)
                     const mapOptions = {
                         center: results[0].geometry.location,
                         zoom: 8,
