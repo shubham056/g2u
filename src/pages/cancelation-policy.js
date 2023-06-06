@@ -1,8 +1,9 @@
 import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const cancelationpolicy = () => {
+const cancelationpolicy = ({ content }) => {
     const SEO = {
         title: "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
         description: "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
@@ -54,17 +55,7 @@ const cancelationpolicy = () => {
                 <div className="row ti-row content-padding">
                     <div className="limited-width">
                         <div className="col-xs-12 default-container text-container">
-                            <div className="col-sm-12 col-md-12">
-                                <h2>Games2U Cancellation Policy</h2>
-                                <p>Games2U events happen rain or shine. Events may only be cancelled or rescheduled as follows:</p>
-                                <p>&nbsp;</p>
-                                <p><b>Extreme Weather:</b> In the event of extreme weather that, at our sole discretion, we determine may interfere with a scheduled activity, Games2U reserves the right to substitute an alternate activity of equal or greater value. In the event of weather that we believe may put your participants, our employees, or our equipment at risk, we reserve the right to cancel an event and provide a full refund.</p>
-                                <p>&nbsp;</p>
-                                <p><b>Acts of God:</b> In the event that Games2U is forced to cancel a scheduled activity due to an Act of God, natural or man-made disaster, or other unforeseen circumstances beyond our control, you may reschedule your event, subject to our availability, for an alternate date up to one year in the future with no fees.</p>
-                                <p>&nbsp;</p>
-                                <p><b>Customer Cancelations:</b> You may cancel an event only with the following provisions. If you cancel 21 days before your scheduled event or earlier, you will be entitled to a full refund or you may reschedule your event for an alternate date up to one year in future with no fees. If you cancel less than 21 but more than 14 days before your scheduled event, you will be entitled to a 50% refund or you may reschedule your event, subject to our availability, for an alternate date up to one year in the future but you may be charged a rescheduling fee. If you cancel less than 14 days before your scheduled event, you will not be entitled to any refund or rescheduling of your event.</p>
-                                <p>&nbsp;</p>
-                            </div>
+                            {content && <div className="col-sm-12 col-md-12" dangerouslySetInnerHTML={{ __html: content }}></div>}
                         </div>
                     </div>
                 </div>
@@ -73,4 +64,31 @@ const cancelationpolicy = () => {
         </>)
 }
 
-export default cancelationpolicy
+export default cancelationpolicy;
+
+export async function getStaticProps() {
+    try {
+        const payload = { url: `${apiBaseUrl}/content/our-cancelation-policy`, method: 'GET' }
+        const cancelationPolicyContent = await fetchApi(payload);
+        const cancelationPolicyContentData = cancelationPolicyContent.data.content;
+        if (cancelationPolicyContentData && cancelationPolicyContentData.content != undefined && cancelationPolicyContentData.content == '') {
+            return {
+                notFound: true,
+                revalidate: 5,
+            };
+        } else {
+            const { content } = cancelationPolicyContentData
+            return {
+                props: {
+                    content
+                },
+                revalidate: 5, // In seconds
+            };
+        }
+    } catch (error) {
+        console.log('error in our cancelation policy api call', error)
+        return {
+            notFound: true
+        };
+    }
+}

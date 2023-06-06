@@ -26,7 +26,7 @@ export const fetchApi = async (payload) => {
       return returnData
     })
     .catch((err) => {
-      console.log(err)
+      console.log("fetch err",err)
       return null;
     });
 };

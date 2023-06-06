@@ -3,9 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-
 const aboutus = ({ content }) => {
-  console.log("content in page", content)
   const SEO = {
     title: "About Us | Games2U Mobile Entertainment",
     description: "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -69,14 +67,15 @@ const aboutus = ({ content }) => {
 
 export default aboutus;
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps() {
   try {
     const payload = { url: `${apiBaseUrl}/content/about-us`, method: 'GET' }
     const aboutUsContent = await fetchApi(payload);
     const aboutUsContentData = aboutUsContent.data.content;
     if (aboutUsContentData && aboutUsContentData.content != undefined && aboutUsContentData.content == '') {
       return {
-        notFound: true
+        notFound: true,
+        revalidate: 5,
       };
     } else {
       const { content } = aboutUsContentData
@@ -84,7 +83,7 @@ export async function getStaticProps({ params }) {
         props: {
           content
         },
-        revalidate: 10, // In seconds
+        revalidate: 5, // In seconds
       };
     }
   } catch (error) {

@@ -1,8 +1,9 @@
 import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const contactus = () => {
+const contactus = ({ content }) => {
   const SEO = {
     title: "Contact Us | Games2U Mobile Entertainment",
     description: "Telephone and email contact information for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -56,18 +57,7 @@ const contactus = () => {
         <div className="container-fluid" id="contentParent">
           <div className="row ti-row content-padding">
             <div className="limited-width">
-              <div className="col-xs-12 default-container text-container">
-                <h2>By Phone:</h2>
-                <p>To book your event or party call is at 1-800-71-GAMES</p>
-                <p>To reach our corporate office call 1-512-717-8933</p>
-                <h2>By email:</h2>
-                <p>To send us an email <a href="/cdn-cgi/l/email-protection#caa3a4aca58aadf8bfe4a9a5a7"><span className="__cf_email__" data-cfemail="ec85828a83ac8bde99c28f8381">[email&nbsp;protected]</span></a></p>
-                <h2>Address:</h2>
-                <p>My Goodness Games, Inc.</p>
-                <p>12345 Pauls Valley Rd. Unit 9</p>
-                <p>Austin, TX</p>
-                <p>78737</p>
-              </div>
+              {content && <div className="col-xs-12 default-container text-container" dangerouslySetInnerHTML={{ __html: content }}></div>}
             </div>
           </div>
         </div>
@@ -78,4 +68,31 @@ const contactus = () => {
   )
 }
 
-export default contactus
+export default contactus;
+
+export async function getStaticProps() {
+  try {
+    const payload = { url: `${apiBaseUrl}/content/contact-us`, method: 'GET' }
+    const contactUsContent = await fetchApi(payload);
+    const contactUsContentData = contactUsContent.data.content;
+    if (contactUsContentData && contactUsContentData.content != undefined && contactUsContentData.content == '') {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      const { content } = contactUsContentData
+      return {
+        props: {
+          content
+        },
+        revalidate: 5, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in contact us api call', error)
+    return {
+      notFound: true
+    };
+  }
+}
