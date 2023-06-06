@@ -14,7 +14,6 @@ const FindLocation = () => {
     const [changeLocation, setChangeLocation] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
-    console.log('games=======find location', games, zipcode)
 
     const modalFormOptions = { resolver: yupResolver(modalSchema) }
     const { register, setValue, formState: { errors, isSubmitting }, handleSubmit, reset } = useForm(modalFormOptions);

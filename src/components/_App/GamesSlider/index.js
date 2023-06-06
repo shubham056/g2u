@@ -39,7 +39,6 @@ const options = {
 
 const GamesSlider = () => {
     const { zipcode, games, loading, error } = useGamesData();
-    console.log('games=======gamesSlider', games, zipcode)
 
     const [display, setDisplay] = useState(false);
     if (!loading && games && games.categories && games.categories.length > 0) {

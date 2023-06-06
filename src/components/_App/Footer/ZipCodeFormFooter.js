@@ -21,7 +21,6 @@ const ZipCodeFormFooter = () => {
     const [submitBtnText, setSubmitBtnText] = useState("Submit Query")
     const [isLoader, setIsLoader] = useState(false)
     const { zipcode, games, loading, error } = useGamesData();
-    //console.log('games=======footer location', zipcode)
     //const address = '1600 Amphitheatre Parkway, Mountain View, CA';
     //const address = "00501"
 
@@ -31,7 +30,6 @@ const ZipCodeFormFooter = () => {
     const onSubmit = async formValue => {
         formValue.affiliate_id = games.affiliate.id
         formValue.zipcode = games.affiliate.zipcode
-        //console.log("form value", formValue)
         setIsLoader(true)
         setSubmitBtnText("Submiting...")
         try {

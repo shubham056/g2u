@@ -22,12 +22,10 @@ function useGamesData() {
         onSet: localStoragePersistor.onSet,
         onGet: async(key) => {
             try {
-              console.log('get zipcode',zipcode)
                 if (window.navigator.onLine && zipcode) {
                     const remoteGames = await fetchApi({url : `${apiBaseUrl}/games/${zipcode}`, method : 'GET'});
                     if (remoteGames && remoteGames.data?.games != null && remoteGames.data?.games != '') {
                       localStoragePersistor.onSet(key, remoteGames.data.games);
-                      console.log('remoteGames',remoteGames.data.games)
                       return remoteGames.data.games;
                     }
                     remoteGames.data.message = remoteGames?.message;

@@ -4,7 +4,6 @@ import useGamesData from '@/states/stores/games-data';
 
 const GamesList = () => {
     const { zipcode, games, loading, error, updateGamesData } = useGamesData();
-    console.log('games=======gamesList', games, zipcode)
 
     return (
         <>
