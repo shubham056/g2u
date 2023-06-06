@@ -32,7 +32,7 @@ const Header = () => {
     const [changeLocation, setChangeLocation] = useState(false)
 
     const modalFormOptions = { resolver: yupResolver(modalSchema) }
-    const { register, setValue, formState: { errors, isSubmitting }, handleSubmit } = useForm(modalFormOptions);
+    const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(modalFormOptions);
 
     //Main popup submit handler
     const onSubmit = async formValue => {
@@ -239,6 +239,7 @@ const Header = () => {
                                         className="submit btn-bg-color jsBtnPopupSubmit"
                                         //id="submit-button"
                                         target
+                                        disabled={!isDirty || !isValid}
                                     >Submit</button>
                                 </div>
                             </form>
