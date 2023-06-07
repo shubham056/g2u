@@ -14,10 +14,10 @@ const BottonNav = () => {
                         </ul>
                         <ul className="page-link-columns">
                             <li className="ti-nav-content"><Link href="/franchise-information">Own a Franchise</Link></li>
-                            <li className="ti-nav-content"><Link href="/contactus">Contact Us</Link></li>
+                            <li className="ti-nav-content"><Link href="/contact-us">Contact Us</Link></li>
                             <li className="ti-nav-content"><Link href="/about-us">About Us</Link></li>
                             <li className="ti-nav-content"><Link href="/faq">FAQ</Link></li>
-                            <li className="ti-nav-content"><Link href="/sitemap">Site Map</Link></li>
+                            <li className="ti-nav-content"><Link href="/site-map">Site Map</Link></li>
                         </ul>
                     </div>
                     <div className="social-media-links col-md-3 col-sm-4 col-xs-12">

@@ -9,7 +9,7 @@ const BottomFooter = () => {
                     <Link href="/terms-of-use">Terms of Use</Link>
                     <Link href="/privacy-policy">Privacy Policy</Link>
                     <Link href="/cancelation-policy">Our Cancelation Policy</Link>
-                    <Link href="/sitemap">Site Map</Link>
+                    <Link href="/site-map">Site Map</Link>
                 </div>
                 <div className="pull-right" id="bottomFooterCopyright">
                     <span className="pull-right">© 2023 Games2U Entertainment, All rights reserved.</span>
