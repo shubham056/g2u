@@ -108,7 +108,7 @@ const ZipCodeFormFooter = () => {
                                     <div id="divFrmBookEvent">
                                         <h3>Book Your Event!</h3>
                                         <p>Call us today at
-                                            <span className="ti-orange-text"><strong> 1-800-71-GAMES</strong></span>
+                                            <span className="ti-orange-text"><strong> 1-800-71-GAMES </strong></span>
                                             to book your event today or submit the form below and one of our friendly event planners will be in touch shortly.</p>
                                         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
                                             <div className="ti-input  col-xs-12 required">
