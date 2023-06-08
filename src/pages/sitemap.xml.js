@@ -40,7 +40,7 @@ export const getServerSideProps = async ({ res }) => {
 
     const homePath = { development: "http://localhost:3000", production: "https://g2u.vercel.app" }[process.env.NODE_ENV];
     const allPaths = [homePath, ...staticPathss, ...dynamicGamesDetailsPath];
-    //console.log("allPaths",allPaths)
+    console.log("allPaths",allPaths)
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
