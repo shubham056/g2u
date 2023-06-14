@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const cancelationpolicy = ({ content }) => {
+const cancelationpolicy = ({ content, page_name, page_caption, banner_image }) => {
     const SEO = {
         title: "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
         description: "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
@@ -41,7 +41,8 @@ const cancelationpolicy = ({ content }) => {
                     <div className="ti-page-header row clearfix">
                         <div className="row ti-row">
                             <div className="limited-width">
-                                <h1>Cancellation Policy</h1>
+                                <h1>{page_name && page_name}</h1>
+                                <p>{page_caption && page_caption}</p>
                             </div>
                         </div>
                     </div>
@@ -77,10 +78,13 @@ export async function getStaticProps() {
                 revalidate: 5,
             };
         } else {
-            const { content } = cancelationPolicyContentData
+            const { content, page_name, page_caption, banner_image } = cancelationPolicyContentData
             return {
                 props: {
-                    content
+                    content,
+                    page_name,
+                    page_caption,
+                    banner_image
                 },
                 revalidate: 5, // In seconds
             };

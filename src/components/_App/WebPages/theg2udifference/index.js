@@ -32,7 +32,7 @@ const options = {
     }
 };
 
-const Theg2udifferenceContent = () => {
+const Theg2udifferenceContent = ({ content }) => {
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);
@@ -46,16 +46,7 @@ const Theg2udifferenceContent = () => {
                     <div className="limited-width">
                         <div className="col-xs-12 default-container text-container">
                             <div className="col-sm-12 col-md-12">
-                                <p>At Games2U, we’re the largest provider of mobile entertainment in the world. That means that
-                                    more people come to us than any other company when they need a game truck, laser tag,
-                                    hamster balls, or any of our others great activities. Why? Well, we like to think it’s
-                                    because we’re different. Different because we offer more activities than anyone else.
-                                    Different because of our highly-trained and smiling game coaches. And different because
-                                    we’re the only people in the world who want your event to be a success more than you do.
-                                </p>
-                                <p>&nbsp;</p>
-                                <p>When you need your event to come off without a hitch, call us first and let us show you the
-                                    difference.</p>
+                                {content && <div className="col-sm-12 col-md-12" dangerouslySetInnerHTML={{ __html: content }}></div>}
                             </div>
                         </div>
                     </div>
@@ -141,29 +132,29 @@ const Theg2udifferenceContent = () => {
                     <div className="limited-width">
                         <div className="scroll-arrow left" />
                         <div className="as-seen-images as-seen-mobile">
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png"  alt="brand-logo"/></div>
+                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
                         </div>
                         <div className="as-seen-images as-seen-desktop">
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png"  alt="brand-logo"/></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png"  alt="brand-logo"/></div>
+                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
+                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
                         </div>
                         <div className="scroll-arrow right" />
                     </div>

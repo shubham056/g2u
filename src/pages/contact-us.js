@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const contactus = ({ content }) => {
+const contactus = ({ content, page_name, page_caption, banner_image }) => {
   const SEO = {
     title: "Contact Us | Games2U Mobile Entertainment",
     description: "Telephone and email contact information for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -41,8 +41,8 @@ const contactus = ({ content }) => {
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
-                <h1>Contact Us</h1>
-                <p>Questions? Comments? Feel like chatting? We're here to help!</p>
+                <h1>{page_name && page_name}</h1>
+                <p>{page_caption && page_caption}</p>
               </div>
             </div>
           </div>
@@ -81,10 +81,13 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content } = contactUsContentData
+      const { content, page_name, page_caption, banner_image } = contactUsContentData
       return {
         props: {
-          content
+          content,
+          page_name,
+          page_caption,
+          banner_image
         },
         revalidate: 5, // In seconds
       };

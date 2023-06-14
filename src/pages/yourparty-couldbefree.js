@@ -1,9 +1,9 @@
 import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-
-const yourpartycouldbefree = () => {
+const yourpartycouldbefree = ({ content, page_name, page_caption, banner_image }) => {
   const SEO = {
     title: "Your Party Could Be Free | Games2U Mobile Entertainment",
     description: "Information on how your Games2U event could be free.",
@@ -40,7 +40,8 @@ const yourpartycouldbefree = () => {
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
-                <h1>Your Party Could Be Free</h1>
+                <h1>{page_name && page_name}</h1>
+                <p>{page_caption && page_caption}</p>
                 <a href="#footerContact" className="ti-yellow-button">Request Info</a>
               </div>
             </div>
@@ -55,12 +56,7 @@ const yourpartycouldbefree = () => {
           <div className="limited-width">
             <div className="col-xs-12 default-container text-container">
               <div className="col-sm-12 col-md-12">
-                <h2>Your Party Could Be Free!</h2>
-                <p>At Games2U we believe in transparency. And that belief extends from our corporate office, through our franchisees and company-owned locations, and straight to you, our customer. We want you to know that when you schedule a Games2U event, you'll get what you ordered, when you ordered it, and for the price that you were quoted.</p>
-                <p>&nbsp;</p>
-                <p>To help accomplish that, all Games2U locations are require to provide all customers a receipt at the time of their event. Your receipt will contain your event information and the exact prices you're paying for the activities that you schedule. It will also contain a secure ECN number that identifies your event in our systems.</p>
-                <p>&nbsp;</p>
-                <p>If you are not provided a receipt with a secure ECN number for your event, through no fault of your own, we will refund the cost of your event. It's as simple as that. No questions and, just this once, no games. It's our guarantee of transparency to you, our customer.</p>
+                {content && <div className="col-sm-12 col-md-12" dangerouslySetInnerHTML={{ __html: content }}></div>}
               </div>
             </div>
           </div>
@@ -73,4 +69,34 @@ const yourpartycouldbefree = () => {
   )
 }
 
-export default yourpartycouldbefree
+export default yourpartycouldbefree;
+
+export async function getStaticProps() {
+  try {
+    const payload = { url: `${apiBaseUrl}/content/your-party-could-be-free`, method: 'GET' }
+    const partyCouldFreeContent = await fetchApi(payload);
+    const partyCouldFreeContentData = partyCouldFreeContent.data.content;
+    if (partyCouldFreeContentData && partyCouldFreeContentData.content != undefined && partyCouldFreeContentData.content == '') {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      const { content, page_name, page_caption, banner_image } = partyCouldFreeContentData
+      return {
+        props: {
+          content,
+          page_name,
+          page_caption,
+          banner_image
+        },
+        revalidate: 5, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in your-party-could-be-free api call', error)
+    return {
+      notFound: true
+    };
+  }
+}

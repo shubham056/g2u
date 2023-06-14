@@ -2,10 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import Theg2udifferenceContent from '@/components/_App/WebPages/theg2udifference'
 import { NextSeo } from 'next-seo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-
-
-const theg2udifference = () => {
+const theg2udifference = ({ content, page_name, page_caption, banner_image }) => {
 
   const SEO = {
     title: "The Games2U Difference | As Seen on Shark Tank | Games2U",
@@ -42,8 +41,8 @@ const theg2udifference = () => {
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
-                <h1>The G2U Difference</h1>
-                <p>Host the perfect event with activities for all ages and group sizes!</p>
+                <h1>{page_name && page_name}</h1>
+                <p>{page_caption && page_caption}</p>
                 <a href="#footerContact" className="ti-yellow-button">Request Info</a>
               </div>
             </div>
@@ -51,10 +50,42 @@ const theg2udifference = () => {
         </div>
       </div>
 
-      <Theg2udifferenceContent />
+      <Theg2udifferenceContent
+        content={content}
+      />
 
     </>
   )
 }
 
-export default theg2udifference
+export default theg2udifference;
+
+export async function getStaticProps() {
+  try {
+    const payload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
+    const g2uDifferenceContent = await fetchApi(payload);
+    const g2uDifferenceContentData = g2uDifferenceContent.data.content;
+    if (g2uDifferenceContentData && g2uDifferenceContentData.content != undefined && g2uDifferenceContentData.content == '') {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      const { content, page_name, page_caption, banner_image } = g2uDifferenceContentData
+      return {
+        props: {
+          content,
+          page_name,
+          page_caption,
+          banner_image
+        },
+        revalidate: 5, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in your-party-could-be-free api call', error)
+    return {
+      notFound: true
+    };
+  }
+}

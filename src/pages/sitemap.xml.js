@@ -1,7 +1,6 @@
 import React from "react";
 import * as fs from "fs";
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
-//import { getAllBlogPosts, getAllServicesData, getBlogCategories } from '../utils/strapi';
 
 const Sitemap = () => {
     return null;
@@ -41,23 +40,16 @@ export const getServerSideProps = async ({ res }) => {
     let dynamicGamesDetailsPath = [];
     if (gamesData && gamesData.length > 0) {
         console.log("gamesData!!!!==", gamesData)
-
-        gamesData.map(item => dynamicGamesDetailsPath.push(`${BASE_URL}/games/${item.slug}/`))
+        gamesData.map(item=> dynamicGamesDetailsPath.push(`${BASE_URL}/games/${item.slug}/`))
     }
 
-    // const blogs = await getAllBlogPosts();
-    // const services = await getAllServicesData();
-    // const blogCategories = await getBlogCategories();
+   
 
-    //const dynamicBlogPaths = blogs.data.map(singleBlog => `${BASE_URL}/blog/${singleBlog.slug}/`)
-    //const dynamicServicesPaths = services.data.map(singleService => `${BASE_URL}/services/${singleService.slug}/`)
-    //const dynamicBlogCategoriesPaths = blogCategories.data.map( singleBlogCategory => `${BASE_URL}/category/${singleBlogCategory.slug}${BASE_URL}/category/${singleBlogCategory.slug}`)
-
-    const homePath = "https://g2u.vercel.app/";
+    const homePath = { development: "http://localhost:3000", production: "https://g2u.vercel.app" }[process.env.NODE_ENV];
 
     //const allPaths = [homePath,...staticPathss,...dynamicBlogPaths,...dynamicServicesPaths];
-    const allPaths = [homePath, ...staticPathss];
-    console.log("allPaths", allPaths)
+    const allPaths = [homePath, ...staticPathss, ...dynamicGamesDetailsPath];
+    console.log("allPaths",allPaths)
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

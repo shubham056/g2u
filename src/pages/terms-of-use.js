@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const termsofuse = ({ content }) => {
+const termsofuse = ({ content, page_name, page_caption, banner_image }) => {
     const SEO = {
         title: "Privacy Policy | Games2U Mobile Entertainment",
         description: "View the privacy policy for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -41,7 +41,8 @@ const termsofuse = ({ content }) => {
                     <div className="ti-page-header row clearfix">
                         <div className="row ti-row">
                             <div className="limited-width">
-                                <h1>Terms of Use</h1>
+                                <h1>{page_name && page_name}</h1>
+                                <p>{page_caption && page_caption}</p>
                             </div>
                         </div>
                     </div>
@@ -79,10 +80,13 @@ export async function getStaticProps() {
                 revalidate: 5,
             };
         } else {
-            const { content } = termsOfUseContentData
+            const { content, page_name, page_caption, banner_image } = termsOfUseContentData
             return {
                 props: {
-                    content
+                    content,
+                    page_name,
+                    page_caption,
+                    banner_image
                 },
                 revalidate: 5, // In seconds
             };
