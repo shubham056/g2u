@@ -11,6 +11,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.15.1",
     "@hookform/resolvers": "^3.1.0",
+    "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
