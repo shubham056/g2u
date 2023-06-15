@@ -4,6 +4,8 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
 const faq = ({ faqData }) => {
+  const [active, setActive] = useState(false)
+  const [isItem, setIsItem] = useState(null)
   const SEO = {
     title: "Frequently Asked Questions | Games2U Mobile Entertainment",
     description: "Find answers to the most frequently asked question about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -61,7 +63,7 @@ const faq = ({ faqData }) => {
                 (faqData.length > 0) ?
                 faqData.map(item => {
                   return (
-                    <div className="faq-container">
+                    <div onClick={() => { setIsItem(item); setActive(!active) }} className={`faq-container ${isItem == item && active ? 'active' : null}`}>
                       <h2>{item.question}</h2>
                       <p>{item.answer}</p>
                     </div>
