@@ -4,7 +4,7 @@ import Theg2udifferenceContent from '@/components/_App/WebPages/theg2udifference
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const theg2udifference = ({ content, page_name, page_caption, banner_image }) => {
+const theg2udifference = ({ content, page_name, page_caption, banner_image, eventListData }) => {
 
   const SEO = {
     title: "The Games2U Difference | As Seen on Shark Tank | Games2U",
@@ -52,6 +52,7 @@ const theg2udifference = ({ content, page_name, page_caption, banner_image }) =>
 
       <Theg2udifferenceContent
         content={content}
+        eventList={eventListData}
       />
 
     </>
@@ -63,9 +64,13 @@ export default theg2udifference;
 export async function getStaticProps() {
   try {
     const payload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
+    const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const g2uDifferenceContent = await fetchApi(payload);
+    const eventList = await fetchApi(enevtListPayload);
+    const eventListData = eventList.data.events;
     const g2uDifferenceContentData = g2uDifferenceContent.data.content;
-    if (g2uDifferenceContentData && g2uDifferenceContentData.content != undefined && g2uDifferenceContentData.content == '') {
+
+    if (g2uDifferenceContentData && g2uDifferenceContentData.content == '') {
       return {
         notFound: true,
         revalidate: 5,
@@ -77,7 +82,8 @@ export async function getStaticProps() {
           content,
           page_name,
           page_caption,
-          banner_image
+          banner_image,
+          eventListData
         },
         revalidate: 5, // In seconds
       };

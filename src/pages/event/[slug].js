@@ -1,82 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NextSeo } from 'next-seo';
 import Header from '@/components/_App/Header';
-import dynamic from 'next/dynamic';
-import CommonSlider from '@/components/_App/Slider';
 import GamesSlider from '@/components/_App/GamesSlider';
 import TopBanner from '@/components/GameDetails/TopBanner';
-const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
-import { useRouter } from 'next/router';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import RequestInfo from '@/components/_App/RequestInfo';
 
 
-const options = {
-    loop: true,
-    nav: true,
-    navText:
-        [
-            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-        ],
-    dots: false,
-    smartSpeed: 500,
-    // margin: 30,
-    autoplayHoverPause: true,
-    autoplay: true,
-    responsive: {
-        0: {
-            items: 1
-        },
-        576: {
-            items: 1
-        },
-        768: {
-            items: 2
-        },
-        1200: {
-            items: 4
-        }
-    }
-};
-const gamesSliderOptions = {
-    loop: true,
-    nav: true,
-    navText:
-        [
-            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-        ],
-    dots: false,
-    smartSpeed: 500,
-    margin: 30,
-    autoplayHoverPause: true,
-    autoplay: true,
-    responsive: {
-        0: {
-            items: 1
-        },
-        576: {
-            items: 1
-        },
-        768: {
-            items: 2
-        },
-        1200: {
-            items: 4
-        }
-    }
-};
-
-
 const EventDetails = ({ eventDetails }) => {
-    const router = useRouter();
-    const { slug } = router.query;
-    const [display, setDisplay] = useState(false);
-    useEffect(() => {
-        setDisplay(true);
-    }, [])
-
     const SEO = {
         title: "Game Truck Video Games Parties | #1 Rated from Games2U",
         description: "America's most trusted provider of video game trucks for birthday parties, school carnivals and fairs, summer camps, corporate team-building events and more!",
@@ -131,8 +62,8 @@ const EventDetails = ({ eventDetails }) => {
 
                 {eventDetails && <TopBanner
                     icon={eventDetails.icon}
-                    title={eventDetails.title}
-                    caption={eventDetails.sub_title}
+                    title={eventDetails.event_name}
+                    caption={eventDetails.event_caption}
                 />}
 
             </div >
@@ -159,10 +90,10 @@ const EventDetails = ({ eventDetails }) => {
                 />
                 <div className="row ti-row game-content">
                     <div className="limited-width">
-                        <h2 className="orange-border ti-dark-blue-text">{eventDetails && eventDetails.title}</h2>
+                        <h2 className="orange-border ti-dark-blue-text">{eventDetails && eventDetails.event_name}</h2>
                         <div className="row">
                             <div className="col-md-12">
-                                {eventDetails && <div dangerouslySetInnerHTML={{ __html: eventDetails.sub_title }}></div>}
+                                {eventDetails && <div dangerouslySetInnerHTML={{ __html: eventDetails.event_description }}></div>}
                             </div>
                         </div>
                     </div>
@@ -209,65 +140,51 @@ const EventDetails = ({ eventDetails }) => {
 export default EventDetails
 
 export const getStaticPaths = async () => {
-    // try {
-    //     const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
-    //     let categories = await fetchApi(payload);
-    //     console.log("datata", payload, categories)
-    //     categories = categories.data.slug
-    //     if (categories && categories.length > 0) {
-    //         const slugs = categories.map(category => category.slug);
-    //         const paths = slugs.map(slug => ({ params: { slug } }));
-    //         console.log("path!!!!!", paths)
-    //         return {
-    //             paths,
-    //             fallback: false
-    //         };
-    //     } else {
-    //         console.log("else path")
-    //         return { paths: [], fallback: false };
-    //     }
-    // } catch (error) {
-    //     console.log("path errrr!!!",error)
-    //     return { paths: [], fallback: false };
-    // }
+    try {
+        const payload = { url: `${apiBaseUrl}/events/get-all-slug`, method: 'GET' }
+        let events = await fetchApi(payload);
+        events = events.data.slug
+        if (events && events.length > 0) {
+            const slugs = events.map(category => category.slug);
+            const paths = slugs.map(slug => ({ params: { slug } }));
+            // console.log("path!!!!!", paths)
+            return {
+                paths,
+                fallback: false
+            };
+        } else {
+            return { paths: [], fallback: false };
+        }
+    } catch (error) {
+        return { paths: [], fallback: false };
+    }
 
-    return { paths: [], fallback: false };
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-    let eventDetails = {
-        // icon: slug,
-        title: slug,
-        sub_title: slug,
+    try {
+        const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
+        const events = await fetchApi(payload);
+        const eventsData = events.data
+        if (eventsData && eventsData.eventDetails != undefined && eventsData.eventDetails == '') {
+            return {
+                notFound: true
+            };
+        } else {
+            const { eventDetails } = eventsData
+            return {
+                props: {
+                    eventDetails
+                },
+                revalidate: 10, // In seconds
+            };
+        }
+    } catch (error) {
+        console.log('error in detail api call', error)
+        return {
+            notFound: true
+        };
     }
-    return {
-        props: {
-            eventDetails
-        },
-    }
-    // try {
-    //     const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
-    //     const categories = await fetchApi(payload);
-    //     const categoriesData = categories.data
-    //     if (categoriesData && categoriesData.eventDetails != undefined && categoriesData.eventDetails == '') {
-    //         return {
-    //             notFound: true
-    //         };
-    //     } else {
-    //         const { eventDetails } = categoriesData
-    //         return {
-    //             props: {
-    //                 eventDetails
-    //             },
-    //             revalidate: 10, // In seconds
-    //         };
-    //     }
-    // } catch (error) {
-    //     console.log('error in detail api call', error)
-    //     return {
-    //         notFound: true
-    //     };
-    // }
 
 };
 

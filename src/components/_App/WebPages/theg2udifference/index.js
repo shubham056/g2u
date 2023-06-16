@@ -32,7 +32,8 @@ const options = {
     }
 };
 
-const Theg2udifferenceContent = ({ content }) => {
+const Theg2udifferenceContent = ({ content, eventList }) => {
+    console.log("event list", eventList)
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);
@@ -59,58 +60,23 @@ const Theg2udifferenceContent = ({ content }) => {
                     <div className="limited-width">
                         <h2>Perfect for Any Event!</h2>
                         <div className="row">
-                            <Link className="col-md-4 col-sm-6" href="event/kids-parties">
-                                <div><img src="/assets/img/ico-kids-parties-2x.png" /></div>
-                                <div>Kids Parties</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/school-fundraisers">
-                                <div><img src="/assets/img/ico-school-fundraiser-2x.png" /></div>
-                                <div>School Fundraisers</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/teenparties">
-                                <div><img src="/assets/img/ico-teen-parties-2x.png" /></div>
-                                <div>Teen Parties</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/church-fundraisers">
-                                <div><img src="/assets/img/ico-church-fundraisers-2x.png" /></div>
-                                <div>Church Fundraisers</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/birthday-parties">
-                                <div><img src="/assets/img/ico-birthday-parties-2x.png" /></div>
-                                <div>Birthday Parties</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/charity-events">
-                                <div><img src="/assets/img/ico-charity-2x.png" /></div>
-                                <div>Charity Events</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/graduation-parties">
-                                <div><img src="/assets/img/ico-graduation-parties-2x.png" /></div>
-                                <div>Graduation Parties</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/festivals-and-carnivals">
-                                <div><img src="/assets/img/ico-festival-2x.png" /></div>
-                                <div>Festivals &amp; Carnivals</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/summercamps">
-                                <div><img src="/assets/img/ico-summer-camps-2x.png" /></div>
-                                <div>Summer Camps</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/community-events">
-                                <div><img src="/assets/img/ico-community-2x.png" /></div>
-                                <div>Community Events</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/company-parties">
-                                <div><img src="/assets/img/ico-company-parties-2x.png" /></div>
-                                <div>Company Parties</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/barmitzvahsbatmitzvahs">
-                                <div><img src="/assets/img/ico-mitzvahs-2x.png" /></div>
-                                <div>Bar &amp; Bat Mitzvahs</div>
-                            </Link>
-                            <Link className="col-md-4 col-sm-6" href="event/customer-employee-appreciation">
-                                <div><img src="/assets/img/ico-appreciation-2x.png" /></div>
-                                <div>Customer &amp; Employee Appreciation</div>
-                            </Link>
+                            {
+                                eventList && (eventList.length > 0)
+                                    ?
+                                    eventList.map(item => {
+                                        return (
+                                            <Link className="col-md-4 col-sm-6" href={`event/${item.slug}`} key={item.id}>
+                                                <div><img src={`${item.icon}`} /></div>
+                                                <div>{item.event_name}</div>
+                                            </Link>
+                                        )
+                                    })
+                                    :
+                                    <div className='text-center'>
+                                        <p>No records found!</p>
+                                    </div>
+                            }
+
                         </div>
                     </div>
                 </div>
