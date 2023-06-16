@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TopBanner = ({ icon, title, caption }) => {
+const TopBanner = ({ banner, icon, title, caption }) => {
     return (
         <div className="row no-padding not-home game-page video-game-theater" id="headerBanner">
             <div className="ti-page-header row clearfix">

@@ -61,6 +61,7 @@ const EventDetails = ({ eventDetails }) => {
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 {eventDetails && <TopBanner
+                    banner={eventDetails.banner_image}
                     icon={eventDetails.icon}
                     title={eventDetails.event_name}
                     caption={eventDetails.event_caption}
