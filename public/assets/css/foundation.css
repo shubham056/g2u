@@ -1062,9 +1062,26 @@ textarea {
     margin-top: 10px;
 }
 
+#headerBanner.not-home-additional a {
+    display: block;
+    margin: 15px auto 0;
+}
+
 #headerBanner.not-home.all-events-page a {
     display: block;
     margin: 15px auto 0;
+}
+
+.content-banner{
+    z-index: -1;
+    background-size: cover;
+    display: block;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
 }
 
 #headerBanner.not-home.all-events-page:before {

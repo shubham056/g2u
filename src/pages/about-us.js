@@ -40,11 +40,10 @@ const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, met
         {/* <!-- header section end with mobile naviagtion  --> */}
 
         <div
-          className="row no-padding not-home-additional"
+          className="row no-padding not-home-additional content-banner"
           id="headerBanner"
           style={{
-            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
-            zIndex: -1,
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`
           }}
         >
           <div className="ti-page-header row clearfix">
