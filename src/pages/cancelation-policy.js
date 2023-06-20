@@ -42,7 +42,7 @@ const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_
                     id="headerBanner"
                     style={{
                         backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
-                        zIndex: 1,
+                        zIndex: -1,
                     }}
                 >
                     <div className="ti-page-header row clearfix">
