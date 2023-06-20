@@ -33,7 +33,6 @@ const options = {
 };
 
 const Theg2udifferenceContent = ({ content, eventList }) => {
-    console.log("event list", eventList)
     const [display, setDisplay] = useState(false);
     useEffect(() => {
         setDisplay(true);

@@ -3,16 +3,28 @@ import Testimonials from './Testimonials';
 import ZipCodeFormFooter from './ZipCodeFormFooter';
 import BottonNav from './BottonNav';
 import BottomFooter from './BottomFooter';
+import { useRouter } from 'next/router'
+import FranchiseRequest from '../FranchiseRequest';
 
 const Footer = () => {
+  const router = useRouter()
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
         <Testimonials />
         <div id="enterZipCode" />
-        <ZipCodeFormFooter />
-        <BottonNav />
+        {
+          (router.pathname == "/franchise-information")
+            ?
+            <FranchiseRequest />
+            :
+            <ZipCodeFormFooter />
+        }
+
+        <BottonNav /> {/* buttom naviagtion */}
+
         <BottomFooter />
+
       </div>
       <div id="overlay" />
       <div id="videoModal">
