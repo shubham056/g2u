@@ -3,16 +3,16 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const aboutus = ({ content, page_name, page_caption, banner_img }) => {
+const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
   console.log("banner_img", banner_img)
   const SEO = {
-    title: "About Us | Games2U Mobile Entertainment",
-    description: "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
+    title: meta_title && meta_title != '' ? meta_title : "About Us | Games2U Mobile Entertainment",
+    description: meta_description && meta_description != '' ? meta_description : "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
     canonical: "https://www.g2u.com/about-us",
     openGraph: {
       type: 'website',
-      title: 'About Us | Games2U Mobile Entertainment',
-      description: "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
+      title: meta_title && meta_title != '' ? meta_title : "About Us | Games2U Mobile Entertainment",
+      description: meta_description && meta_description != '' ? meta_description : "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
       url: 'https://www.g2u.com',
       // images: [
       //   {
@@ -49,7 +49,7 @@ const aboutus = ({ content, page_name, page_caption, banner_img }) => {
         >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
-              <div className="limited-width">
+              <div className="limited-width text-center">
                 <h1>{page_name && page_name}</h1>
                 <p>{page_caption && page_caption}</p>
               </div>
@@ -88,13 +88,15 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_img } = aboutUsContentData
+      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = aboutUsContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_img
+          banner_img,
+          meta_title,
+          meta_description
         },
         revalidate: 5, // In seconds
       };

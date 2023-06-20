@@ -3,15 +3,15 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img }) => {
+const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
   const SEO = {
-    title: "Your Party Could Be Free | Games2U Mobile Entertainment",
-    description: "Information on how your Games2U event could be free.",
+    title: meta_title && meta_title != '' ? meta_title : "Your Party Could Be Free | Games2U Mobile Entertainment",
+    description: meta_description && meta_description != '' ? meta_description : "Information on how your Games2U event could be free.",
     canonical: "https://www.g2u.com/yourpartycouldbefree",
     openGraph: {
       type: 'website',
-      title: 'Your Party Could Be Free | Games2U Mobile Entertainment',
-      description: "Information on how your Games2U event could be free.",
+      title: meta_title && meta_title != '' ? meta_title : 'Your Party Could Be Free | Games2U Mobile Entertainment',
+      description: meta_description && meta_description != '' ? meta_description : "Information on how your Games2U event could be free.",
       url: 'https://www.g2u.com',
       // images: [
       //   {
@@ -46,7 +46,7 @@ const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img }) 
         >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
-              <div className="limited-width">
+              <div className="limited-width text-center">
                 <h1>{page_name && page_name}</h1>
                 <p>{page_caption && page_caption}</p>
                 <a href="#footerContact" className="ti-yellow-button">Request Info</a>
@@ -89,13 +89,15 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_img } = partyCouldFreeContentData
+      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = partyCouldFreeContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_img
+          banner_img,
+          meta_title,
+          meta_description
         },
         revalidate: 5, // In seconds
       };

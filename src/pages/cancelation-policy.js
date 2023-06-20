@@ -3,15 +3,15 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const cancelationpolicy = ({ content, page_name, page_caption, banner_img }) => {
+const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
     const SEO = {
-        title: "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
-        description: "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
+        title: meta_title && meta_title != '' ? meta_title : "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
+        description: meta_description && meta_description != '' ? meta_description : "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
         canonical: "https://www.g2u.com/cancelationpolicy",
         openGraph: {
             type: 'website',
-            title: 'Game Trucks, Laser Tag, Hamster Ball Parties from Games2U',
-            description: "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
+            title: meta_title && meta_title != '' ? meta_title : 'Game Trucks, Laser Tag, Hamster Ball Parties from Games2U',
+            description: meta_description && meta_description != '' ? meta_description : "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
             url: 'https://www.g2u.com',
             // images: [
             //   {
@@ -47,7 +47,7 @@ const cancelationpolicy = ({ content, page_name, page_caption, banner_img }) => 
                 >
                     <div className="ti-page-header row clearfix">
                         <div className="row ti-row">
-                            <div className="limited-width">
+                            <div className="limited-width text-center">
                                 <h1>{page_name && page_name}</h1>
                                 <p>{page_caption && page_caption}</p>
                             </div>
@@ -85,13 +85,15 @@ export async function getStaticProps() {
                 revalidate: 5,
             };
         } else {
-            const { content, page_name, page_caption, banner_img } = cancelationPolicyContentData
+            const { content, page_name, page_caption, banner_img, meta_title, meta_description } = cancelationPolicyContentData
             return {
                 props: {
                     content,
                     page_name,
                     page_caption,
-                    banner_img
+                    banner_img,
+                    meta_title,
+                    meta_description
                 },
                 revalidate: 5, // In seconds
             };
