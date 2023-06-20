@@ -47,7 +47,6 @@ const aboutus = ({ content, page_name, page_caption, banner_img }) => {
             zIndex: 1,
           }}
         >
-
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">

@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const contactus = ({ content, page_name, page_caption, banner_image }) => {
+const contactus = ({ content, page_name, page_caption, banner_img }) => {
   const SEO = {
     title: "Contact Us | Games2U Mobile Entertainment",
     description: "Telephone and email contact information for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -37,7 +37,14 @@ const contactus = ({ content, page_name, page_caption, banner_image }) => {
         <Header />
         {/* <!-- header section end with mobile naviagtion  --> */}
 
-        <div className="row no-padding not-home faq-page" id="headerBanner">
+        <div
+          className="row no-padding not-home-additional"
+          id="headerBanner"
+          style={{
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
+            zIndex: 1,
+          }}
+        >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
@@ -81,13 +88,13 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_image } = contactUsContentData
+      const { content, page_name, page_caption, banner_img } = contactUsContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_image
+          banner_img
         },
         revalidate: 5, // In seconds
       };

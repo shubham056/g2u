@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const cancelationpolicy = ({ content, page_name, page_caption, banner_image }) => {
+const cancelationpolicy = ({ content, page_name, page_caption, banner_img }) => {
     const SEO = {
         title: "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
         description: "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
@@ -37,7 +37,14 @@ const cancelationpolicy = ({ content, page_name, page_caption, banner_image }) =
                 <Header />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
-                <div className="row no-padding not-home all-events-page" id="headerBanner">
+                <div
+                    className="row no-padding not-home-additional"
+                    id="headerBanner"
+                    style={{
+                        backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
+                        zIndex: 1,
+                    }}
+                >
                     <div className="ti-page-header row clearfix">
                         <div className="row ti-row">
                             <div className="limited-width">
@@ -78,13 +85,13 @@ export async function getStaticProps() {
                 revalidate: 5,
             };
         } else {
-            const { content, page_name, page_caption, banner_image } = cancelationPolicyContentData
+            const { content, page_name, page_caption, banner_img } = cancelationPolicyContentData
             return {
                 props: {
                     content,
                     page_name,
                     page_caption,
-                    banner_image
+                    banner_img
                 },
                 revalidate: 5, // In seconds
             };

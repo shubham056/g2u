@@ -3,8 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const corporateevents = ({ content, page_name, page_caption, banner_image }) => {
-  console.log("content ", page_name, page_caption, banner_image)
+const corporateevents = ({ content, page_name, page_caption, banner_img }) => {
   const SEO = {
     title: "Corporate Events | Company Parties & Team Building | Games2U",
     description: "Find out why Games2U is America's most trusted provider of mobile entertainment for business parties, corporate outings, grand openings, team building events and more! Book today for an experience they'll never forget!",
@@ -39,7 +38,14 @@ const corporateevents = ({ content, page_name, page_caption, banner_image }) => 
         {/* <!-- header section start with mobile naviagtion  --> */}
         <Header />
         {/* <!-- header section end with mobile naviagtion  --> */}
-        <div class="row no-padding not-home all-events-page" id="headerBanner">
+        <div
+          className="row no-padding not-home-additional"
+          id="headerBanner"
+          style={{
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
+            zIndex: 1,
+          }}
+        >
           <div class="ti-page-header row clearfix">
             <div class="row ti-row">
               <div class="limited-width">
@@ -85,13 +91,13 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_image } = corporateEventsContentData
+      const { content, page_name, page_caption, banner_img } = corporateEventsContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_image
+          banner_img
         },
         revalidate: 5, // In seconds
       };

@@ -4,7 +4,7 @@ import Theg2udifferenceContent from '@/components/_App/WebPages/theg2udifference
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const theg2udifference = ({ content, page_name, page_caption, banner_image, eventListData }) => {
+const theg2udifference = ({ content, page_name, page_caption, banner_img, eventListData }) => {
 
   const SEO = {
     title: "The Games2U Difference | As Seen on Shark Tank | Games2U",
@@ -37,7 +37,14 @@ const theg2udifference = ({ content, page_name, page_caption, banner_image, even
 
       <div className="container-fluid">
         <Header />
-        <div className="row no-padding not-home all-events-page" id="headerBanner">
+        <div
+          className="row no-padding not-home-additional"
+          id="headerBanner"
+          style={{
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
+            zIndex: 1,
+          }}
+        >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
@@ -76,13 +83,13 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_image } = g2uDifferenceContentData
+      const { content, page_name, page_caption, banner_img } = g2uDifferenceContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_image,
+          banner_img,
           eventListData
         },
         revalidate: 5, // In seconds

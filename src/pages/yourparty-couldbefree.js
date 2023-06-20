@@ -3,7 +3,7 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const yourpartycouldbefree = ({ content, page_name, page_caption, banner_image }) => {
+const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img }) => {
   const SEO = {
     title: "Your Party Could Be Free | Games2U Mobile Entertainment",
     description: "Information on how your Games2U event could be free.",
@@ -36,7 +36,14 @@ const yourpartycouldbefree = ({ content, page_name, page_caption, banner_image }
         {/* <!-- header section start with mobile naviagtion  --> */}
         <Header />
         {/* <!-- header section end with mobile naviagtion  --> */}
-        <div className="row no-padding not-home all-events-page" id="headerBanner">
+        <div
+          className="row no-padding not-home-additional"
+          id="headerBanner"
+          style={{
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`,
+            zIndex: 1,
+          }}
+        >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
@@ -82,13 +89,13 @@ export async function getStaticProps() {
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_image } = partyCouldFreeContentData
+      const { content, page_name, page_caption, banner_img } = partyCouldFreeContentData
       return {
         props: {
           content,
           page_name,
           page_caption,
-          banner_image
+          banner_img
         },
         revalidate: 5, // In seconds
       };
