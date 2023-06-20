@@ -1072,7 +1072,11 @@ textarea {
     margin: 15px auto 0;
 }
 
-.content-banner{
+#headerBanner.not-home p {
+    font-size: 22px;
+}
+
+.content-banner {
     z-index: -1;
     background-size: cover;
     display: block;
