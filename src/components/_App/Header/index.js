@@ -196,7 +196,7 @@ const Header = () => {
                                 <Link href="/franchise-information">OWN A FRANCHISE</Link>
                             </div>
                             <div className="no-padding" id="freePartyNav">
-                                <Link href="/yourparty-couldbefree">YOUR PARTY COULD BE FREE</Link>
+                                <Link href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
                             </div>
                         </div>
                     </div>
