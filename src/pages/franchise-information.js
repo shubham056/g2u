@@ -42,30 +42,31 @@ const franchiseinformation = () => {
               <div className="limited-width">
                 <h1>Franchise Information</h1>
                 <p>Join the Mobile Entertainment Revolution that's sweeping that nation!</p>
-                {/*
-          <div class="text-center">
-            <a class="ti-seven-wide ti-white-box" href="#">What's New?</a>
-            <a class="ti-seven-wide ti-white-box" href="#">G2U Equipment</a>
-            <a class="ti-seven-wide ti-white-box" href="#">G2U Products</a>
-            <a class="ti-seven-wide ti-white-box" href="#">Why Buy?</a>
-            <a class="ti-seven-wide ti-white-box" href="#">Support</a>
-            <a class="ti-seven-wide ti-white-box" href="#">Ownership Process</a>
-            <a class="ti-seven-wide ti-white-box" href="#">FAQ</a>
-          </div>
-          <div class="ti-input visible-xs">
-            <select>
-              <option disabled selected>Franchise Information</option>
-              <option>What's New?</option>
-              <option>G2U Equipment</option>
-              <option>G2U Produts</option>
-              <option>Why Buy?</option>
-              <option>Support</option>
-              <option>Ownership Process</option>
-              <option>FAQ</option>
-            </select>
-            <span class="ti-sprite select-arrows"></span>
-          </div>
-	                */}
+                {/* <div>
+                  <div className="text-center">
+                    <a className="ti-seven-wide ti-white-box" href="#">What's New?</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">G2U Equipment</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">G2U Products</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">Why Buy?</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">Support</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">Ownership Process</a>
+                    <a className="ti-seven-wide ti-white-box" href="#">FAQ</a>
+                  </div>
+                  <div className="ti-input visible-xs">
+                    <select>
+                      <option disabled selected>Franchise Information</option>
+                      <option>What's New?</option>
+                      <option>G2U Equipment</option>
+                      <option>G2U Produts</option>
+                      <option>Why Buy?</option>
+                      <option>Support</option>
+                      <option>Ownership Process</option>
+                      <option>FAQ</option>
+                    </select>
+                    <span className="ti-sprite select-arrows" />
+                  </div>
+                </div> */}
+
               </div>
             </div>
           </div>

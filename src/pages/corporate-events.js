@@ -45,12 +45,12 @@ const corporateevents = ({ content, page_name, page_caption, banner_img, meta_ti
             backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`
           }}
         >
-          <div class="ti-page-header row clearfix">
-            <div class="row ti-row">
-              <div class="limited-width text-center">
+          <div className="ti-page-header row clearfix">
+            <div className="row ti-row">
+              <div className="limited-width text-center">
                 <h1>{page_name && page_name}</h1>
                 <p>{page_caption && page_caption}</p>
-                <a href="#footerContact" class="ti-yellow-button">Request Info</a>
+                <a href="#footerContact" className="ti-yellow-button">Request Info</a>
               </div>
             </div>
           </div>

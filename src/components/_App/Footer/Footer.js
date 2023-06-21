@@ -13,13 +13,15 @@ const Footer = () => {
       <div className="container-fluid no-padding" id="footer">
         <Testimonials />
         <div id="enterZipCode" />
-        {
+
+        <ZipCodeFormFooter />
+        {/* {
           (router.pathname == "/franchise-information")
             ?
             <FranchiseRequest />
             :
             <ZipCodeFormFooter />
-        }
+        } */}
 
         <BottonNav /> {/* buttom naviagtion */}
 
