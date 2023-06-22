@@ -8,6 +8,7 @@ import TopBanner from '@/components/GameDetails/TopBanner';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 import { useRouter } from 'next/router';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
 
 const options = {
@@ -68,7 +69,7 @@ const gamesSliderOptions = {
 };
 
 
-const GamesDetails = ({ categoryDetails }) => {
+const GamesDetails = ({ categoryDetails, testimonialsData }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [display, setDisplay] = useState(false);
@@ -258,6 +259,7 @@ const GamesDetails = ({ categoryDetails }) => {
             </div>
             {/* Get the Stats! include seven section end */}
 
+            <Footer testimonials={testimonialsData} />
         </>
 
     )
@@ -270,6 +272,7 @@ export const getStaticPaths = async () => {
         const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
         let categories = await fetchApi(payload);
         categories = categories.data.slug
+
         if (categories && categories.length > 0) {
             const slugs = categories.map(category => category.slug);
             const paths = slugs.map(slug => ({ params: { slug } }));
@@ -288,8 +291,14 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
     try {
         const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
         const categories = await fetchApi(payload);
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+        const testimonialsData = testimonialsContent.data.testimonials;
         const categoriesData = categories.data
+
         if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
             return {
                 notFound: true
@@ -298,7 +307,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
             const { categoryDetails } = categoriesData
             return {
                 props: {
-                    categoryDetails
+                    categoryDetails,
+                    testimonialsData
                 },
                 revalidate: 10, // In seconds
             };

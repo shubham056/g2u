@@ -247,7 +247,6 @@ const custStyles = [{
 ]
 
 const Map = ({ address }) => {
-    console.log("map zipcode", address)
     const [map, setMap] = useState(null);
     useEffect(() => {
 

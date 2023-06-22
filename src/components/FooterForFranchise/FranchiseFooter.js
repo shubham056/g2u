@@ -1,20 +1,20 @@
-import React from 'react';
-import Testimonials from './Testimonials';
-import ZipCodeFormFooter from './ZipCodeFormFooter';
-import BottonNav from './BottonNav';
-import BottomFooter from './BottomFooter';
-import FranchiseRequest from '../FranchiseRequest';
+import React from 'react'
+import Testimonials from '../_App/Footer/Testimonials'
+import ZipCodeFormFooter from '../_App/Footer/ZipCodeFormFooter'
+import BottonNav from '../_App/Footer/BottonNav'
+import BottomFooter from '../_App/Footer/BottomFooter'
+import FranchiseRequest from '../_App/FranchiseRequest'
 
-const Footer = ({ testimonials }) => {
+function FranchiseFooter() {
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
-
-        <Testimonials testimonials={testimonials} />
-
+        
+        <Testimonials />
+        
         <div id="enterZipCode" />
 
-        <ZipCodeFormFooter />
+        <FranchiseRequest />
 
         <BottonNav /> {/* buttom naviagtion */}
 
@@ -48,4 +48,4 @@ const Footer = ({ testimonials }) => {
   )
 }
 
-export default Footer;
+export default FranchiseFooter

@@ -1,9 +1,11 @@
 import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import FranchiseFooter from '@/components/FooterForFranchise/FranchiseFooter';
 
 
-const franchiseinformation = () => {
+const franchiseinformation = ({ testimonialsData }) => {
   const SEO = {
     title: "Own a Franchise | Franchises Available Nationwide | Games2U",
     description: "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -191,8 +193,38 @@ const franchiseinformation = () => {
       </div>
 
       {/* content section end */}
+
+      <FranchiseFooter testimonials={testimonialsData} />
     </>
   )
 }
 
 export default franchiseinformation
+
+export async function getStaticProps() {
+  try {
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const testimonialsData = testimonialsContent.data.testimonials;
+    console.log("testimonialsData", testimonialsData)
+
+    if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      return {
+        props: {
+          testimonialsData,
+        },
+        revalidate: 10, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in testimonials api call', error)
+    return {
+      notFound: true
+    };
+  }
+}

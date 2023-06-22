@@ -5,6 +5,7 @@ import GamesSlider from '@/components/_App/GamesSlider';
 import TopBanner from '@/components/GameDetails/TopBanner';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import RequestInfo from '@/components/_App/RequestInfo';
+import Footer from '@/components/_App/Footer/Footer';
 
 
 const EventDetails = ({ eventDetails }) => {
@@ -132,7 +133,7 @@ const EventDetails = ({ eventDetails }) => {
                 </div>
             </div>
             {/* Get the Stats! include seven section end */}
-
+            <Footer />
         </>
 
     )

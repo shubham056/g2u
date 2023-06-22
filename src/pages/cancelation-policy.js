@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
+const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
     const SEO = {
         title: meta_title && meta_title != '' ? meta_title : "Game Trucks, Laser Tag, Hamster Ball Parties from Games2U",
         description: meta_description && meta_description != '' ? meta_description : "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
@@ -68,6 +69,8 @@ const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_
                 </div>
             </div>
             {/* content section end */}
+
+            <Footer testimonials={testimonialsData} />
         </>)
 }
 
@@ -75,16 +78,22 @@ export default cancelationpolicy;
 
 export async function getStaticProps() {
     try {
-        const payload = { url: `${apiBaseUrl}/content/our-cancelation-policy`, method: 'GET' }
-        const cancelationPolicyContent = await fetchApi(payload);
-        const cancelationPolicyContentData = cancelationPolicyContent.data.content;
-        if (cancelationPolicyContentData && cancelationPolicyContentData.content != undefined && cancelationPolicyContentData.content == '') {
+        const cancelationPayload = { url: `${apiBaseUrl}/content/our-cancelation-policy`, method: 'GET' }
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+        const cancelationPolicy = await fetchApi(cancelationPayload); // call cancelation policy API
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+        const cancelationPolicyData = cancelationPolicy.data.content;
+        const testimonialsData = testimonialsContent.data.testimonials;
+
+        if (cancelationPolicyData && cancelationPolicyData.content != undefined && cancelationPolicyData.content == '') {
             return {
                 notFound: true,
                 revalidate: 5,
             };
         } else {
-            const { content, page_name, page_caption, banner_img, meta_title, meta_description } = cancelationPolicyContentData
+            const { content, page_name, page_caption, banner_img, meta_title, meta_description } = cancelationPolicyData
             return {
                 props: {
                     content,
@@ -92,9 +101,10 @@ export async function getStaticProps() {
                     page_caption,
                     banner_img,
                     meta_title,
-                    meta_description
+                    meta_description,
+                    testimonialsData
                 },
-                revalidate: 5, // In seconds
+                revalidate: 10, // In seconds
             };
         }
     } catch (error) {

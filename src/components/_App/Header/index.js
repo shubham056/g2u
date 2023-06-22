@@ -80,7 +80,6 @@ const Header = () => {
 
     if (errors?.zipcode != null) {
         setValue('zipcode', '')
-        console.log("errrr", errors)
     }
 
     return (

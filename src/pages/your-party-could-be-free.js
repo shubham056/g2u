@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
+const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Your Party Could Be Free | Games2U Mobile Entertainment",
     description: meta_description && meta_description != '' ? meta_description : "Information on how your Games2U event could be free.",
@@ -71,6 +72,8 @@ const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, me
 
 
       {/* content section end */}
+
+      <Footer testimonials={testimonialsData} />
     </>
   )
 }
@@ -79,9 +82,16 @@ export default yourpartycouldbefree;
 
 export async function getStaticProps() {
   try {
-    const payload = { url: `${apiBaseUrl}/content/your-party-could-be-free`, method: 'GET' }
-    const partyCouldFreeContent = await fetchApi(payload);
+    const yourPartyPayload = { url: `${apiBaseUrl}/content/your-party-could-be-free`, method: 'GET' }
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+    const partyCouldFreeContent = await fetchApi(yourPartyPayload); // call your-party-could-be-free API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
     const partyCouldFreeContentData = partyCouldFreeContent.data.content;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
+
     if (partyCouldFreeContentData && partyCouldFreeContentData.content != undefined && partyCouldFreeContentData.content == '') {
       return {
         notFound: true,
@@ -96,7 +106,8 @@ export async function getStaticProps() {
           page_caption,
           banner_img,
           meta_title,
-          meta_description
+          meta_description,
+          testimonialsData
         },
         revalidate: 5, // In seconds
       };

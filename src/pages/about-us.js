@@ -2,9 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
-  console.log("banner_img", banner_img)
+const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "About Us | Games2U Mobile Entertainment",
     description: meta_description && meta_description != '' ? meta_description : "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -70,6 +70,8 @@ const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, met
         </div>
       </div>
       {/* content section end */}
+
+      <Footer testimonials={testimonialsData} />
     </>
   )
 }
@@ -78,16 +80,22 @@ export default aboutus;
 
 export async function getStaticProps() {
   try {
-    const payload = { url: `${apiBaseUrl}/content/about-us`, method: 'GET' }
-    const aboutUsContent = await fetchApi(payload);
-    const aboutUsContentData = aboutUsContent.data.content;
-    if (aboutUsContentData && aboutUsContentData.content != undefined && aboutUsContentData.content == '') {
+    const aboutUsPayload = { url: `${apiBaseUrl}/content/about-us`, method: 'GET' }
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+    const aboutUsContent = await fetchApi(aboutUsPayload); // call about us API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+    const aboutUsData = aboutUsContent.data.content;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
+    if (aboutUsData && aboutUsData.content != undefined && aboutUsData.content == '') {
       return {
         notFound: true,
         revalidate: 5,
       };
     } else {
-      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = aboutUsContentData
+      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = aboutUsData
       return {
         props: {
           content,
@@ -95,9 +103,10 @@ export async function getStaticProps() {
           page_caption,
           banner_img,
           meta_title,
-          meta_description
+          meta_description,
+          testimonialsData,
         },
-        revalidate: 5, // In seconds
+        revalidate: 10, // In seconds
       };
     }
   } catch (error) {

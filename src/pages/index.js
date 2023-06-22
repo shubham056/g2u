@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 //import { Inter } from 'next/font/google'
 //import styles from '@/styles/Home.module.css'
 //const inter = Inter({ subsets: ['latin'] })
@@ -34,7 +35,7 @@ const bg = {
   }
 };
 
-export default function Home() {
+export default function Home({ testimonialsData }) {
 
   return (
     <>
@@ -109,8 +110,36 @@ export default function Home() {
         />
       </div>
 
-      {/* <Footer /> */}
+      <Footer testimonials={testimonialsData} />
 
     </>
   )
+}
+
+export async function getStaticProps() {
+  try {
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const testimonialsData = testimonialsContent.data.testimonials;
+    console.log("testimonialsData",testimonialsData)
+
+    if (testimonialsData && testimonialsData != undefined && testimonialsData.length == 0) {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      return {
+        props: {
+          testimonialsData,
+        },
+        revalidate: 10, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in testimonials api call', error)
+    return {
+      notFound: true
+    };
+  }
 }

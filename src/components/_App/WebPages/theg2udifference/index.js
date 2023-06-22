@@ -1,42 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import GamesSlider from '../../GamesSlider';
 import Link from 'next/link';
-const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
-const options = {
-    loop: true,
-    nav: true,
-    navText:
-        [
-            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-        ],
-    dots: false,
-    smartSpeed: 500,
-    margin: 30,
-    autoplayHoverPause: true,
-    autoplay: true,
-    responsive: {
-        0: {
-            items: 1
-        },
-        576: {
-            items: 1
-        },
-        768: {
-            items: 2
-        },
-        1200: {
-            items: 4
-        }
-    }
-};
 
 const Theg2udifferenceContent = ({ content, eventList }) => {
-    const [display, setDisplay] = useState(false);
-    useEffect(() => {
-        setDisplay(true);
-    }, [])
 
     return (
         <>

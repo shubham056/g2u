@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
+const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
     const SEO = {
         title: meta_title && meta_title != '' ? meta_title : "Privacy Policy | Games2U Mobile Entertainment",
         description: meta_description && meta_description != '' ? meta_description : "View the privacy policy for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -69,6 +70,8 @@ const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_titl
             </div>
 
             {/* content section end */}
+
+            <Footer testimonials={testimonialsData} />
         </>)
 }
 
@@ -76,9 +79,15 @@ export default privacypolicy;
 
 export async function getStaticProps() {
     try {
-        const payload = { url: `${apiBaseUrl}/content/privacy-policy`, method: 'GET' }
-        const privacyPolicyContent = await fetchApi(payload);
+        const privacyPolicypayload = { url: `${apiBaseUrl}/content/privacy-policy`, method: 'GET' }
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+        const privacyPolicyContent = await fetchApi(privacyPolicypayload); // call privacy policy API
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
         const privacyPolicyContentData = privacyPolicyContent.data.content;
+        const testimonialsData = testimonialsContent.data.testimonials;
+
         if (privacyPolicyContentData && privacyPolicyContentData.content != undefined && privacyPolicyContentData.content == '') {
             return {
                 notFound: true,
@@ -93,9 +102,10 @@ export async function getStaticProps() {
                     page_caption,
                     banner_img,
                     meta_title,
-                    meta_description
+                    meta_description,
+                    testimonialsData
                 },
-                revalidate: 5, // In seconds
+                revalidate: 10, // In seconds
             };
         }
     } catch (error) {

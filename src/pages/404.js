@@ -1,11 +1,13 @@
 import React from 'react'
 import Header from '../components/_App/Header';
 import Link from 'next/link'
+import Footer from '@/components/_App/Footer/Footer';
 
 const Custom404 = () => {
     return (
         <>
             <div className="container-fluid">
+
                 <Header />
 
                 <div className="row no-padding not-home all-events-page" id="headerBanner">
@@ -35,6 +37,8 @@ const Custom404 = () => {
                     </div>
                 </div>
             </div>
+            
+            <Footer />
         </>
     )
 }

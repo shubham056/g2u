@@ -4,9 +4,11 @@ import { NextSeo } from 'next-seo';
 import useGamesData from '@/states/stores/games-data';
 import trimString from '@/utils/trimString'
 import Link from 'next/link';
+import Footer from '@/components/_App/Footer/Footer';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
 
-const ourgames = () => {
+const ourgames = ({ testimonialsData }) => {
 
   const { zipcode, games, loading, error } = useGamesData();
 
@@ -108,7 +110,7 @@ const ourgames = () => {
                       <div className="col-md-4 col-xs-6 col-ie-4 ti-box game-1" data-original="true" key={`game-gallery-${item.id}`}>
                         <Link href={`/game/${item.slug}`}>
                           <div className="box-heading video-game-theater" >
-                          <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
+                            <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
                           </div>
                           <div className="circle-img"><img src={item.icon != '' ? item.icon : "/assets/img/ico-video-theater-2x.png"} alt={item.slug} />
                           </div>
@@ -162,8 +164,37 @@ const ourgames = () => {
 
 
       {/* content section end */}
+
+      <Footer testimonials={testimonialsData} />
     </>
   )
 }
 
 export default ourgames
+
+export async function getStaticProps() {
+  try {
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const testimonialsData = testimonialsContent.data.testimonials;
+
+    if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
+      return {
+        notFound: true,
+        revalidate: 5,
+      };
+    } else {
+      return {
+        props: {
+          testimonialsData,
+        },
+        revalidate: 10, // In seconds
+      };
+    }
+  } catch (error) {
+    console.log('error in testimonials api call', error)
+    return {
+      notFound: true
+    };
+  }
+}

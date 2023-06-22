@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const termsofuse = ({ content, page_name, page_caption, banner_img, meta_title, meta_description }) => {
+const termsofuse = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
     const SEO = {
         title: meta_title && meta_title != '' ? meta_title : "Privacy Policy | Games2U Mobile Entertainment",
         description: meta_description && meta_description != '' ? meta_description : "View the privacy policy for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -70,6 +71,8 @@ const termsofuse = ({ content, page_name, page_caption, banner_img, meta_title, 
             </div>
 
             {/* content section end */}
+
+            <Footer testimonials={testimonialsData} />
         </>)
 }
 
@@ -77,16 +80,23 @@ export default termsofuse;
 
 export async function getStaticProps() {
     try {
-        const payload = { url: `${apiBaseUrl}/content/terms-of-use`, method: 'GET' }
-        const termsOfUseContent = await fetchApi(payload);
-        const termsOfUseContentData = termsOfUseContent.data.content;
-        if (termsOfUseContentData && termsOfUseContentData.content != undefined && termsOfUseContentData.content == '') {
+        const termsUsepayload = { url: `${apiBaseUrl}/content/terms-of-use`, method: 'GET' }
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+        const termsOfUseContent = await fetchApi(termsUsepayload); // call terms of use API
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+        const termsOfUseData = termsOfUseContent.data.content;
+        const testimonialsData = testimonialsContent.data.testimonials;
+
+
+        if (termsOfUseData && termsOfUseData.content != undefined && termsOfUseData.content == '') {
             return {
                 notFound: true,
                 revalidate: 5,
             };
         } else {
-            const { content, page_name, page_caption, banner_img, meta_title, meta_description } = termsOfUseContentData
+            const { content, page_name, page_caption, banner_img, meta_title, meta_description } = termsOfUseData
             return {
                 props: {
                     content,
@@ -94,7 +104,8 @@ export async function getStaticProps() {
                     page_caption,
                     banner_img,
                     meta_title,
-                    meta_description
+                    meta_description,
+                    testimonialsData
                 },
                 revalidate: 5, // In seconds
             };

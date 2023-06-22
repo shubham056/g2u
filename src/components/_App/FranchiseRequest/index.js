@@ -33,7 +33,6 @@ const FranchiseRequest = () => {
         setIsLoader(true)
         setSubmitBtnText("Submiting...")
         delete formValue.acceptTerms // delete acceptTerms key
-        console.log("FInal submit data", formValue)
         try {
             const payload = { url: `${apiBaseUrl}/franchise/request-info`, method: 'POST', data: formValue }
             const res = await fetchApi(payload)

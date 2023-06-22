@@ -3,8 +3,9 @@ import Header from '@/components/_App/Header'
 import Theg2udifferenceContent from '@/components/_App/WebPages/theg2udifference'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const theg2udifference = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, eventListData }) => {
+const theg2udifference = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, eventListData, testimonialsData }) => {
 
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "The Games2U Difference | As Seen on Shark Tank | Games2U",
@@ -60,6 +61,9 @@ const theg2udifference = ({ content, page_name, page_caption, banner_img, meta_t
         content={content}
         eventList={eventListData}
       />
+      {/* content section end */}
+
+      <Footer testimonials={testimonialsData} />
 
     </>
   )
@@ -69,12 +73,18 @@ export default theg2udifference;
 
 export async function getStaticProps() {
   try {
-    const payload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
+    const g2uDifferencePayload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
     const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
-    const g2uDifferenceContent = await fetchApi(payload);
-    const eventList = await fetchApi(enevtListPayload);
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+    const g2uDifferenceContent = await fetchApi(g2uDifferencePayload); // call the-g2u-difference API
+    const eventList = await fetchApi(enevtListPayload); // call event list API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
     const eventListData = eventList.data.events;
     const g2uDifferenceContentData = g2uDifferenceContent.data.content;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
 
     if (g2uDifferenceContentData && g2uDifferenceContentData.content == '') {
       return {
@@ -89,11 +99,12 @@ export async function getStaticProps() {
           page_name,
           page_caption,
           banner_img,
-          eventListData,
           meta_title,
-          meta_description
+          meta_description,
+          eventListData,
+          testimonialsData,
         },
-        revalidate: 5, // In seconds
+        revalidate: 10, // In seconds
       };
     }
   } catch (error) {

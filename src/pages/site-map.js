@@ -2,8 +2,10 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const sitemap = () => {
+const sitemap = ({ testimonialsData }) => {
     const SEO = {
         title: "Site Map | Games2U Mobile Entertainment",
         description: "View the site map for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -345,7 +347,36 @@ const sitemap = () => {
 
 
             {/* content section end */}
+
+            <Footer testimonials={testimonialsData} />
         </>)
 }
 
 export default sitemap
+
+export async function getStaticProps() {
+    try {
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+        const testimonialsData = testimonialsContent.data.testimonials;
+
+        if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
+            return {
+                notFound: true,
+                revalidate: 5,
+            };
+        } else {
+            return {
+                props: {
+                    testimonialsData,
+                },
+                revalidate: 10, // In seconds
+            };
+        }
+    } catch (error) {
+        console.log('error in testimonials api call', error)
+        return {
+            notFound: true
+        };
+    }
+}

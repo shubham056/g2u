@@ -57,11 +57,9 @@ const ZipCodeFormFooter = () => {
             setShowSuccessMsg(false)
         }, 5000)
     }
-    if (!loading && games && games.affiliate != undefined && zipcode != '0000') {
-        setValue('zipcode', zipcode)
-    }
-
-
+    // if (!loading && games && games.affiliate != undefined && zipcode != '0000') {
+    //     setValue('zipcode', zipcode)
+    // }
 
     return (
         <>

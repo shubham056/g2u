@@ -19,7 +19,6 @@ const FindLocation = () => {
     const { register, setValue, formState: { errors, isSubmitting }, handleSubmit, reset } = useForm(modalFormOptions);
 
     const onSubmitTopBarChangeLocation = async formValue => {
-        console.log("zipcode",formValue)
         const { zipcode } = formValue
         try {
             await setZipcode(zipcode).then(
@@ -43,7 +42,6 @@ const FindLocation = () => {
 
     if (errors?.zipcode != null) {
         setValue('zipcode', '')
-        console.log("errrr", errors)
     }
 
     return (

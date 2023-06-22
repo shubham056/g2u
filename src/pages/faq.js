@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import Footer from '@/components/_App/Footer/Footer';
 
-const faq = ({ faqData }) => {
+const faq = ({ faqData, testimonialsData }) => {
   const [active, setActive] = useState(false)
   const [isItem, setIsItem] = useState(null)
   const SEO = {
@@ -80,6 +81,8 @@ const faq = ({ faqData }) => {
       </div>
 
       {/* content section end */}
+
+      <Footer testimonials={testimonialsData} />
     </>)
 }
 
@@ -87,11 +90,15 @@ export default faq
 
 export async function getStaticProps() {
   try {
-    const payload = {
-      url: `${apiBaseUrl}/faq`, method: 'POST', data: { page_limit: 20, page_record: 1 }
-    }
-    const faqContent = await fetchApi(payload);
+    const faqPayload = { url: `${apiBaseUrl}/faq`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+    const faqContent = await fetchApi(faqPayload); // call FAQ API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
     const faqData = faqContent.data.faq;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
     if (faqData && faqData.faq != undefined && faqData.faq == '') {
       return {
         notFound: true,
@@ -100,9 +107,10 @@ export async function getStaticProps() {
     } else {
       return {
         props: {
-          faqData
+          faqData,
+          testimonialsData,
         },
-        revalidate: 5, // In seconds
+        revalidate: 10, // In seconds
       };
     }
   } catch (error) {
