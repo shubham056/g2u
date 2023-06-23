@@ -8,7 +8,7 @@ import RequestInfo from '@/components/_App/RequestInfo';
 import Footer from '@/components/_App/Footer/Footer';
 
 
-const EventDetails = ({ eventDetails }) => {
+const EventDetails = ({ eventDetails,testimonialsData }) => {
     const SEO = {
         title: "Game Truck Video Games Parties | #1 Rated from Games2U",
         description: "America's most trusted provider of video game trucks for birthday parties, school carnivals and fairs, summer camps, corporate team-building events and more!",
@@ -133,7 +133,7 @@ const EventDetails = ({ eventDetails }) => {
                 </div>
             </div>
             {/* Get the Stats! include seven section end */}
-            <Footer />
+            <Footer testimonials={testimonialsData}/>
         </>
 
     )
@@ -166,8 +166,14 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
     try {
         const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
-        const events = await fetchApi(payload);
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+
+        const events = await fetchApi(payload); // call event-details API
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
         const eventsData = events.data
+        const testimonialsData = testimonialsContent.data.testimonials;
+        
         if (eventsData && eventsData.eventDetails != undefined && eventsData.eventDetails == '') {
             return {
                 notFound: true
@@ -176,7 +182,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
             const { eventDetails } = eventsData
             return {
                 props: {
-                    eventDetails
+                    eventDetails,
+                    testimonialsData,
                 },
                 revalidate: 10, // In seconds
             };
