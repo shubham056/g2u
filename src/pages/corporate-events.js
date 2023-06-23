@@ -73,7 +73,7 @@ const corporateevents = ({ content, page_name, page_caption, banner_img, meta_ti
       </div>
       {/* content section end */}
 
-      <Footer />
+      <Footer testimonials={testimonialsData}/>
     </>
   )
 }
