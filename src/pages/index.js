@@ -35,7 +35,7 @@ const bg = {
   }
 };
 
-export default function Home({ testimonialsData }) {
+export default function Home({ content, page_name, testimonialsData }) {
 
   return (
     <>
@@ -77,7 +77,10 @@ export default function Home({ testimonialsData }) {
 
         <TopHomePageBanner />
 
-        <GamesForEveryOne />
+        <GamesForEveryOne
+          heading={page_name}
+          description ={content}
+        />
 
         <div className="row ti-orange-background no-margin no-padding" id="gamesTheyLove">
           <div className="col-xs-12 no-padding">
@@ -118,19 +121,29 @@ export default function Home({ testimonialsData }) {
 
 export async function getStaticProps() {
   try {
+    const gamesForEveryonePayload = { url: `${apiBaseUrl}/content/games-for-everyone`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
-    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
-    const testimonialsData = testimonialsContent.data.testimonials;
-    console.log("testimonialsData",testimonialsData)
 
-    if (testimonialsData && testimonialsData != undefined && testimonialsData.length == 0) {
+    const gamesForEveryone = await fetchApi(gamesForEveryonePayload); // call contact us API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+    const gamesForEveryoneData = gamesForEveryone.data.content;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
+    console.log("testimonialsData", testimonialsData)
+
+    if (gamesForEveryoneData && gamesForEveryoneData.content != undefined && gamesForEveryoneData.content == '' && testimonialsData && testimonialsData != undefined && testimonialsData.length == 0) {
       return {
         notFound: true,
         revalidate: 5,
       };
     } else {
+      const { content, page_name } = gamesForEveryoneData
+
       return {
         props: {
+          content,
+          page_name,
           testimonialsData,
         },
         revalidate: 10, // In seconds
