@@ -1,17 +1,17 @@
 import React from 'react'
-import Testimonials from '../_App/Footer/Testimonials'
-import ZipCodeFormFooter from '../_App/Footer/ZipCodeFormFooter'
-import BottonNav from '../_App/Footer/BottonNav'
-import BottomFooter from '../_App/Footer/BottomFooter'
-import FranchiseRequest from '../_App/FranchiseRequest'
+import Testimonials from '../Footer/Testimonials'
+import ZipCodeFormFooter from '../Footer/ZipCodeFormFooter'
+import BottonNav from '../Footer/BottonNav'
+import BottomFooter from '../Footer/BottomFooter'
+import FranchiseRequest from '../FranchiseRequest'
 
-function FranchiseFooter() {
+function FranchiseFooter({ testimonials }) {
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
-        
-        <Testimonials />
-        
+
+        <Testimonials testimonials={testimonials}/>
+
         <div id="enterZipCode" />
 
         <FranchiseRequest />

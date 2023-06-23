@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
-import FranchiseFooter from '@/components/FooterForFranchise/FranchiseFooter';
+import FranchiseFooter from '@/components/_App/FooterForFranchise/FranchiseFooter';
 
 
 const franchiseinformation = ({ testimonialsData }) => {
@@ -206,7 +206,7 @@ export async function getStaticProps() {
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
     const testimonialsData = testimonialsContent.data.testimonials;
-    console.log("testimonialsData", testimonialsData)
+    console.log("testimonialsData in fran", testimonialsData)
 
     if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
       return {
