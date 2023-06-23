@@ -8,7 +8,6 @@ const GamesForEveryOne = ({ heading, description }) => {
                     <div className="col-sm-6 col-xs-9 col-ie-6 top-index">
                         <h2>{heading && heading}</h2>
                         <div className="ti-row-top" dangerouslySetInnerHTML={{ __html: description }}></div>
-                        <p className="ti-row-top">{ }</p>
                         <a href="#footerContact" className="hidden-xs ti-yellow-button">Request Info</a>
                     </div>
                     <div className="col-xs-6 excited-kid-parent">
