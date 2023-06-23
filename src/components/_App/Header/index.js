@@ -86,7 +86,7 @@ const Header = () => {
         <>
             <div id="navigation" className="clearfix">
                 <div className="col-sm-4 ti-main-logo">
-                    <Link href="/"><img src="/assets/img/g2u-logo.png" alt="g2u-logo" /></Link>
+                    <Link href="/"><img src="/assets/img/g2u-logo.png" className='g2u-logo' alt="g2u-logo" /></Link>
                 </div>
                 <div className="col-md-8 col-sm-12">
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
