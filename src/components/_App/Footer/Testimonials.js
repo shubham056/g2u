@@ -55,10 +55,10 @@ const Testimonials = ({ testimonials }) => {
                                 return (
                                     <div className={`testimonial-cell ${index == 0 ? 'active' : null}`}>
                                         <div className="star-container">
-                                            {printStarRating(item.start_rating)}
+                                            {printStarRating(item.star_rating)}
                                         </div>
                                         <div dangerouslySetInnerHTML={{ __html: item.testimonial }}></div>
-                                        <p className="review-name">{item.author_name}</p>
+                                        <p className="review-name">{item.reviewer_name}</p>
                                         <p className="review-location">{item.review_location}</p>
                                     </div>
                                 )
@@ -66,7 +66,7 @@ const Testimonials = ({ testimonials }) => {
                             :
                             <p>No data found!</p>
                     }
-                
+
                 </div>
             </div>
         </div>
