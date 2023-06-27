@@ -5,15 +5,15 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import FranchiseFooter from '@/components/_App/FooterForFranchise/FranchiseFooter';
 
 
-const franchiseinformation = ({ testimonialsData }) => {
+const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData }) => {
   const SEO = {
-    title: "Own a Franchise | Franchises Available Nationwide | Games2U",
-    description: "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
-    canonical: "https://www.g2u.com/franchiseinformation",
+    title: meta_title && meta_title != '' ? meta_title : "Own a Franchise | Franchises Available Nationwide | Games2U",
+    description: meta_description && meta_description != '' ? meta_description : "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
+    canonical: "https://www.g2u.com/franchise-information",
     openGraph: {
       type: 'website',
-      title: 'Own a Franchise | Franchises Available Nationwide | Games2U',
-      description: "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
+      title: meta_title && meta_title != '' ? meta_title : 'Own a Franchise | Franchises Available Nationwide | Games2U',
+      description: meta_description && meta_description != '' ? meta_description : "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
       url: 'https://www.g2u.com',
       // images: [
       //   {
@@ -38,12 +38,16 @@ const franchiseinformation = ({ testimonialsData }) => {
         {/* <!-- header section start with mobile naviagtion  --> */}
         <Header />
         {/* <!-- header section end with mobile naviagtion  --> */}
-        <div className="row no-padding not-home franchise-page" id="headerBanner">
+        <div className="row no-padding not-home-additional content-banner franchise-page" id="headerBanner"
+          style={{
+            backgroundImage: `url(${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'})`
+          }}
+        >
           <div className="ti-page-header row clearfix">
             <div className="row ti-row">
               <div className="limited-width">
-                <h1>Franchise Information</h1>
-                <p>Join the Mobile Entertainment Revolution that's sweeping that nation!</p>
+                <h1>{page_name && page_name}</h1>
+                <p>{page_caption && page_caption}</p>
                 {/* <div>
                   <div className="text-center">
                     <a className="ti-seven-wide ti-white-box" href="#">What's New?</a>
@@ -98,15 +102,17 @@ const franchiseinformation = ({ testimonialsData }) => {
         <div className="row ti-row content-padding" id="franchiseContent">
           <div className="limited-width">
             <div className="col-xs-12">
-              <h2 className="ti-dark-blue-text orange-border hidden-lg hidden-md">Owning a franchise should be all fun and games.</h2>
+              <h2 className="ti-dark-blue-text orange-border hidden-lg hidden-md">{head_title && head_title}</h2>
               <div className="col-md-6 col-sm-6">
-                <h2 className="ti-dark-blue-text orange-border hidden-sm hidden-xs">Owning a franchise should be all fun and games.</h2>
-                <p className="franchise-text">Imagine being the life of the party as you cruise from place to place in amazing custom designed vehicles, video game theaters, outdoor laser tag, giant human hamster balls, foam machines and much more!  You'll be providing the most unique mobile entertainment on the planet and you'll be greeted with smiles wherever you go.</p>
+                <h2 className="ti-dark-blue-text orange-border hidden-sm hidden-xs">{head_title && head_title}</h2>
+
+                {head_description && <div className="franchise-text" dangerouslySetInnerHTML={{ __html: head_description }}></div>}
+
               </div>
               <div className="col-sm-6">
                 <div style={{ width: '100%', paddingTop: '56.25%', background: '#333', position: 'relative' }}>
                   <div style={{ position: 'absolute', color: '#fff', top: '50%', transform: 'translateY(-50%)', left: 0, right: 0, textAlign: 'center' }}>
-                    <img src="https://www.g2u.com/assets/img/g2u-franchise-info-background.jpg" />
+                    <img src={`${banner_img && banner_img != '' ? banner_img : 'assets/img/allevents-banner.jpg'}`} alt="franchise-image" />
                   </div>
                 </div>
               </div>
@@ -122,29 +128,26 @@ const franchiseinformation = ({ testimonialsData }) => {
         <div className="row ti-row ti-orange-background content-padding">
           <div className="limited-width">
             <div className="col-xs-12">
-              <h2>We've Got Your Back! <span className="ti-white-text">From your initial training to marketing your franchise, we're here to help you succeed.</span></h2>
+              <h2>{bottom_title && bottom_title} <span className="ti-white-text">{bottom_caption && bottom_caption}</span></h2>
               <div className="row ti-box-row">
                 <div className="ti-box">
                   <img src="https://www.g2u.com/assets/img/ico-development-2x.png" />
                   <div>
-                    <h3>Pre-Opening Development</h3>
-                    <p>Our development team helps you to identify, select, and approve the best possible geographical territories</p>
+                    {service_one && <div dangerouslySetInnerHTML={{ __html: service_one }}></div>}
                   </div>
                 </div>
                 <div className="ti-box-spacer" />
                 <div className="ti-box">
                   <img src="https://www.g2u.com/assets/img/ico-training-2x.png" />
                   <div>
-                    <h3>Comprehensive Training &amp; Education</h3>
-                    <p>Before you work your first Games2U event, we will provide you with extensive training.</p>
+                    {service_two && <div dangerouslySetInnerHTML={{ __html: service_two }}></div>}
                   </div>
                 </div>
                 <div className="ti-box-spacer" />
                 <div className="ti-box">
                   <img src="https://www.g2u.com/assets/img/ico-marketing-2x.png" />
                   <div>
-                    <h3>Advertising, Marketing &amp; Street Promotions</h3>
-                    <p>Games2U takes great pride in our brand and employ some of the best marketing professionals to promote it.</p>
+                    {service_three && <div dangerouslySetInnerHTML={{ __html: service_three }}></div>}
                   </div>
                 </div>
               </div>
@@ -160,26 +163,11 @@ const franchiseinformation = ({ testimonialsData }) => {
         <div className="row ti-row content-padding">
           <div className="limited-width">
             <div className="col-xs-12">
-              <h2 className="orange-border ti-dark-blue-text">Sounds better than being stuck in an office all day.</h2>
-              <div className="col-sm-12 col-md-6 franchise-text">
-                <p>
-                  The Games2U franchise is designed with quality of life in mind.  Owner-operated or with multi-unit operations, there are minimal employees and proven systems that allow
-                  you to focus on growing your business and maximizing revenue opportunities.  A Games2U franchise requires very little start-up capital, can be launched in less than 90 days,
-                  and is the ideal business for fun-loving entrepreneurs.  We supply you with a comprehensive operation including amazing brand custom designed vehicles, theaters, and tons of
-                  other games and equipment.  In fact, every franchise is equipped to run multiple events simultaneously, even in the same time slots.  We provide state-of-the-art training at
-                  our headquarters, marketing and technical support, and a robust website featuring our proprietary G2UWare<sup>™</sup> operating system.
-                </p>
-              </div>
-              <div className="col-sm-12 col-md-6 franchise-text">
-                <p>
-                  G2UWare<sup>™</sup> is simple to operate, but delivers sophisticated results for scheduling, reports, credit card management, database, surveys, e-vites, training
-                  tutorials, and so much more.
-                </p>
-                <p>
-                  Games2U stands alone in the incredibly lucrative mobile entertainment segment.  We capitalize on the massive $21 Billion a year video game industry, maximize the kids party
-                  industry, thrill corporate and business partners, align perfectly with schools and fundraisers, add excitement to camps and youth group activities, and speak to a majority
-                  of the population with patent-pending products!
-                </p>
+              <h2 className="orange-border ti-dark-blue-text">{title_after_service && title_after_service}</h2>
+              <div className="col-sm-12 col-md-12 franchise-text">
+
+                {content && <div dangerouslySetInnerHTML={{ __html: content }}></div>}
+
               </div>
             </div>
           </div>
@@ -190,11 +178,11 @@ const franchiseinformation = ({ testimonialsData }) => {
             <a href="#footerContact" className="ti-yellow-button">Send Me Information!</a>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* content section end */}
 
-      <FranchiseFooter testimonials={testimonialsData} />
+      < FranchiseFooter testimonials={testimonialsData} />
     </>
   )
 }
@@ -203,19 +191,38 @@ export default franchiseinformation
 
 export async function getStaticProps() {
   try {
+    const ownFranchisepayload = { url: `${apiBaseUrl}/content/own-a-franchise`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
-    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
-    const testimonialsData = testimonialsContent.data.testimonials;
-    console.log("testimonialsData in fran", testimonialsData)
 
-    if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
+    const ownFranchiseContent = await fetchApi(ownFranchisepayload); // call own-a-franchise API
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+
+    const ownFranchiseData = ownFranchiseContent.data.content;
+    const testimonialsData = testimonialsContent.data.testimonials;
+
+    if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '' && ownFranchiseData && ownFranchiseData.content == '') {
       return {
         notFound: true,
         revalidate: 5,
       };
     } else {
+      const { page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description } = ownFranchiseData
       return {
         props: {
+          page_name,
+          content,
+          page_caption,
+          banner_img,
+          head_title,
+          head_description,
+          bottom_title,
+          bottom_caption,
+          service_one,
+          service_two,
+          service_three,
+          title_after_service,
+          meta_title,
+          meta_description,
           testimonialsData,
         },
         revalidate: 10, // In seconds

@@ -16,24 +16,7 @@ import RequestInfo from '@/components/_App/RequestInfo';
 import GamesForEveryOne from '@/components/_App/GamesForEveryOne';
 import GamesList from '@/components/_App/GamesList';
 import GamesSlider from '@/components/_App/GamesSlider';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as Yup from 'yup'
 
-
-const modalSchema = Yup.object().shape({
-  zipcode: Yup.number()
-    .required('Zip code is a required field')// optional
-    .typeError('Please enter valid zip code.')// optional as well
-  // .test('len', 'Please enter valid zip code.', val => val.toString().length === 5)
-})
-const bg = {
-  overlay: {
-    background: "rgba(128, 128, 128, 0.5)"
-  }
-};
 
 export default function Home({ content, page_name, testimonialsData }) {
 
@@ -49,11 +32,6 @@ export default function Home({ content, page_name, testimonialsData }) {
         <link rel="shortcut icon" href="/assets/favicon-16x16.png" />
       </Head>
 
-      {/* /.modal box*/}
-
-      {/* <ZipCodePopup /> */}
-
-      {/* /.modal box*/}
       < div className="container-fluid" >
         {/* ----------- Header section start with mobile naviagtion --------  */}
         < Header />

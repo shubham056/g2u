@@ -4,13 +4,16 @@ import ZipCodeFormFooter from '../Footer/ZipCodeFormFooter'
 import BottonNav from '../Footer/BottonNav'
 import BottomFooter from '../Footer/BottomFooter'
 import FranchiseRequest from '../FranchiseRequest'
+import FranchiseTestimonial from './FranchiseTestimonial'
 
 function FranchiseFooter({ testimonials }) {
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
 
-        <Testimonials testimonials={testimonials}/>
+        {/* <Testimonials testimonials={testimonials} /> */}
+        
+        <FranchiseTestimonial/>
 
         <div id="enterZipCode" />
 

@@ -766,7 +766,11 @@ textarea {
     padding-bottom: 60px;
 }
 
-#headerBanner.not-home.game-page {
+#headerBanner.not-home-additional.franchise-page {
+    padding-bottom: 60px;
+}
+
+- #headerBanner.not-home.game-page {
     height: auto;
 }
 
@@ -1088,7 +1092,7 @@ textarea {
     content: '';
 }
 
-.g2u-logo{
+.g2u-logo {
     position: relative;
     z-index: 2;
 }
