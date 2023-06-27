@@ -18,7 +18,7 @@ import GamesList from '@/components/_App/GamesList';
 import GamesSlider from '@/components/_App/GamesSlider';
 
 
-export default function Home({ content, page_name, testimonialsData }) {
+export default function Home({ content, page_name, testimonialsData, investorsData }) {
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function Home({ content, page_name, testimonialsData }) {
 
             <FindLocation />
 
-            <BrandLogo />
+            <BrandLogo investors={investorsData} />
 
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function Home({ content, page_name, testimonialsData }) {
 
         <GamesForEveryOne
           heading={page_name}
-          description ={content}
+          description={content}
         />
 
         <div className="row ti-orange-background no-margin no-padding" id="gamesTheyLove">
@@ -101,12 +101,15 @@ export async function getStaticProps() {
   try {
     const gamesForEveryonePayload = { url: `${apiBaseUrl}/content/games-for-everyone`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
 
     const gamesForEveryone = await fetchApi(gamesForEveryonePayload); // call contact us API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const investorsContent = await fetchApi(investorsPayload); // call investors API
 
     const gamesForEveryoneData = gamesForEveryone.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
+    const investorsData = investorsContent.data.investors;
 
     console.log("testimonialsData", testimonialsData)
 
@@ -123,6 +126,7 @@ export async function getStaticProps() {
           content,
           page_name,
           testimonialsData,
+          investorsData,
         },
         revalidate: 10, // In seconds
       };

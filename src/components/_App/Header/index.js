@@ -19,6 +19,7 @@ const bg = {
 
 const Header = () => {
     const router = useRouter()
+    const [isOpenHamburger, setisOpenHamburger] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
 
@@ -33,7 +34,8 @@ const Header = () => {
 
     const modalFormOptions = { resolver: yupResolver(modalSchema) }
     const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(modalFormOptions);
-
+    const { register: registerOne, setValue: setValueOne, formState: { errors: errorsOne, isSubmitting: isSubmittingOne, isDirty: isDirtyOne, isValid: isValidOne }, handleSubmit: handleSubmitOne } = useForm(modalFormOptions);
+    const { register: registerTwo, setValue: setValueTwo, formState: { errors: errorsTwo, isSubmitting: isSubmittingTwo, isDirty: isDirtyTwo, isValid: isValidTwo }, handleSubmit: handleSubmitTwo } = useForm(modalFormOptions);
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
@@ -66,10 +68,33 @@ const Header = () => {
                         console.log(err?.message)
                         let errorMsg = err?.message != null ? err.message : 'This Zip is not serviced.'
                         setZipCodeServiceStaus(errorMsg)
-                        setValue('zipcode', '')
+                        setValueOne('zipcode', '')
                     } else {
                         setChangeLocation(false)
                         router.push("/")
+                    }
+                }))
+        } catch (e) {
+            //error handling logic
+            console.log(e)
+        }
+    };
+
+    //mobile Change location submit handler
+    const onSubmitMobileChangeLocation = async formValue => {
+        const { zipcode } = formValue
+        try {
+            await setZipcode(zipcode).then(
+                updateGamesData(zipcode, async function (err, callBackRes) {
+                    if (err) {
+                        console.log(err?.message)
+                        let errorMsg = err?.message != null ? err.message : 'This Zip is not serviced.'
+                        setZipCodeServiceStaus(errorMsg)
+                        setValueTwo('zipcode', '')
+                    } else {
+                        setChangeLocation(false)
+                        router.push("/")
+                        setisOpenHamburger(false)
                     }
                 }))
         } catch (e) {
@@ -110,14 +135,14 @@ const Header = () => {
                                 }
                                 <span className="update-location" style={{ display: (changeLocation) ? 'block' : 'none', margin: '-25px', paddingLeft: 40 }}>
                                     <form
-                                        onSubmit={handleSubmit(onSubmitTopBarChangeLocation)}
+                                        onSubmit={handleSubmitOne(onSubmitTopBarChangeLocation)}
                                         autoComplete='off'
                                     >
                                         <span className="close-btn" onClick={() => setChangeLocation(false)} />
                                         <input type="hidden" id="franchiseNameNav" name="franchiseName" defaultValue />
                                         <div className="ti-input">
                                             <input
-                                                {...register("zipcode")}
+                                                {...registerOne("zipcode")}
                                                 type="text"
                                                 placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
                                                 className="zip-code-input"
@@ -133,7 +158,7 @@ const Header = () => {
                         <div className="col-sm-6 ti-align-right" id="headerPhone">Book Your Event Today! <strong><a href="tel:18007142637" className="ti-dark-blue-text">1‑800‑71‑<span className="ti-orange-text">GAMES</span></a></strong></div>
                     </div>
                     <div id="navLinks" className="clearfix">
-                        <span id="mobileMenu"><span className="ti-sprite hamburger-icon" /><span className="hidden-xs">
+                        <span id="mobileMenu"><span className={`ti-sprite hamburger-${isOpenHamburger ? 'close' : 'icon'}`} onClick={() => setisOpenHamburger(true)} /><span className="hidden-xs">
                             MENU</span></span>
                         <a href="#" className="visible-sm" id="mobileLocationIcon">
                             <span className="ti-sprite blue-location-pin" />
@@ -141,21 +166,32 @@ const Header = () => {
                         <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon">
                             <span className="ti-sprite blue-phone" />
                         </a>
-                        <div className="links-container">
+                        <div className="links-container" style={{ display: isOpenHamburger ? 'block' : 'none' }}>
                             <div className="visible-sm visible-xs mobile-location location-update-wrap">
                                 <span className="ti-sprite location-pin" />
                                 <span className="selected-location">
                                     <strong />
-                                    <span className="ti-light-orange-text">( <span className="ti-light-orange-text location-edit-link">Change location</span> )</span>
+                                    <span className="ti-light-orange-text">( <span className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Change location</span> )</span>
                                 </span>
-                                <span className="update-location" >
-                                    <form method="post" id="frmMobileZipNav" name="frmMobileZipNav" action="/">
+                                <span className="update-location" style={{ display: (changeLocation) ? 'block' : 'none' }}>
+                                    <form
+                                        onSubmit={handleSubmitTwo(onSubmitMobileChangeLocation)}
+                                        autoComplete='off'
+                                    >
+
                                         <input type="hidden" id="franchiseNameMobNav" name="franchiseName" defaultValue />
-                                        <span className="close-btn" />
+                                        <span className="close-btn" onClick={() => setChangeLocation(false)} />
                                         <div className="ti-input">
-                                            <input type="tel" name="mobileZipNav" id="mobileZipNav" placeholder="Enter Your Zip Code" className="zip-code-input" />
+                                            <input
+                                                {...registerTwo("zipcode")}
+                                                type="text"
+                                                placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
+                                                className="zip-code-input"
+                                                maxLength={5}
+                                            />
+                                            {/* <input type="tel" name="mobileZipNav" id="mobileZipNav" placeholder="Enter Your Zip Code" className="zip-code-input" /> */}
                                         </div>
-                                        <button id="btnMobileZip" className="ti-yellow-button">Go!</button>
+                                        <button id="btnMobileZip" className="ti-yellow-button" type='submit'>Go!</button>
                                     </form>
                                 </span>
                             </div>
