@@ -19,7 +19,7 @@ const bg = {
 
 const Header = () => {
     const router = useRouter()
-    const [isOpenHamburger, setisOpenHamburger] = useState(false)
+    const [isOpenHamburger, setisOpenHamburger] = useState(true)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
 
