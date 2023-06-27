@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import GamesSlider from '../../GamesSlider';
 import Link from 'next/link';
+import BrandLogo from '../../BrandLogo';
 
-const Theg2udifferenceContent = ({ content, eventList }) => {
+const Theg2udifferenceContent = ({ content, eventList, investors }) => {
 
     return (
         <>
@@ -63,29 +64,10 @@ const Theg2udifferenceContent = ({ content, eventList }) => {
                     <div className="limited-width">
                         <div className="scroll-arrow left" />
                         <div className="as-seen-images as-seen-mobile">
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
+                            <BrandLogo investors={investors} />
                         </div>
                         <div className="as-seen-images as-seen-desktop">
-                            <div className="as-seen-img"><img src="/assets/img/sharktank-opt.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/rachel.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/wall-street-journal.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/inc.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fox.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/fortune.png" alt="brand-logo" /></div>
-                            <div className="as-seen-img"><img src="/assets/img/entrepreneur-opt.png" alt="brand-logo" /></div>
+                            <BrandLogo investors={investors} />
                         </div>
                         <div className="scroll-arrow right" />
                     </div>

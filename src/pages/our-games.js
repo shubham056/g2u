@@ -6,9 +6,10 @@ import trimString from '@/utils/trimString'
 import Link from 'next/link';
 import Footer from '@/components/_App/Footer/Footer';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import BrandLogo from '@/components/_App/BrandLogo';
 
 
-const ourgames = ({ testimonialsData }) => {
+const ourgames = ({ testimonialsData, investorsData }) => {
 
   const { zipcode, games, loading, error } = useGamesData();
 
@@ -131,29 +132,10 @@ const ourgames = ({ testimonialsData }) => {
           <div className="limited-width">
             <div className="scroll-arrow left" />
             <div className="as-seen-images as-seen-mobile">
-              <div className="as-seen-img"><img src="assets/img/sharktank-opt.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/rachel.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/wall-street-journal.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/inc.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fox.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fortune.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/entrepreneur-opt.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/sharktank-opt.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/rachel.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/wall-street-journal.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/inc.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fox.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fortune.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/entrepreneur-opt.png" /></div>
+              <BrandLogo investors={investorsData} />
             </div>
             <div className="as-seen-images as-seen-desktop">
-              <div className="as-seen-img"><img src="assets/img/sharktank-opt.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/rachel.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/wall-street-journal.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/inc.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fox.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/fortune.png" /></div>
-              <div className="as-seen-img"><img src="assets/img/entrepreneur-opt.png" /></div>
+              <BrandLogo investors={investorsData} />
             </div>
             <div className="scroll-arrow right" />
           </div>
@@ -175,8 +157,14 @@ export default ourgames
 export async function getStaticProps() {
   try {
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const investorsContent = await fetchApi(investorsPayload); // call investors API
+
     const testimonialsData = testimonialsContent.data.testimonials;
+    const investorsData = investorsContent.data.investors;
+
 
     if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
       return {
@@ -187,6 +175,7 @@ export async function getStaticProps() {
       return {
         props: {
           testimonialsData,
+          investorsData,
         },
         revalidate: 10, // In seconds
       };

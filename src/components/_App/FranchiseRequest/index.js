@@ -18,7 +18,7 @@ const FranchiseReqSchema = Yup.object().shape({
         .oneOf([true], 'Accept Ts & Cs is required')
 })
 
-const FranchiseRequest = () => {
+const FranchiseRequest = ({ investors }) => {
     const [showSuccessMsg, setShowSuccessMsg] = useState(false)
     const [submitBtnText, setSubmitBtnText] = useState("Contact Us Now!")
     const [isLoader, setIsLoader] = useState(false)
@@ -189,13 +189,22 @@ const FranchiseRequest = () => {
                         <div className="ti-bottom">
                             <div className="as-seen-banner franchise-banner clearfix">
                                 <div className="col-xs-12 col-sm-3 col-md-12 col-lg-6 as-seen-franchise-title-container"><div className="as-seen-franchise-title">As Seen On:</div></div>
-                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-6"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/entrepreneur-opt.png" /></div>
-                                <div className="col-xs-6 col-sm-2 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/sharktank-opt.png" /></div>
-                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/rachel.png" /></div>
-                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/wall-street-journal.png" /></div>
-                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/inc.png" /></div>
-                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/fox.png" /></div>
-                                <div className="col-xs-12 col-sm-3 col-md-6 col-lg-4"><span className="space-helper" /><img src="https://www.g2u.com/assets/img/fortune.png" /></div>
+
+                                {
+                                    investors && investors.length > 0
+                                        ?
+                                        investors.map(item => {
+                                            return (
+                                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-6">
+                                                    <span className="space-helper" />
+                                                    <img src={item.logo} alt={item.investor_name} />)
+                                                </div>
+                                            )
+                                        })
+
+                                        :
+                                        <p>No data found!</p>
+                                }
                             </div>
                         </div>
                         :
@@ -203,7 +212,7 @@ const FranchiseRequest = () => {
                 }
 
             </div>
-        </div>
+        </div >
 
     )
 }

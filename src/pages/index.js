@@ -59,7 +59,7 @@ export default function Home({
 
             <FindLocation />
 
-            {/* <div className="ti-blue-background as-seen-banner clearfix">
+            <div className="ti-blue-background as-seen-banner clearfix">
               <div className="col-xs-12">
                 <div className="scroll-arrow left" />
                 <div className="as-seen-title">
@@ -69,54 +69,11 @@ export default function Home({
                   </div>
                 </div>
                 <div className="as-seen-images">
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687548652681-sharktank-opt.png"
-                      alt="Shark Tank"
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687549304111-rachel.png"
-                      alt="Rachel"
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687778017679-wall-street-journal.png"
-                      alt="Wall Street Journal"
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687778049350-inc.png"
-                      alt="Inc."
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687778114190-fox.png"
-                      alt="Fox Business"
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687778154616-fortune.png"
-                      alt="Fortune"
-                    />
-                  </div>
-                  <div className="as-seen-img">
-                    <img
-                      src="https://g2u.cwsbuild.com/assets/img/logos/1687778231853-entrepreneur-opt.png"
-                      alt="Entrepreneur"
-                    />
-                  </div>
+                  <BrandLogo investors={investorsData} />
                 </div>
                 <div className="scroll-arrow right" />
               </div>
-            </div> */}
-
-            <BrandLogo investors={investorsData} />
+            </div>
           </div>
         </div>
         {/* ----------- End section for Video, Find a Location and Brand Logo --------- */}
@@ -166,20 +123,9 @@ export default function Home({
 
 export async function getStaticProps() {
   try {
-    const gamesForEveryonePayload = {
-      url: `${apiBaseUrl}/content/games-for-everyone`,
-      method: "GET",
-    };
-    const testimonialsPayload = {
-      url: `${apiBaseUrl}/testimonials`,
-      method: "POST",
-      data: { page_limit: 20, page_record: 1 },
-    };
-    const investorsPayload = {
-      url: `${apiBaseUrl}/investors`,
-      method: "POST",
-      data: { page_limit: 20, page_record: 1 },
-    };
+    const gamesForEveryonePayload = {url: `${apiBaseUrl}/content/games-for-everyone`,method: "GET"};
+    const testimonialsPayload = {url: `${apiBaseUrl}/testimonials`,method: "POST",data: { page_limit: 20, page_record: 1 }};
+    const investorsPayload = {url: `${apiBaseUrl}/investors`,method: "POST",data: { page_limit: 20, page_record: 1 }};
 
     const gamesForEveryone = await fetchApi(gamesForEveryonePayload); // call contact us API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API

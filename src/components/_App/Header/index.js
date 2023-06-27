@@ -166,7 +166,9 @@ const Header = () => {
                         <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon">
                             <span className="ti-sprite blue-phone" />
                         </a>
-                        <div className="links-container" style={{ display: isOpenHamburger ? 'block' : 'none' }}>
+                        <div className="links-container"
+                        //style={{ display: isOpenHamburger ? 'block' : 'none' }}
+                        >
                             <div className="visible-sm visible-xs mobile-location location-update-wrap">
                                 <span className="ti-sprite location-pin" />
                                 <span className="selected-location">

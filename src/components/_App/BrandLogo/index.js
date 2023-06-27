@@ -13,7 +13,7 @@ const options = {
     dots: false,
     smartSpeed: 500,
     margin: 0,
-    width:0,
+    width: 0,
     autoplayHoverPause: true,
     autoplay: false,
     responsive: {
@@ -39,15 +39,7 @@ const BrandLogo = ({ investors }) => {
     }
 
     return (
-        <div className="ti-blue-background as-seen-banner clearfix">
-            <div className="col-xs-12">
-                <div className="scroll-arrow left" />
-                <div className="as-seen-title">
-                    <span>As Seen On:</span>
-                    <div className="as-seen-truck"><img src="assets/img/truck-2x-528.png" alt="truck" /></div>
-                </div>
-                <div className="as-seen-images">
-                    {/* {
+        <>                    {/* {
                         display
                             ?
                             <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
@@ -62,18 +54,16 @@ const BrandLogo = ({ investors }) => {
                             :
                             ''
                     } */}
-                    {
-                        investors && investors.length > 0
-                            ?
-                            investors.map(item => <div className="as-seen-img" key={item.id}><img src={item.logo} alt={item.investor_name} /></div>)
-                            :
-                            <div className="as-seen-img"> <p>No data found!</p></div>
-                    }
-                    
-                </div>
-                <div className="scroll-arrow right" />
-            </div>
-        </div>
+            {
+                investors && investors.length > 0
+                    ?
+                    investors.map(item => <div className="as-seen-img" key={item.id}><img src={item.logo} alt={item.investor_name} /></div>)
+                    :
+                    <div className="as-seen-img"> <p>No data found!</p></div>
+            }
+
+        </>
+
     )
 }
 

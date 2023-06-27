@@ -5,7 +5,7 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import FranchiseFooter from '@/components/_App/FooterForFranchise/FranchiseFooter';
 
 
-const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData }) => {
+const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData,investorsData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Own a Franchise | Franchises Available Nationwide | Games2U",
     description: meta_description && meta_description != '' ? meta_description : "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -182,7 +182,10 @@ const franchiseinformation = ({ page_name, content, page_caption, banner_img, he
 
       {/* content section end */}
 
-      < FranchiseFooter testimonials={testimonialsData} />
+      < FranchiseFooter
+        testimonials={testimonialsData}
+        investors={investorsData}
+      />
     </>
   )
 }
@@ -193,12 +196,16 @@ export async function getStaticProps() {
   try {
     const ownFranchisepayload = { url: `${apiBaseUrl}/content/own-a-franchise`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
 
     const ownFranchiseContent = await fetchApi(ownFranchisepayload); // call own-a-franchise API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const investorsContent = await fetchApi(investorsPayload); // call investors API
 
     const ownFranchiseData = ownFranchiseContent.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
+    const investorsData = investorsContent.data.investors;
+
 
     if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '' && ownFranchiseData && ownFranchiseData.content == '') {
       return {
@@ -224,6 +231,7 @@ export async function getStaticProps() {
           meta_title,
           meta_description,
           testimonialsData,
+          investorsData,
         },
         revalidate: 10, // In seconds
       };

@@ -6,18 +6,20 @@ import BottomFooter from '../Footer/BottomFooter'
 import FranchiseRequest from '../FranchiseRequest'
 import FranchiseTestimonial from './FranchiseTestimonial'
 
-function FranchiseFooter({ testimonials }) {
+function FranchiseFooter({ testimonials, investors }) {
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
 
         {/* <Testimonials testimonials={testimonials} /> */}
-        
-        <FranchiseTestimonial/>
+
+        <FranchiseTestimonial />
 
         <div id="enterZipCode" />
 
-        <FranchiseRequest />
+        <FranchiseRequest
+          investors={investors}
+        />
 
         <BottonNav /> {/* buttom naviagtion */}
 

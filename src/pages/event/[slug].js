@@ -6,9 +6,10 @@ import TopBanner from '@/components/GameDetails/TopBanner';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import RequestInfo from '@/components/_App/RequestInfo';
 import Footer from '@/components/_App/Footer/Footer';
+import BrandLogo from '@/components/_App/BrandLogo';
 
 
-const EventDetails = ({ eventDetails,testimonialsData }) => {
+const EventDetails = ({ eventDetails, testimonialsData, investorsData }) => {
     const SEO = {
         title: "Game Truck Video Games Parties | #1 Rated from Games2U",
         description: "America's most trusted provider of video game trucks for birthday parties, school carnivals and fairs, summer camps, corporate team-building events and more!",
@@ -104,36 +105,17 @@ const EventDetails = ({ eventDetails,testimonialsData }) => {
                     <div className="limited-width">
                         <div className="scroll-arrow left" />
                         <div className="as-seen-images as-seen-mobile">
-                            <div className="as-seen-img"><img src="../assets/img/sharktank-opt.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/rachel.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/wall-street-journal.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/inc.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fox.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fortune.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/entrepreneur-opt.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/sharktank-opt.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/rachel.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/wall-street-journal.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/inc.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fox.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fortune.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/entrepreneur-opt.png" /></div>
+                            <BrandLogo investors={investorsData} />
                         </div>
                         <div className="as-seen-images as-seen-desktop">
-                            <div className="as-seen-img"><img src="../assets/img/sharktank-opt.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/rachel.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/wall-street-journal.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/inc.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fox.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/fortune.png" /></div>
-                            <div className="as-seen-img"><img src="../assets/img/entrepreneur-opt.png" /></div>
+                            <BrandLogo investors={investorsData} />
                         </div>
                         <div className="scroll-arrow right" />
                     </div>
                 </div>
             </div>
             {/* Get the Stats! include seven section end */}
-            <Footer testimonials={testimonialsData}/>
+            <Footer testimonials={testimonialsData} />
         </>
 
     )
@@ -167,13 +149,17 @@ export const getStaticProps = async ({ params: { slug } }) => {
     try {
         const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+        const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
 
         const events = await fetchApi(payload); // call event-details API
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+        const investorsContent = await fetchApi(investorsPayload); // call investors API
 
         const eventsData = events.data
         const testimonialsData = testimonialsContent.data.testimonials;
-        
+        const investorsData = investorsContent.data.investors;
+
+
         if (eventsData && eventsData.eventDetails != undefined && eventsData.eventDetails == '') {
             return {
                 notFound: true
@@ -184,6 +170,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
                 props: {
                     eventDetails,
                     testimonialsData,
+                    investorsData,
                 },
                 revalidate: 10, // In seconds
             };
