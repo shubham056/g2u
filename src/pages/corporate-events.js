@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const corporateevents = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
+const corporateevents = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData, siteSettingData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Corporate Events | Company Parties & Team Building | Games2U",
     description: meta_description && meta_description != '' ? meta_description : "Find out why Games2U is America's most trusted provider of mobile entertainment for business parties, corporate outings, grand openings, team building events and more! Book today for an experience they'll never forget!",
@@ -37,7 +37,7 @@ const corporateevents = ({ content, page_name, page_caption, banner_img, meta_ti
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header />
+        <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
         <div
           className="row no-padding not-home-additional content-banner"
@@ -73,7 +73,10 @@ const corporateevents = ({ content, page_name, page_caption, banner_img, meta_ti
       </div>
       {/* content section end */}
 
-      <Footer testimonials={testimonialsData}/>
+      <Footer
+        testimonials={testimonialsData}
+        siteSettings={siteSettingData}
+      />
     </>
   )
 }
@@ -84,12 +87,16 @@ export async function getStaticProps() {
   try {
     const corporateEventPayload = { url: `${apiBaseUrl}/content/corporate-events`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const corporateEvents = await fetchApi(corporateEventPayload); // call corporate event API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const corporateEventsData = corporateEvents.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
+    const siteSettingData = siteSettingContent.data.settings;
+
 
     if (corporateEventsData && corporateEventsData.content != undefined && corporateEventsData.content == '') {
       return {
@@ -106,7 +113,8 @@ export async function getStaticProps() {
           banner_img,
           meta_title,
           meta_description,
-          testimonialsData
+          testimonialsData,
+          siteSettingData,
         },
         revalidate: 5, // In seconds
       };

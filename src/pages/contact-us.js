@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const contactus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
+const contactus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData, siteSettingData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Contact Us | Games2U Mobile Entertainment",
     description: meta_description && meta_description != '' ? meta_description : "Telephone and email contact information for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -35,7 +35,7 @@ const contactus = ({ content, page_name, page_caption, banner_img, meta_title, m
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header />
+        <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
 
         <div
@@ -72,7 +72,10 @@ const contactus = ({ content, page_name, page_caption, banner_img, meta_title, m
 
       {/* content section end */}
 
-      <Footer testimonials={testimonialsData} />
+      <Footer
+        testimonials={testimonialsData}
+        siteSettings={siteSettingData}
+      />
     </>
   )
 }
@@ -83,13 +86,15 @@ export async function getStaticProps() {
   try {
     const contactUsPayload = { url: `${apiBaseUrl}/content/contact-us`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const contactUs = await fetchApi(contactUsPayload); // call contact us API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
-
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const contactUsData = contactUs.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
+    const siteSettingData = siteSettingContent.data.settings;
 
     if (contactUsData && contactUsData.content != undefined && contactUsData.content == '') {
       return {
@@ -107,6 +112,7 @@ export async function getStaticProps() {
           meta_title,
           meta_description,
           testimonialsData,
+          siteSettingData,
         },
         revalidate: 5, // In seconds
       };

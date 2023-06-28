@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const faq = ({ faqData, testimonialsData }) => {
+const faq = ({ faqData, testimonialsData, siteSettingData }) => {
   const [active, setActive] = useState(false)
   const [isItem, setIsItem] = useState(null)
   const SEO = {
@@ -37,7 +37,7 @@ const faq = ({ faqData, testimonialsData }) => {
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header />
+        <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
 
         <div className="row no-padding not-home faq-page" id="headerBanner">
@@ -82,7 +82,10 @@ const faq = ({ faqData, testimonialsData }) => {
 
       {/* content section end */}
 
-      <Footer testimonials={testimonialsData} />
+      <Footer
+        testimonials={testimonialsData}
+        siteSettings={siteSettingData}
+      />
     </>)
 }
 
@@ -92,12 +95,16 @@ export async function getStaticProps() {
   try {
     const faqPayload = { url: `${apiBaseUrl}/faq`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const faqContent = await fetchApi(faqPayload); // call FAQ API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const faqData = faqContent.data.faq;
     const testimonialsData = testimonialsContent.data.testimonials;
+    const siteSettingData = siteSettingContent.data.settings;
+
 
     if (faqData && faqData.faq != undefined && faqData.faq == '') {
       return {
@@ -109,6 +116,7 @@ export async function getStaticProps() {
         props: {
           faqData,
           testimonialsData,
+          siteSettingData,
         },
         revalidate: 10, // In seconds
       };

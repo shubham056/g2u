@@ -9,7 +9,7 @@ import Footer from '@/components/_App/Footer/Footer';
 import BrandLogo from '@/components/_App/BrandLogo';
 
 
-const EventDetails = ({ eventDetails, testimonialsData, investorsData }) => {
+const EventDetails = ({ eventDetails, testimonialsData, investorsData, siteSettingData }) => {
     const SEO = {
         title: "Game Truck Video Games Parties | #1 Rated from Games2U",
         description: "America's most trusted provider of video game trucks for birthday parties, school carnivals and fairs, summer camps, corporate team-building events and more!",
@@ -59,7 +59,7 @@ const EventDetails = ({ eventDetails, testimonialsData, investorsData }) => {
             {/* <!-- top header and banner with mobile menu section start --> */}
             <div className="container-fluid">
                 {/* <!-- header section start with mobile naviagtion  --> */}
-                <Header />
+                <Header siteSettings={siteSettingData} />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 {eventDetails && <TopBanner
@@ -115,7 +115,10 @@ const EventDetails = ({ eventDetails, testimonialsData, investorsData }) => {
                 </div>
             </div>
             {/* Get the Stats! include seven section end */}
-            <Footer testimonials={testimonialsData} />
+            <Footer
+                testimonials={testimonialsData}
+                siteSettings={siteSettingData}
+            />
         </>
 
     )
@@ -150,15 +153,17 @@ export const getStaticProps = async ({ params: { slug } }) => {
         const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
         const events = await fetchApi(payload); // call event-details API
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
         const investorsContent = await fetchApi(investorsPayload); // call investors API
+        const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
 
         const eventsData = events.data
         const testimonialsData = testimonialsContent.data.testimonials;
         const investorsData = investorsContent.data.investors;
-
+        const siteSettingData = siteSettingContent.data.settings;
 
         if (eventsData && eventsData.eventDetails != undefined && eventsData.eventDetails == '') {
             return {
@@ -171,6 +176,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
                     eventDetails,
                     testimonialsData,
                     investorsData,
+                    siteSettingData,
                 },
                 revalidate: 10, // In seconds
             };

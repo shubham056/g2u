@@ -70,7 +70,7 @@ const gamesSliderOptions = {
 };
 
 
-const GamesDetails = ({ categoryDetails, testimonialsData, investorsData }) => {
+const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [display, setDisplay] = useState(false);
@@ -127,7 +127,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData }) => {
             {/* <!-- top header and banner with mobile menu section start --> */}
             <div className="container-fluid">
                 {/* <!-- header section start with mobile naviagtion  --> */}
-                <Header />
+                <Header siteSettings={siteSettingData} />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 {categoryDetails && <TopBanner
@@ -241,7 +241,10 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData }) => {
             </div>
             {/* Get the Stats! include seven section end */}
 
-            <Footer testimonials={testimonialsData} />
+            <Footer
+                testimonials={testimonialsData}
+                siteSettings={siteSettingData}
+            />
         </>
 
     )
@@ -275,15 +278,17 @@ export const getStaticProps = async ({ params: { slug } }) => {
         const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
         const categories = await fetchApi(payload);
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
         const investorsContent = await fetchApi(investorsPayload); // call investors API
+        const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
 
         const testimonialsData = testimonialsContent.data.testimonials;
         const categoriesData = categories.data
         const investorsData = investorsContent.data.investors;
-
+        const siteSettingData = siteSettingContent.data.settings;
 
         if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
             return {
@@ -296,6 +301,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
                     categoryDetails,
                     testimonialsData,
                     investorsData,
+                    siteSettingData,
                 },
                 revalidate: 10, // In seconds
             };

@@ -5,7 +5,7 @@ import BottonNav from './BottonNav';
 import BottomFooter from './BottomFooter';
 import FranchiseRequest from '../FranchiseRequest';
 
-const Footer = ({ testimonials }) => {
+const Footer = ({ testimonials, siteSettings }) => {
   return (
     <div id="footer">
       <div className="container-fluid no-padding" id="footer">
@@ -16,9 +16,9 @@ const Footer = ({ testimonials }) => {
 
         <ZipCodeFormFooter />
 
-        <BottonNav /> {/* buttom naviagtion */}
+        <BottonNav siteSettings={siteSettings} /> {/* footer naviagtion */}
 
-        <BottomFooter />
+        <BottomFooter siteSettings={siteSettings} /> {/* buttom naviagtion */}
 
       </div>
       <div id="overlay" />

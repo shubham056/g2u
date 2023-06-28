@@ -5,7 +5,7 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import FranchiseFooter from '@/components/_App/FooterForFranchise/FranchiseFooter';
 
 
-const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData,investorsData }) => {
+const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData,investorsData,siteSettingData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Own a Franchise | Franchises Available Nationwide | Games2U",
     description: meta_description && meta_description != '' ? meta_description : "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -36,7 +36,7 @@ const franchiseinformation = ({ page_name, content, page_caption, banner_img, he
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header />
+        <Header  siteSettings={siteSettingData}/>
         {/* <!-- header section end with mobile naviagtion  --> */}
         <div className="row no-padding not-home-additional content-banner franchise-page" id="headerBanner"
           style={{
@@ -185,6 +185,7 @@ const franchiseinformation = ({ page_name, content, page_caption, banner_img, he
       < FranchiseFooter
         testimonials={testimonialsData}
         investors={investorsData}
+        siteSettings={siteSettingData}
       />
     </>
   )
@@ -197,15 +198,17 @@ export async function getStaticProps() {
     const ownFranchisepayload = { url: `${apiBaseUrl}/content/own-a-franchise`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const ownFranchiseContent = await fetchApi(ownFranchisepayload); // call own-a-franchise API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
     const investorsContent = await fetchApi(investorsPayload); // call investors API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const ownFranchiseData = ownFranchiseContent.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
     const investorsData = investorsContent.data.investors;
-
+    const siteSettingData = siteSettingContent.data.settings;
 
     if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '' && ownFranchiseData && ownFranchiseData.content == '') {
       return {
@@ -232,6 +235,7 @@ export async function getStaticProps() {
           meta_description,
           testimonialsData,
           investorsData,
+          siteSettingData,
         },
         revalidate: 10, // In seconds
       };

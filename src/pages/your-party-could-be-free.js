@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
+const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData, siteSettingData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Your Party Could Be Free | Games2U Mobile Entertainment",
     description: meta_description && meta_description != '' ? meta_description : "Information on how your Games2U event could be free.",
@@ -35,7 +35,7 @@ const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, me
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header />
+        <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
         <div
           className="row no-padding not-home-additional content-banner"
@@ -73,7 +73,10 @@ const yourpartycouldbefree = ({ content, page_name, page_caption, banner_img, me
 
       {/* content section end */}
 
-      <Footer testimonials={testimonialsData} />
+      <Footer
+        testimonials={testimonialsData}
+        siteSettings={siteSettingData}
+      />
     </>
   )
 }
@@ -84,13 +87,15 @@ export async function getStaticProps() {
   try {
     const yourPartyPayload = { url: `${apiBaseUrl}/content/your-party-could-be-free`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const partyCouldFreeContent = await fetchApi(yourPartyPayload); // call your-party-could-be-free API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const partyCouldFreeContentData = partyCouldFreeContent.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
-
+    const siteSettingData = siteSettingContent.data.settings;
 
     if (partyCouldFreeContentData && partyCouldFreeContentData.content != undefined && partyCouldFreeContentData.content == '') {
       return {
@@ -107,7 +112,8 @@ export async function getStaticProps() {
           banner_img,
           meta_title,
           meta_description,
-          testimonialsData
+          testimonialsData,
+          siteSettingData,
         },
         revalidate: 5, // In seconds
       };

@@ -40,8 +40,6 @@ const printStarRating = (rating) => {
     }
 }
 const Testimonials = ({ testimonials }) => {
-    console.log("testimonials", testimonials)
-
     return (
         <div className="row no-margin no-padding" id="testimonials">
             <div className="col-xs-12 no-padding">

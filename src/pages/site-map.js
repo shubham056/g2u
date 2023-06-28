@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const sitemap = ({ testimonialsData }) => {
+const sitemap = ({ testimonialsData, siteSettingData }) => {
     const SEO = {
         title: "Site Map | Games2U Mobile Entertainment",
         description: "View the site map for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -36,7 +36,7 @@ const sitemap = ({ testimonialsData }) => {
             {/* <!-- top header and banner with mobile menu section start --> */}
             <div className="container-fluid">
                 {/* <!-- header section start with mobile naviagtion  --> */}
-                <Header />
+                <Header siteSettings={siteSettingData} />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 <div className="row no-padding not-home all-events-page" id="headerBanner">
@@ -348,7 +348,10 @@ const sitemap = ({ testimonialsData }) => {
 
             {/* content section end */}
 
-            <Footer testimonials={testimonialsData} />
+            <Footer
+                testimonials={testimonialsData}
+                siteSettings={siteSettingData}
+            />
         </>)
 }
 
@@ -357,8 +360,13 @@ export default sitemap
 export async function getStaticProps() {
     try {
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
+
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+        const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
+
         const testimonialsData = testimonialsContent.data.testimonials;
+        const siteSettingData = siteSettingContent.data.settings;
 
         if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
             return {
@@ -369,6 +377,7 @@ export async function getStaticProps() {
             return {
                 props: {
                     testimonialsData,
+                    siteSettingData,
                 },
                 revalidate: 10, // In seconds
             };

@@ -17,7 +17,7 @@ const bg = {
     }
 };
 
-const Header = () => {
+const Header = ({ siteSettings }) => {
     const router = useRouter()
     const [isOpenHamburger, setisOpenHamburger] = useState(true)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
@@ -111,7 +111,7 @@ const Header = () => {
         <>
             <div id="navigation" className="clearfix">
                 <div className="col-sm-4 ti-main-logo">
-                    <Link href="/"><img src="/assets/img/g2u-logo.png" className='g2u-logo' alt="g2u-logo" /></Link>
+                    <Link href="/"><img src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" /></Link>
                 </div>
                 <div className="col-md-8 col-sm-12">
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
@@ -155,7 +155,7 @@ const Header = () => {
                             </span>
 
                         </div>
-                        <div className="col-sm-6 ti-align-right" id="headerPhone">Book Your Event Today! <strong><a href="tel:18007142637" className="ti-dark-blue-text">1‑800‑71‑<span className="ti-orange-text">GAMES</span></a></strong></div>
+                        <div className="col-sm-6 ti-align-right" id="headerPhone">Book Your Event Today! <strong><a href={`tel:${siteSettings?.phone ?? "18007142637"}`} className="ti-dark-blue-text">1‑800‑71‑<span className="ti-orange-text">GAMES</span></a></strong></div>
                     </div>
                     <div id="navLinks" className="clearfix">
                         <span id="mobileMenu"><span className={`ti-sprite hamburger-${isOpenHamburger ? 'close' : 'icon'}`} onClick={() => setisOpenHamburger(true)} /><span className="hidden-xs">

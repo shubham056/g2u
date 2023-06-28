@@ -79,13 +79,11 @@ function useGamesData() {
   };
 
   const updateGamesData = async (newZipcode, result) => {
-    console.log('updateGamesData', newZipcode)
     setLoading(true);
     const newGamesData = await fetchApi({url : `${apiBaseUrl}/games/${newZipcode}`, method : 'GET'});
     if (newGamesData && newGamesData.data?.games != null && newGamesData.data?.games != '') {
       setGames(newGamesData.data.games)
       localStoragePersistor.onSet(KEY, newGamesData.data.games);
-      console.log('newGamesData',newGamesData)
       setLoading(false);
       result(null,newGamesData)
     }

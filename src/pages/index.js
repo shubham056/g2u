@@ -22,6 +22,7 @@ export default function Home({
   page_name,
   testimonialsData,
   investorsData,
+  siteSettingData,
 }) {
   return (
     <>
@@ -49,7 +50,7 @@ export default function Home({
 
       <div className="container-fluid">
         {/* ----------- Header section start with mobile naviagtion --------  */}
-        <Header />
+        <Header siteSettings={siteSettingData} />
         {/* ----------- End Header section start with mobile naviagtion ------ */}
 
         {/* ----------- Start section for Video, Find a Location and Brand Logo ------ */}
@@ -116,26 +117,30 @@ export default function Home({
         />
       </div>
 
-      <Footer testimonials={testimonialsData} />
+      <Footer
+        testimonials={testimonialsData}
+        siteSettings={siteSettingData}
+      />
     </>
   );
 }
 
 export async function getStaticProps() {
   try {
-    const gamesForEveryonePayload = {url: `${apiBaseUrl}/content/games-for-everyone`,method: "GET"};
-    const testimonialsPayload = {url: `${apiBaseUrl}/testimonials`,method: "POST",data: { page_limit: 20, page_record: 1 }};
-    const investorsPayload = {url: `${apiBaseUrl}/investors`,method: "POST",data: { page_limit: 20, page_record: 1 }};
+    const gamesForEveryonePayload = { url: `${apiBaseUrl}/content/games-for-everyone`, method: "GET" };
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const gamesForEveryone = await fetchApi(gamesForEveryonePayload); // call contact us API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
     const investorsContent = await fetchApi(investorsPayload); // call investors API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const gamesForEveryoneData = gamesForEveryone.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
     const investorsData = investorsContent.data.investors;
-
-    console.log("testimonialsData", testimonialsData);
+    const siteSettingData = siteSettingContent.data.settings;
 
     if (
       gamesForEveryoneData &&
@@ -158,6 +163,7 @@ export async function getStaticProps() {
           page_name,
           testimonialsData,
           investorsData,
+          siteSettingData,
         },
         revalidate: 10, // In seconds
       };

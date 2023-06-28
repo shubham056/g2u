@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 
-const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData }) => {
+const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData, siteSettingData }) => {
     const SEO = {
         title: meta_title && meta_title != '' ? meta_title : "Privacy Policy | Games2U Mobile Entertainment",
         description: meta_description && meta_description != '' ? meta_description : "View the privacy policy for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -35,7 +35,7 @@ const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_titl
             {/* <!-- top header and banner with mobile menu section start --> */}
             <div className="container-fluid">
                 {/* <!-- header section start with mobile naviagtion  --> */}
-                <Header />
+                <Header siteSettings={siteSettingData} />
                 {/* <!-- header section end with mobile naviagtion  --> */}
 
                 <div
@@ -71,7 +71,10 @@ const privacypolicy = ({ content, page_name, page_caption, banner_img, meta_titl
 
             {/* content section end */}
 
-            <Footer testimonials={testimonialsData} />
+            <Footer
+                testimonials={testimonialsData}
+                siteSettings={siteSettingData}
+            />
         </>)
 }
 
@@ -81,12 +84,16 @@ export async function getStaticProps() {
     try {
         const privacyPolicypayload = { url: `${apiBaseUrl}/content/privacy-policy`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
         const privacyPolicyContent = await fetchApi(privacyPolicypayload); // call privacy policy API
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+        const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
         const privacyPolicyContentData = privacyPolicyContent.data.content;
         const testimonialsData = testimonialsContent.data.testimonials;
+        const siteSettingData = siteSettingContent.data.settings;
+
 
         if (privacyPolicyContentData && privacyPolicyContentData.content != undefined && privacyPolicyContentData.content == '') {
             return {
@@ -103,7 +110,8 @@ export async function getStaticProps() {
                     banner_img,
                     meta_title,
                     meta_description,
-                    testimonialsData
+                    testimonialsData,
+                    siteSettingData,
                 },
                 revalidate: 10, // In seconds
             };
