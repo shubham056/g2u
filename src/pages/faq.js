@@ -105,26 +105,15 @@ export async function getStaticProps() {
     const testimonialsData = testimonialsContent.data.testimonials;
     const siteSettingData = siteSettingContent.data.settings;
 
-
-    if (faqData && faqData.faq != undefined && faqData.faq == '') {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      return {
-        props: {
-          faqData,
-          testimonialsData,
-          siteSettingData,
-        },
-        revalidate: 10, // In seconds
-      };
-    }
+    return {
+      props: {
+        faqData,
+        testimonialsData,
+        siteSettingData,
+      },
+      revalidate: 10, // In seconds
+    };
   } catch (error) {
     console.log('error in faq api call', error)
-    return {
-      notFound: true
-    };
   }
 }

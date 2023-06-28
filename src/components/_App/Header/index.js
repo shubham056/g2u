@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import useGamesData from '@/states/stores/games-data';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 const modalSchema = Yup.object().shape({
     zipcode: Yup.string().matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
@@ -19,7 +19,7 @@ const bg = {
 
 const Header = ({ siteSettings }) => {
     const router = useRouter()
-    const [isOpenHamburger, setisOpenHamburger] = useState(true)
+    const [isOpenHamburger, setisOpenHamburger] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
 
@@ -155,20 +155,20 @@ const Header = ({ siteSettings }) => {
                             </span>
 
                         </div>
-                        <div className="col-sm-6 ti-align-right" id="headerPhone">Book Your Event Today! <strong><a href={`tel:${siteSettings?.phone ?? "18007142637"}`} className="ti-dark-blue-text">1‑800‑71‑<span className="ti-orange-text">GAMES</span></a></strong></div>
+                        <div className="col-sm-6 ti-align-right" id="headerPhone">Book Your Event Today! <strong><a href={`tel:${siteSettings?.phone ?? "18007142637"}`} className="ti-dark-blue-text">{siteSettings?.phone_number_label ?? "1-800-71"}‑<span className="ti-orange-text">GAMES</span></a></strong></div>
                     </div>
                     <div id="navLinks" className="clearfix">
-                        <span id="mobileMenu"><span className={`ti-sprite hamburger-${isOpenHamburger ? 'close' : 'icon'}`} onClick={() => setisOpenHamburger(true)} /><span className="hidden-xs">
-                            MENU</span></span>
+                        <span id="mobileMenu"><span className={`ti-sprite hamburger-${isOpenHamburger ? 'close' : 'icon'}`}
+                            onClick={() => setisOpenHamburger(!isOpenHamburger)} /><span className="hidden-xs">
+                                MENU</span></span>
                         <a href="#" className="visible-sm" id="mobileLocationIcon">
                             <span className="ti-sprite blue-location-pin" />
                         </a>
                         <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon">
                             <span className="ti-sprite blue-phone" />
                         </a>
-                        <div className="links-container"
-                        //style={{ display: isOpenHamburger ? 'block' : 'none' }}
-                        >
+
+                        <div className="links-container desktop-menu-div">
                             <div className="visible-sm visible-xs mobile-location location-update-wrap">
                                 <span className="ti-sprite location-pin" />
                                 <span className="selected-location">
@@ -198,6 +198,79 @@ const Header = ({ siteSettings }) => {
                                 </span>
                             </div>
                             <div className="no-padding" id="ourGamesNav" onMouseEnter={() => setIsShownMenu(true)} onMouseLeave={() => setIsShownMenu(false)}>
+                                <a href="#footerContact" className="visible-sm visible-xs ti-blue-background">BOOK YOUR
+                                    EVENT</a>
+                                <Link href="/our-games">OUR GAMES</Link>
+                                <div className="sub-menu" style={{ display: isShownMenu ? 'block' : 'none' }}>
+                                    <div className="ti-sub-head clearfix">
+                                        <h2 className="no-border ti-dark-blue-text pull-left">Games They'll Love!</h2>
+                                        <Link href="/our-games" className="ti-orange-text pull-right ti-inline-block">View All
+                                            Available Games</Link>
+                                    </div>
+                                    <div className="col-md-4 padding-top">
+                                        {
+                                            (!loading && games && games?.categories != undefined && games?.categories.length > 0)
+                                                ?
+                                                games.categories.map(item => {
+                                                    return (
+                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                    )
+                                                })
+
+                                                :
+                                                null
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="no-padding" id="g2uExperience">
+                                <Link href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
+                            </div>
+                            <div className="no-padding" id="corporateEventsNav">
+                                <Link href="/corporate-events">CORPORATE EVENTS</Link>
+                            </div>
+                            <div className="no-padding" id="franchiseNav">
+                                <Link href="/franchise-information">OWN A FRANCHISE</Link>
+                            </div>
+                            <div className="no-padding" id="freePartyNav">
+                                <Link href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
+                            </div>
+                        </div>
+
+                        <div className="links-container mobile-menu-div"
+                            style={{ display: isOpenHamburger ? 'block' : 'none' }}
+                        >
+                            <div className="visible-sm visible-xs mobile-location location-update-wrap">
+                                <span className="ti-sprite location-pin" />
+                                <span className="selected-location">
+                                    <strong />
+                                    <span className="ti-light-orange-text">( <span className="ti-light-orange-text location-edit-link" onClick={() => setChangeLocation(true)}>Change location</span> )</span>
+                                </span>
+                                <span className="update-location" style={{ display: (changeLocation) ? 'block' : 'none' }}>
+                                    <form
+                                        onSubmit={handleSubmitTwo(onSubmitMobileChangeLocation)}
+                                        autoComplete='off'
+                                    >
+
+                                        <input type="hidden" id="franchiseNameMobNav" name="franchiseName" defaultValue />
+                                        <span className="close-btn" onClick={() => setChangeLocation(false)} />
+                                        <div className="ti-input">
+                                            <input
+                                                {...registerTwo("zipcode")}
+                                                type="text"
+                                                placeholder={errors && errors.zipcode != null && errors.zipcode.message ? errors.zipcode.message : zipCodeServiceStaus}
+                                                className="zip-code-input"
+                                                maxLength={5}
+                                            />
+                                            {/* <input type="tel" name="mobileZipNav" id="mobileZipNav" placeholder="Enter Your Zip Code" className="zip-code-input" /> */}
+                                        </div>
+                                        <button id="btnMobileZip" className="ti-yellow-button" type='submit'>Go!</button>
+                                    </form>
+                                </span>
+                            </div>
+                            <div className="no-padding games-sub-menu" id="ourGamesNav" onMouseEnter={() => setIsShownMenu(true)} onMouseLeave={() => setIsShownMenu(false)}
+                                onClick={() => { console.log("clicked") }}
+                            >
                                 <a href="#footerContact" className="visible-sm visible-xs ti-blue-background">BOOK YOUR
                                     EVENT</a>
                                 <Link href="/our-games">OUR GAMES</Link>

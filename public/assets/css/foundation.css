@@ -6503,3 +6503,37 @@ a[href^="https://maps.google.com/maps"] {
 #text-white {
     color: white !important;
 }
+
+.desktop-menu-div {
+    display: block;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    .mobile-menu-div {
+        display: none;
+    }
+    .desktop-menu-div{
+        display: none;
+    }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+    .mobile-menu-div {
+        display: none;
+    }
+    .desktop-menu-div{
+        display: none;
+    }
+}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .mobile-menu-div {
+        display: none;
+    }
+    .desktop-menu-div{
+        display: none;
+    }
+}

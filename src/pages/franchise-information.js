@@ -5,7 +5,7 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import FranchiseFooter from '@/components/_App/FooterForFranchise/FranchiseFooter';
 
 
-const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData,investorsData,siteSettingData }) => {
+const franchiseinformation = ({ page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description, testimonialsData, investorsData, siteSettingData }) => {
   const SEO = {
     title: meta_title && meta_title != '' ? meta_title : "Own a Franchise | Franchises Available Nationwide | Games2U",
     description: meta_description && meta_description != '' ? meta_description : "Information on opening a new franchise of America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
@@ -36,7 +36,7 @@ const franchiseinformation = ({ page_name, content, page_caption, banner_img, he
       {/* <!-- top header and banner with mobile menu section start --> */}
       <div className="container-fluid">
         {/* <!-- header section start with mobile naviagtion  --> */}
-        <Header  siteSettings={siteSettingData}/>
+        <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
         <div className="row no-padding not-home-additional content-banner franchise-page" id="headerBanner"
           style={{
@@ -210,40 +210,30 @@ export async function getStaticProps() {
     const investorsData = investorsContent.data.investors;
     const siteSettingData = siteSettingContent.data.settings;
 
-    if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '' && ownFranchiseData && ownFranchiseData.content == '') {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      const { page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description } = ownFranchiseData
-      return {
-        props: {
-          page_name,
-          content,
-          page_caption,
-          banner_img,
-          head_title,
-          head_description,
-          bottom_title,
-          bottom_caption,
-          service_one,
-          service_two,
-          service_three,
-          title_after_service,
-          meta_title,
-          meta_description,
-          testimonialsData,
-          investorsData,
-          siteSettingData,
-        },
-        revalidate: 10, // In seconds
-      };
-    }
+    const { page_name, content, page_caption, banner_img, head_title, head_description, bottom_title, bottom_caption, service_one, service_two, service_three, title_after_service, meta_title, meta_description } = ownFranchiseData
+    return {
+      props: {
+        page_name,
+        content,
+        page_caption,
+        banner_img,
+        head_title,
+        head_description,
+        bottom_title,
+        bottom_caption,
+        service_one,
+        service_two,
+        service_three,
+        title_after_service,
+        meta_title,
+        meta_description,
+        testimonialsData,
+        investorsData,
+        siteSettingData,
+      },
+      revalidate: 10, // In seconds
+    };
   } catch (error) {
     console.log('error in testimonials api call', error)
-    return {
-      notFound: true
-    };
   }
 }

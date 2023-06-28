@@ -142,21 +142,7 @@ export async function getStaticProps() {
     const investorsData = investorsContent.data.investors;
     const siteSettingData = siteSettingContent.data.settings;
 
-    if (
-      gamesForEveryoneData &&
-      gamesForEveryoneData.content != undefined &&
-      gamesForEveryoneData.content == "" &&
-      testimonialsData &&
-      testimonialsData != undefined &&
-      testimonialsData.length == 0
-    ) {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      const { content, page_name } = gamesForEveryoneData;
-
+    const { content, page_name } = gamesForEveryoneData;
       return {
         props: {
           content,
@@ -167,11 +153,7 @@ export async function getStaticProps() {
         },
         revalidate: 10, // In seconds
       };
-    }
   } catch (error) {
     console.log("error in testimonials api call", error);
-    return {
-      notFound: true,
-    };
   }
 }

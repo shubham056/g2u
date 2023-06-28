@@ -96,33 +96,24 @@ export async function getStaticProps() {
     const siteSettingData = siteSettingContent.data.settings;
 
 
-    if (g2uDifferenceContentData && g2uDifferenceContentData.content == '') {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = g2uDifferenceContentData
-      return {
-        props: {
-          content,
-          page_name,
-          page_caption,
-          banner_img,
-          meta_title,
-          meta_description,
-          eventListData,
-          testimonialsData,
-          investorsData,
-          siteSettingData,
-        },
-        revalidate: 10, // In seconds
-      };
-    }
+    const { content, page_name, page_caption, banner_img, meta_title, meta_description } = g2uDifferenceContentData
+    return {
+      props: {
+        content,
+        page_name,
+        page_caption,
+        banner_img,
+        meta_title,
+        meta_description,
+        eventListData,
+        testimonialsData,
+        investorsData,
+        siteSettingData,
+      },
+      revalidate: 10, // In seconds
+    };
+
   } catch (error) {
     console.log('error in your-party-could-be-free api call', error)
-    return {
-      notFound: true
-    };
   }
 }

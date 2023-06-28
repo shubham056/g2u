@@ -98,31 +98,21 @@ export async function getStaticProps() {
     const siteSettingData = siteSettingContent.data.settings;
 
 
-    if (corporateEventsData && corporateEventsData.content != undefined && corporateEventsData.content == '') {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = corporateEventsData
-      return {
-        props: {
-          content,
-          page_name,
-          page_caption,
-          banner_img,
-          meta_title,
-          meta_description,
-          testimonialsData,
-          siteSettingData,
-        },
-        revalidate: 5, // In seconds
-      };
-    }
+    const { content, page_name, page_caption, banner_img, meta_title, meta_description } = corporateEventsData
+    return {
+      props: {
+        content,
+        page_name,
+        page_caption,
+        banner_img,
+        meta_title,
+        meta_description,
+        testimonialsData,
+        siteSettingData,
+      },
+      revalidate: 5, // In seconds
+    };
   } catch (error) {
     console.log('error in corporate events api call', error)
-    return {
-      notFound: true
-    };
   }
 }

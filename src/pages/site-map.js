@@ -368,24 +368,14 @@ export async function getStaticProps() {
         const testimonialsData = testimonialsContent.data.testimonials;
         const siteSettingData = siteSettingContent.data.settings;
 
-        if (testimonialsData && testimonialsData.testimonials != undefined && testimonialsData.testimonials == '') {
-            return {
-                notFound: true,
-                revalidate: 5,
-            };
-        } else {
-            return {
-                props: {
-                    testimonialsData,
-                    siteSettingData,
-                },
-                revalidate: 10, // In seconds
-            };
-        }
+        return {
+            props: {
+                testimonialsData,
+                siteSettingData,
+            },
+            revalidate: 10, // In seconds
+        };
     } catch (error) {
         console.log('error in testimonials api call', error)
-        return {
-            notFound: true
-        };
     }
 }

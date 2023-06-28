@@ -16,7 +16,7 @@ const BookanEventSchema = Yup.object().shape({
     zipcode: Yup.string().required('Please enter zip code.'),
 })
 
-const ZipCodeFormFooter = () => {
+const ZipCodeFormFooter = ({ phoneNumberLabel }) => {
     const [showSuccessMsg, setShowSuccessMsg] = useState(false)
     const [submitBtnText, setSubmitBtnText] = useState("Submit Query")
     const [isLoader, setIsLoader] = useState(false)
@@ -100,13 +100,13 @@ const ZipCodeFormFooter = () => {
                                         <p>&nbsp;</p>
                                         <p>&nbsp;</p>
                                         <h3>Thanks!</h3>
-                                        <p>Your request has been sent. A member of our team will contact you shortly to help you organize your event.<br /><br />You can also reach us at 1-800-71-GAMES from 9am - 6pm.</p>
+                                        <p>Your request has been sent. A member of our team will contact you shortly to help you organize your event.<br /><br />You can also reach us at {phoneNumberLabel ? phoneNumberLabel : "1-800-71"}-GAMES from 9am - 6pm.</p>
                                     </div>
                                     :
                                     <div id="divFrmBookEvent">
                                         <h3>Book Your Event!</h3>
                                         <p>Call us today at
-                                            <span className="ti-orange-text"><strong> 1-800-71-GAMES </strong></span>
+                                            <span className="ti-orange-text"><strong> {phoneNumberLabel ? phoneNumberLabel : "1-800-71"}-GAMES </strong></span>
                                             to book your event today or submit the form below and one of our friendly event planners will be in touch shortly.</p>
                                         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
                                             <div className="ti-input  col-xs-12 required">
@@ -155,7 +155,7 @@ const ZipCodeFormFooter = () => {
                         <div className="col-md-5 pull-right" id="footerContact">
                             <h3>Find a Location to Book Your Event!</h3>
                             <p>Call us today at
-                                <strong><span className="ti-orange-text">1-800-71-GAMES</span></strong> or enter your ZIP Code below
+                                <strong><span className="ti-orange-text">{phoneNumberLabel ? phoneNumberLabel : "1-800-71"}-GAMES</span></strong> or enter your ZIP Code below
                                 to find a location near you.
                             </p>
                             <form method="post" id="frmFooterZip" name="frmFooterZip" action="/">

@@ -97,13 +97,7 @@ export async function getStaticProps() {
     const testimonialsData = testimonialsContent.data.testimonials;
     const siteSettingData = siteSettingContent.data.settings;
 
-    if (partyCouldFreeContentData && partyCouldFreeContentData.content != undefined && partyCouldFreeContentData.content == '') {
-      return {
-        notFound: true,
-        revalidate: 5,
-      };
-    } else {
-      const { content, page_name, page_caption, banner_img, meta_title, meta_description } = partyCouldFreeContentData
+    const { content, page_name, page_caption, banner_img, meta_title, meta_description } = partyCouldFreeContentData
       return {
         props: {
           content,
@@ -117,11 +111,7 @@ export async function getStaticProps() {
         },
         revalidate: 5, // In seconds
       };
-    }
   } catch (error) {
     console.log('error in your-party-could-be-free api call', error)
-    return {
-      notFound: true
-    };
   }
 }

@@ -14,7 +14,7 @@ const Footer = ({ testimonials, siteSettings }) => {
 
         <div id="enterZipCode" />
 
-        <ZipCodeFormFooter />
+        <ZipCodeFormFooter phoneNumberLabel={siteSettings.phone_number_label}/>
 
         <BottonNav siteSettings={siteSettings} /> {/* footer naviagtion */}
 

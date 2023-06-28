@@ -290,27 +290,18 @@ export const getStaticProps = async ({ params: { slug } }) => {
         const investorsData = investorsContent.data.investors;
         const siteSettingData = siteSettingContent.data.settings;
 
-        if (categoriesData && categoriesData.categoryDetails != undefined && categoriesData.categoryDetails == '') {
-            return {
-                notFound: true
-            };
-        } else {
-            const { categoryDetails } = categoriesData
-            return {
-                props: {
-                    categoryDetails,
-                    testimonialsData,
-                    investorsData,
-                    siteSettingData,
-                },
-                revalidate: 10, // In seconds
-            };
-        }
+        const { categoryDetails } = categoriesData
+        return {
+            props: {
+                categoryDetails,
+                testimonialsData,
+                investorsData,
+                siteSettingData,
+            },
+            revalidate: 10, // In seconds
+        };
     } catch (error) {
         console.log('error in detail api call', error)
-        return {
-            notFound: true
-        };
     }
 
 };

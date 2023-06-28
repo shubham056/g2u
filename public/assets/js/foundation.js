@@ -1114,19 +1114,19 @@ $(document).ready(function () {
 
     });
 
-    $('#mobileMenu').click(function () {
-        var self = this;
-        if ($(self).children('.ti-sprite').hasClass('hamburger-close')) {
-            $(self).children('.ti-sprite').removeClass('hamburger-close').addClass('hamburger-icon');
-            $(self).siblings('.links-container').slideToggle();
-            $('.mobile-menu-overlay').fadeToggle(200);
-        } else {
-            $(self).children('.ti-sprite').removeClass('hamburger-icon').addClass('hamburger-close');
-            $(self).parents('#navLinks').addClass('active');
-            $(self).siblings('.links-container').slideToggle();
-            $('.mobile-menu-overlay').fadeToggle(200);
-        }
-    });
+    // $('#mobileMenu').click(function () {
+    //     var self = this;
+    //     if ($(self).children('.ti-sprite').hasClass('hamburger-close')) {
+    //         $(self).children('.ti-sprite').removeClass('hamburger-close').addClass('hamburger-icon');
+    //         $(self).siblings('.links-container').slideToggle();
+    //         $('.mobile-menu-overlay').fadeToggle(200);
+    //     } else {
+    //         $(self).children('.ti-sprite').removeClass('hamburger-icon').addClass('hamburger-close');
+    //         $(self).parents('#navLinks').addClass('active');
+    //         $(self).siblings('.links-container').slideToggle();
+    //         $('.mobile-menu-overlay').fadeToggle(200);
+    //     }
+    // });
 
     $('#navLinks #ourGamesNav a[href="#footerContact"]').click(function () {
         var self = $('#mobileMenu');

@@ -70,8 +70,5 @@ export async function getStaticProps() {
         };
     } catch (error) {
         console.log('error in siteSetting api call', error)
-        return {
-            notFound: true
-        };
     }
 }

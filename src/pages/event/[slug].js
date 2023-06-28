@@ -165,27 +165,18 @@ export const getStaticProps = async ({ params: { slug } }) => {
         const investorsData = investorsContent.data.investors;
         const siteSettingData = siteSettingContent.data.settings;
 
-        if (eventsData && eventsData.eventDetails != undefined && eventsData.eventDetails == '') {
-            return {
-                notFound: true
-            };
-        } else {
-            const { eventDetails } = eventsData
-            return {
-                props: {
-                    eventDetails,
-                    testimonialsData,
-                    investorsData,
-                    siteSettingData,
-                },
-                revalidate: 10, // In seconds
-            };
-        }
+        const { eventDetails } = eventsData
+        return {
+            props: {
+                eventDetails,
+                testimonialsData,
+                investorsData,
+                siteSettingData,
+            },
+            revalidate: 10, // In seconds
+        };
     } catch (error) {
         console.log('error in detail api call', error)
-        return {
-            notFound: true
-        };
     }
 
 };
