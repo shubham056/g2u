@@ -290,9 +290,10 @@ const Map = ({ address }) => {
                         ov.draw = function () { };
                         ov.setMap(map);
                     };
-                    if (windowCheck().indexOf('desktop') > -1) {
-                        google.maps.Map.prototype.setCenterWithOffset(latlng, offsetx, 0);
-                    }
+                    google.maps.Map.prototype.setCenterWithOffset(latlng, offsetx, 0);
+                    // if (windowCheck().indexOf('desktop') > -1) {
+                       
+                    // }
                     setMap(newMap);
                 }
             });

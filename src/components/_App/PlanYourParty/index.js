@@ -1,4 +1,4 @@
-import React from 'react'
+import Image from "next/image"
 
 const PlanYourParty = () => {
     return (
@@ -9,7 +9,7 @@ const PlanYourParty = () => {
                         <h2>Planning Your Party is as Easy as <span className="force-break">1, 2, 3!</span></h2>
                         <div className="row ti-row-top">
                             <div className="col-lg-1 col-sm-2 col-xs-12 col-ie-2">
-                                <img src="assets/img/one-2x.png" alt="two" />
+                                <Image src="/assets/img/one-2x.png" alt="one-2x" width={40} height={40} />
                             </div>
                             <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10">
                                 <h3>Choose Your Activities</h3>
@@ -20,7 +20,7 @@ const PlanYourParty = () => {
                         </div>
                         <div className="row">
                             <div className="col-lg-1 col-sm-2 col-xs-12 col-ie-2">
-                                <img src="assets/img/two-2x.png"  alt="two"/>
+                                <Image src="/assets/img/two-2x.png" alt="two-2x" width={40} height={40} />
                             </div>
                             <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10">
                                 <h3>Schedule Your Party</h3>
@@ -32,7 +32,7 @@ const PlanYourParty = () => {
                         </div>
                         <div className="row">
                             <div className="col-lg-1 col-sm-2 col-xs-12 col-ie-2">
-                                <img src="assets/img/three-2x.png" alt="three-2x" />
+                                <Image src="/assets/img/three-2x.png" alt="three-2x" width={40} height={40} />
                             </div>
                             <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10">
                                 <h3>RELAX! We'll Handle the Rest</h3>

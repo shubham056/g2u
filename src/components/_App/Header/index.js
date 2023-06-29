@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import useGamesData from '@/states/stores/games-data';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const modalSchema = Yup.object().shape({
     zipcode: Yup.string().matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
@@ -111,7 +112,7 @@ const Header = ({ siteSettings }) => {
         <>
             <div id="navigation" className="clearfix">
                 <div className="col-sm-4 ti-main-logo">
-                    <Link href="/"><img src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" /></Link>
+                    <Link href="/"><Image src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} /></Link>
                 </div>
                 <div className="col-md-8 col-sm-12">
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
@@ -321,7 +322,7 @@ const Header = ({ siteSettings }) => {
             >
                 <div className="container-modal">
                     <div className="logo-container">
-                        <img data-em="logo" src="assets/img/g2u-logo.png" alt="g2u-logo" />
+                        <Image data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} />
                     </div>
                     <div className="text-container">
                         <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
