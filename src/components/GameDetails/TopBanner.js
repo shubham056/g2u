@@ -12,7 +12,9 @@ const TopBanner = ({ banner, icon, title, caption }) => {
                         <h1>{title}</h1>
                         <p>{caption}</p>
                         <div className="text-center">
-                            <a href="#" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-video-game-truck.mp4"><i className="fa fa-lg fa-play-circle-o" aria-hidden="true" /> SEE IT IN ACTION!</a>
+                            <div class="text-center">
+                                <a href="#footerContact" class="ti-yellow-button">Request Info</a>
+                            </div>
                         </div>
                     </div>
                 </div>

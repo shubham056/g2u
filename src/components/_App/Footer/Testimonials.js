@@ -51,7 +51,7 @@ const Testimonials = ({ testimonials }) => {
                             ?
                             testimonials.map((item, index) => {
                                 return (
-                                    <div className={`testimonial-cell ${index == 0 ? 'active' : null}`}>
+                                    <div className={`testimonial-cell ${index == 0 ? 'active' : null}`} key={item.id}>
                                         <div className="star-container">
                                             {printStarRating(item.star_rating)}
                                         </div>
