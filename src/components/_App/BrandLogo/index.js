@@ -7,8 +7,8 @@ const options = {
     startPosition: 0,
     navText:
         [
-            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
+            '<div class="scroll-arrow left"></div>',
+            '<div class="scroll-arrow right"></div>'
         ],
     dots: false,
     smartSpeed: 500,
@@ -39,28 +39,29 @@ const BrandLogo = ({ investors }) => {
     }
 
     return (
-        <>                    {/* {
-                        display
-                            ?
-                            <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
-                                {
-                                    investors && investors.length > 0
-                                        ?
-                                        investors.map(item => <div className="as-seen-img"><img src={item.logo} alt={item.investor_name} /></div>)
-                                        :
-                                        <div className="as-seen-img"> <p>No data found!</p></div>
-                                }
-                            </OwlCarousel>
-                            :
-                            ''
-                    } */}
+        <>
             {
+                display
+                    ?
+                    <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
+                        {
+                            investors && investors.length > 0
+                                ?
+                                investors.map(item => <div className="as-seen-img"><img src={item.logo} alt={item.investor_name} /></div>)
+                                :
+                                <div className="as-seen-img"> <p>No data found!</p></div>
+                        }
+                    </OwlCarousel>
+                    :
+                    null
+            }
+            {/* {
                 investors && investors.length > 0
                     ?
                     investors.map(item => <div className="as-seen-img" key={item.id}><img src={item.logo} alt={item.investor_name} /></div>)
                     :
                     <div className="as-seen-img"> <p>No data found!</p></div>
-            }
+            } */}
 
         </>
 

@@ -3336,8 +3336,8 @@ body {
 }
 
 .as-seen-banner .scroll-arrow.left {
-    visibility: hidden;
-    opacity: 0;
+    visibility: visible;
+    opacity: 1;
     transition: opacity 0.15s;
 }
 
@@ -3404,7 +3404,7 @@ body {
 }
 
 .as-seen-banner .scroll-arrow.left {
-    left: 30%;
+    left: -4%;
 }
 
 .as-seen-banner.not-home .scroll-arrow.right {

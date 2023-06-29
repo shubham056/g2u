@@ -62,7 +62,7 @@ export default function Home({
 
             <div className="ti-blue-background as-seen-banner clearfix">
               <div className="col-xs-12">
-                <div className="scroll-arrow left" />
+                {/* <div className="scroll-arrow left" /> */}
                 <div className="as-seen-title">
                   <span>As Seen On:</span>
                   <div className="as-seen-truck">
@@ -72,7 +72,7 @@ export default function Home({
                 <div className="as-seen-images">
                   <BrandLogo investors={investorsData} />
                 </div>
-                <div className="scroll-arrow right" />
+                {/* <div className="scroll-arrow right" /> */}
               </div>
             </div>
           </div>
@@ -97,7 +97,6 @@ export default function Home({
                     <GamesSlider />
                   </div>
                 </div>
-
                 <GamesList />
               </div>
             </div>
