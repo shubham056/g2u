@@ -322,7 +322,7 @@ const Header = ({ siteSettings }) => {
             >
                 <div className="container-modal">
                     <div className="logo-container">
-                        <Image data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} />
+                        <img data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" />
                     </div>
                     <div className="text-container">
                         <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
