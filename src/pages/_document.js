@@ -9,7 +9,6 @@ export default function Document() {
 
         {/* <script src="/assets/js/jquery-2.2.4.min.js"></script> */}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script type="text/javascript" src="/assets/js/slick-1.9.0.min.js"></script>
 
         <link rel="stylesheet" href="/assets/css/bootstrap-3.3.7.min.css" />
         <link rel="stylesheet" type="text/css"
@@ -22,9 +21,7 @@ export default function Document() {
 
         <link rel="stylesheet" href="/assets/css/modal.css" />
         <script src="/assets/js/bootstrap-3-latest.min.js"></script>
-        <script src="/assets/js/jquery.mask.min.js"></script>
-        <script src="/assets/js/foundation.js"></script>
-        <script src="/assets/js/zenscroll-min.js"></script>
+        
       </Head>
       <body>
 
@@ -32,8 +29,6 @@ export default function Document() {
 
         <NextScript />
 
-        <script src="/assets/js/jstracker.min.js"></script>
-        <script src="/assets/js/custom.js" />
       </body>
     </Html>
   )

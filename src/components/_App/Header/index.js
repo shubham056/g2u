@@ -112,7 +112,7 @@ const Header = ({ siteSettings }) => {
         <>
             <div id="navigation" className="clearfix">
                 <div className="col-sm-4 ti-main-logo">
-                    <Link href="/"><Image src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} /></Link>
+                    <Link href="/"><Image src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={420} height={151} /></Link>
                 </div>
                 <div className="col-md-8 col-sm-12">
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
@@ -322,7 +322,7 @@ const Header = ({ siteSettings }) => {
             >
                 <div className="container-modal">
                     <div className="logo-container">
-                        <Image data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} />
+                        <Image data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={242} height={80} />
                     </div>
                     <div className="text-container">
                         <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
