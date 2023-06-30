@@ -78,7 +78,7 @@ export default theg2udifference;
 export async function getStaticProps() {
   try {
     const g2uDifferencePayload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
-    const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 3, page_record: 1 } }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
@@ -89,12 +89,11 @@ export async function getStaticProps() {
     const investorsContent = await fetchApi(investorsPayload); // call investors API
     const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
-    const eventListData = eventList.data.events;
+    const eventListData = eventList.data;
     const g2uDifferenceContentData = g2uDifferenceContent.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
     const investorsData = investorsContent.data.investors;
     const siteSettingData = siteSettingContent.data.settings;
-
 
     const { content, page_name, page_caption, banner_img, meta_title, meta_description } = g2uDifferenceContentData
     return {

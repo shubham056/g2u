@@ -45,7 +45,7 @@ export default function Home({
           sizes="16x16"
           href="//assets/favicon-32x32.png"
         />
-        <link rel="shortcut icon" href="//assets/favicon-16x16.png" />
+        <link rel="shortcut icon" href="/assets/favicon-16x16.png" />
       </Head>
 
       <div className="container-fluid">

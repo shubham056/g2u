@@ -6508,6 +6508,10 @@ a[href^="https://maps.google.com/maps"] {
     display: block;
 }
 
+.desktop-view-category-name {
+    display: block;
+}
+
 .as-seen-img {
     display: inline-flex;
     vertical-align: middle;
@@ -6515,6 +6519,10 @@ a[href^="https://maps.google.com/maps"] {
     align-items: center;
     justify-content: center;
     min-height: 90px;
+}
+
+.load-more-btn {
+    margin-top: 27px !important;
 }
 
 /* Media Query for Mobile Devices */

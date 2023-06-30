@@ -1,9 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import GamesSlider from '../../GamesSlider';
 import Link from 'next/link';
 import BrandLogo from '../../BrandLogo';
+import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
-const Theg2udifferenceContent = ({ content, eventList, investors }) => {
+const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, investors }) => {
+    console.log("event list from get!!!", events, pagination)
+
+    const [page, setPage] = useState(pagination && pagination.next ? pagination.next : 1)
+    const [eventsData, setEventsData] = useState(events);
+
+    const getMoreEvents = async () => {
+
+        const enevtPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 3, page_record: page } }
+        console.log("payoad", enevtPayload)
+
+        const response = await fetchApi(enevtPayload); // call event list API
+
+        const responseData = response.data;
+        console.log("event res", responseData)
+
+        //merging two arrays
+        if (responseData && responseData.events != '' && responseData.events.length > 0) {
+            setEventsData([...responseData.events, ...eventsData])
+
+            setPage(responseData.pagination && responseData.pagination?.next)
+            console.log("updated data", eventsData)
+            console.log("page !!!", page)
+        } else {
+            setEventsData(eventsData)
+        }
+
+    };
 
     return (
         <>
@@ -27,9 +55,9 @@ const Theg2udifferenceContent = ({ content, eventList, investors }) => {
                         <h2>Perfect for Any Event!</h2>
                         <div className="row">
                             {
-                                eventList && (eventList.length > 0)
+                                eventsData && (eventsData.length > 0)
                                     ?
-                                    eventList.map(item => {
+                                    eventsData.map(item => {
                                         return (
                                             <Link className="col-md-4 col-sm-6" href={`event/${item.slug}`} key={item.id}>
                                                 <div><img src={`${item.icon}`} /></div>
@@ -42,8 +70,17 @@ const Theg2udifferenceContent = ({ content, eventList, investors }) => {
                                         <p>No records found!</p>
                                     </div>
                             }
-
                         </div>
+                        {
+                            page < 5 ?
+                                <div className="row load-more-btn">
+                                    <div className="limited-width text-center">
+                                        <button type='button' onClick={() => { getMoreEvents() }} className="ti-yellow-button">Load More</button>
+                                    </div>
+                                </div>
+                                : null
+                        }
+
                     </div>
                 </div>
                 <div className="row ti-dark-orange-background ti-row ti-small-banner no-margin">
