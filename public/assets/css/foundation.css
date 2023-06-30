@@ -6508,12 +6508,22 @@ a[href^="https://maps.google.com/maps"] {
     display: block;
 }
 
+.as-seen-img {
+    display: inline-flex;
+    vertical-align: middle;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+}
+
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
     .mobile-menu-div {
         display: none;
     }
-    .desktop-menu-div{
+
+    .desktop-menu-div {
         display: none;
     }
 }
@@ -6523,7 +6533,8 @@ a[href^="https://maps.google.com/maps"] {
     .mobile-menu-div {
         display: none;
     }
-    .desktop-menu-div{
+
+    .desktop-menu-div {
         display: none;
     }
 }
@@ -6533,7 +6544,8 @@ a[href^="https://maps.google.com/maps"] {
     .mobile-menu-div {
         display: none;
     }
-    .desktop-menu-div{
+
+    .desktop-menu-div {
         display: none;
     }
 }
