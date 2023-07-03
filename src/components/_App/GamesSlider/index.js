@@ -53,7 +53,7 @@ const GamesSlider = () => {
                         {
                             (!loading && games && games.categories.list && games.categories.list.length > 0)
                                 ?
-                                games?.categories.map(item => {
+                                games?.categories.list.map(item => {
                                     return (
                                         <div className="col-ie-4 ti-box game-1" data-original="true" key={`game-slider-${item.id}`}>
                                             <Link href={`/game/${item.slug}`}>

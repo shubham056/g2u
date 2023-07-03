@@ -12,7 +12,7 @@ const GamesList = () => {
                 <div className="row">
                     {(!loading && games && games.categories.list && games.categories.list.length > 0)
                         ?
-                        games?.categories.map(item => {
+                        games?.categories.list.map(item => {
                             return (
                                 <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3" key={`game-list-${item.id}`}>
                                     <div className="ti-inline-block home-icon">
