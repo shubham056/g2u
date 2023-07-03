@@ -211,7 +211,7 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (!loading && games && games?.categories != undefined && games?.categories.length > 0)
+                                            (!loading && games && games?.categories.list != undefined && games?.categories.list.length > 0)
                                                 ?
                                                 games.categories.list.map(item => {
                                                     return (
@@ -284,7 +284,7 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (!loading && games && games?.categories != undefined && games?.categories.length > 0)
+                                            (!loading && games && games?.categories.list != undefined && games?.categories.list.length > 0)
                                                 ?
                                                 games.categories.list.map(item => {
                                                     return (
