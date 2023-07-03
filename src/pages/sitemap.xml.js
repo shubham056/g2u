@@ -34,22 +34,24 @@ export const getServerSideProps = async ({ res }) => {
     staticPathss = staticPathss.map(item => item + "/")
     //console.log("staticPathss", staticPathss)
 
-    const gamesSlugPlyload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
-    let gamesData = await fetchApi(gamesSlugPlyload);
-    gamesData = gamesData.data.slug;
+    const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
+    let categories = await fetchApi(payload);
+    let gamesData = categories.data.slug
+    console.log("gamesData", categories)
+
     let dynamicGamesDetailsPath = [];
     if (gamesData && gamesData.length > 0) {
         console.log("gamesData!!!!==", gamesData)
-        gamesData.map(item=> dynamicGamesDetailsPath.push(`${BASE_URL}/games/${item.slug}/`))
+        gamesData.map(item => dynamicGamesDetailsPath.push(`${BASE_URL}/games/${item.slug}/`))
     }
 
-   
+
 
     const homePath = { development: "http://localhost:3000", production: "https://g2u.vercel.app" }[process.env.NODE_ENV];
 
     //const allPaths = [homePath,...staticPathss,...dynamicBlogPaths,...dynamicServicesPaths];
     const allPaths = [homePath, ...staticPathss, ...dynamicGamesDetailsPath];
-    console.log("allPaths",allPaths)
+    // console.log("allPaths",allPaths)
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

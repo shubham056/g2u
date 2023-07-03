@@ -100,14 +100,14 @@ const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, i
                 </div>
                 <div className="row ti-blue-background as-seen-banner mobile-wrap not-home">
                     <div className="limited-width">
-                        <div className="scroll-arrow left" />
+                        {/* <div className="scroll-arrow left" /> */}
                         <div className="as-seen-images as-seen-mobile">
                             <BrandLogo investors={investors} />
                         </div>
                         <div className="as-seen-images as-seen-desktop">
                             <BrandLogo investors={investors} />
                         </div>
-                        <div className="scroll-arrow right" />
+                        {/* <div className="scroll-arrow right" /> */}
                     </div>
                 </div>
             </div>

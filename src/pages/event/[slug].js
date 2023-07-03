@@ -103,14 +103,12 @@ const EventDetails = ({ eventDetails, testimonialsData, investorsData, siteSetti
                 </div>
                 <div className="row ti-blue-background as-seen-banner mobile-wrap not-home">
                     <div className="limited-width">
-                        <div className="scroll-arrow left" />
                         <div className="as-seen-images as-seen-mobile">
                             <BrandLogo investors={investorsData} />
                         </div>
                         <div className="as-seen-images as-seen-desktop">
                             <BrandLogo investors={investorsData} />
                         </div>
-                        <div className="scroll-arrow right" />
                     </div>
                 </div>
             </div>

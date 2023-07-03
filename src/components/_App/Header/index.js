@@ -23,6 +23,7 @@ const Header = ({ siteSettings }) => {
     const [isOpenHamburger, setisOpenHamburger] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
+    console.log("zipcode in header",zipcode)
 
     const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);

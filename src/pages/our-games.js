@@ -8,11 +8,8 @@ import Footer from '@/components/_App/Footer/Footer';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import BrandLogo from '@/components/_App/BrandLogo';
 
-
 const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
-
   const { zipcode, games, loading, error } = useGamesData();
-
   const SEO = {
     title: "Our Games | Video Game Trucks, Laser Tag & More | Games2U",
     description: "See a complete listing of games and activities from America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book today for an experience they'll never forget!",
@@ -91,7 +88,6 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
         </div>
         {/*  Find the Perfect Game section end */}
 
-
       </div >
       {/* <!-- top header and banner with mobile menu section start --> */}
 
@@ -130,21 +126,17 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
         </div>
         <div className="row ti-blue-background as-seen-banner mobile-wrap not-home">
           <div className="limited-width">
-            <div className="scroll-arrow left" />
             <div className="as-seen-images as-seen-mobile">
               <BrandLogo investors={investorsData} />
             </div>
             <div className="as-seen-images as-seen-desktop">
               <BrandLogo investors={investorsData} />
             </div>
-            <div className="scroll-arrow right" />
           </div>
         </div>
       </div>
       {/* Our Complete Game Catalog section end */}
-
-
-
+      
       {/* content section end */}
 
       <Footer

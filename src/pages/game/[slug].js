@@ -199,12 +199,6 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                             <div className="col-md-12">
                                 {categoryDetails && <div dangerouslySetInnerHTML={{ __html: categoryDetails.category_description }}></div>}
                             </div>
-                            {/* <div className="col-md-6">
-                                <p>Laser Tag is just one of the exhilarating activities available when you book your event with Games2U. Since 2007
-                                    we’ve entertained millions of kids, teenagers and grownups all over the world and created memories that will
-                                    last a lifetime. Book your event today and find out why Games2U is America's most popular and most trusted
-                                    provider of mobile entertainment!</p>
-                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -228,14 +222,12 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 </div>
                 <div className="row ti-blue-background as-seen-banner mobile-wrap not-home">
                     <div className="limited-width">
-                        <div className="scroll-arrow left" />
                         <div className="as-seen-images as-seen-mobile">
                             <BrandLogo investors={investorsData} />
                         </div>
                         <div className="as-seen-images as-seen-desktop">
                             <BrandLogo investors={investorsData} />
                         </div>
-                        <div className="scroll-arrow right" />
                     </div>
                 </div>
             </div>
