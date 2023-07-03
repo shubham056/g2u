@@ -100,7 +100,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
             <h2>Our Complete Game Catalog</h2>
             <div className="row">
               {
-                (!loading && games && games.categories && games.categories.length > 0)
+                (!loading && games && games.categories.list && games.categories.list.length > 0)
                   ?
                   games?.categories.map(item => {
                     return (
@@ -136,7 +136,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
         </div>
       </div>
       {/* Our Complete Game Catalog section end */}
-      
+
       {/* content section end */}
 
       <Footer

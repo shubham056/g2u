@@ -213,7 +213,7 @@ const Header = ({ siteSettings }) => {
                                         {
                                             (!loading && games && games?.categories != undefined && games?.categories.length > 0)
                                                 ?
-                                                games.categories.map(item => {
+                                                games.categories.list.map(item => {
                                                     return (
                                                         <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )
@@ -286,7 +286,7 @@ const Header = ({ siteSettings }) => {
                                         {
                                             (!loading && games && games?.categories != undefined && games?.categories.length > 0)
                                                 ?
-                                                games.categories.map(item => {
+                                                games.categories.list.map(item => {
                                                     return (
                                                         <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )

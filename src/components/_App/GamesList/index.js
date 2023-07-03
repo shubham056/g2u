@@ -10,7 +10,7 @@ const GamesList = () => {
 
             <div className="row no-padding limited-width" id="gamesWithIcons">
                 <div className="row">
-                    {(!loading && games && games.categories && games.categories.length > 0)
+                    {(!loading && games && games.categories.list && games.categories.list.length > 0)
                         ?
                         games?.categories.map(item => {
                             return (

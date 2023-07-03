@@ -41,7 +41,7 @@ const GamesSlider = () => {
     const { zipcode, games, loading, error } = useGamesData();
 
     const [display, setDisplay] = useState(false);
-    if (!loading && games && games.categories && games.categories.length > 0) {
+    if (!loading && games && games.categories.list && games.categories.list.length > 0) {
         display ? '' : setDisplay(true)
     }
 
@@ -51,7 +51,7 @@ const GamesSlider = () => {
                 display ?
                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
                         {
-                            (!loading && games && games.categories && games.categories.length > 0)
+                            (!loading && games && games.categories.list && games.categories.list.length > 0)
                                 ?
                                 games?.categories.map(item => {
                                     return (
