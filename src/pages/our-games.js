@@ -102,7 +102,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
               {
                 (!loading && games && games.categories.list && games.categories.list.length > 0)
                   ?
-                  games?.categories.map(item => {
+                  games?.categories.list.map(item => {
                     return (
                       <div className="col-md-4 col-xs-6 col-ie-4 ti-box game-1" data-original="true" key={`game-gallery-${item.id}`}>
                         <Link href={`/game/${item.slug}`}>
