@@ -5,32 +5,29 @@ import BrandLogo from '../../BrandLogo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
 const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, investors }) => {
-    console.log("event list from get!!!", events, pagination)
-
-    const [page, setPage] = useState(pagination && pagination.next ? pagination.next : 1)
+    const [isLoading, setisLoading] = useState(false);
+    const [loadingBtnText, setLoadingBtnText] = useState('Load More');
+    const [page, setPage] = useState(pagination && pagination.next ? pagination.next : 1);
     const [eventsData, setEventsData] = useState(events);
 
+    // function for get more events data
     const getMoreEvents = async () => {
-
-        const enevtPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 3, page_record: page } }
-        console.log("payoad", enevtPayload)
-
+        setisLoading(true)
+        setLoadingBtnText('Loading...')
+        const enevtPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 9, page_record: page } }
         const response = await fetchApi(enevtPayload); // call event list API
-
         const responseData = response.data;
-        console.log("event res", responseData)
-
         //merging two arrays
         if (responseData && responseData.events != '' && responseData.events.length > 0) {
-            setEventsData([...responseData.events, ...eventsData])
-
+            setEventsData([...eventsData, ...responseData.events])
             setPage(responseData.pagination && responseData.pagination?.next)
-            console.log("updated data", eventsData)
-            console.log("page !!!", page)
+            setisLoading(false)
+            setLoadingBtnText('Load More')
         } else {
             setEventsData(eventsData)
+            setisLoading(false)
+            setLoadingBtnText('Load More')
         }
-
     };
 
     return (
@@ -72,10 +69,14 @@ const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, i
                             }
                         </div>
                         {
-                            page < 5 ?
+                            console.log("updated data len", eventsData.length, pagination.total)
+                        }
+                        {
+                            (eventsData && pagination && (eventsData.length != pagination.total))
+                                ?
                                 <div className="row load-more-btn">
                                     <div className="limited-width text-center">
-                                        <button type='button' onClick={() => { getMoreEvents() }} className="ti-yellow-button">Load More</button>
+                                        <button type='button' onClick={() => { getMoreEvents() }} className="ti-yellow-button">{isLoading ? <i class="fa fa-refresh fa-spin"></i> : null} {loadingBtnText}</button>
                                     </div>
                                 </div>
                                 : null
