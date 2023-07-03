@@ -1,9 +1,8 @@
-import React from "react";
 import * as fs from "fs";
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 
 const Sitemap = () => {
-    return null;
+    //return null;
 };
 
 export const getServerSideProps = async ({ res }) => {
