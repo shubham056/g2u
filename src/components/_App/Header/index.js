@@ -23,7 +23,6 @@ const Header = ({ siteSettings }) => {
     const [isOpenHamburger, setisOpenHamburger] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
-    console.log("zipcode in header",zipcode)
 
     const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);
@@ -211,11 +210,11 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (!loading && games && games?.categories.list != undefined && games?.categories.list.length > 0)
+                                            (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
                                                 ?
                                                 games.categories.list.map(item => {
                                                     return (
-                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                        <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )
                                                 })
 
@@ -284,11 +283,11 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (!loading && games && games?.categories.list != undefined && games?.categories.list.length > 0)
+                                            (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
                                                 ?
                                                 games.categories.list.map(item => {
                                                     return (
-                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                        <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                     )
                                                 })
 

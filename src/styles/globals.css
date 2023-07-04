@@ -10,11 +10,6 @@
     border-color: red !important;
 }
 
-.is-valid {
-    /* border: 1px solid green !important;
-    box-shadow: none !important; */
-}
-
 .modal {
     background-color: transparent !important;
     bottom: unset;
@@ -24,10 +19,22 @@
     top: 30vh;
 }
 
+.play-video {
+    width: auto !important;
+}
+
+.close-video-icon {
+    display: block !important;
+}
+
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {
     .react-responsive-modal-modal {
         width: 25%;
+    }
+
+    .play-video {
+        width: auto !important;
     }
 }
 
@@ -36,11 +43,19 @@
     .react-responsive-modal-modal {
         width: 25%;
     }
+
+    .play-video {
+        width: auto !important;
+    }
 }
 
 /* Media Query for Large screens */
 @media (min-width: 1281px) {
     .react-responsive-modal-modal {
         width: 25%;
+    }
+
+    .react-responsive-modal-modal .play-video {
+        width: auto !important;
     }
 }

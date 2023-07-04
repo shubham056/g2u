@@ -100,12 +100,12 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData }) => {
             <h2>Our Complete Game Catalog</h2>
             <div className="row">
               {
-                (!loading && games && games.categories.list && games.categories.list.length > 0)
+                (!loading && games && games.categories.list && games?.affiliate != undefined && games.categories.list.length > 0)
                   ?
                   games?.categories.list.map(item => {
                     return (
                       <div className="col-md-4 col-xs-6 col-ie-4 ti-box game-1" data-original="true" key={`game-gallery-${item.id}`}>
-                        <Link href={`/game/${item.slug}`}>
+                        <Link href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`}>
                           <div className="box-heading video-game-theater" >
                             <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
                           </div>

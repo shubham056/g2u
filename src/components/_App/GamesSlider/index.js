@@ -51,12 +51,12 @@ const GamesSlider = () => {
                 display ?
                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
                         {
-                            (!loading && games && games.categories.list && games.categories.list.length > 0)
+                            (!loading && games && games.categories.list && games?.affiliate != undefined && games.categories.list.length > 0)
                                 ?
                                 games?.categories.list.map(item => {
                                     return (
                                         <div className="col-ie-4 ti-box game-1" data-original="true" key={`game-slider-${item.id}`}>
-                                            <Link href={`/game/${item.slug}`}>
+                                            <Link href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`}>
                                                 <div className="box-heading video-game-theater" >
                                                     <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
                                                 </div>
