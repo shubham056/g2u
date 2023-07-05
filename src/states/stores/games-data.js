@@ -23,7 +23,7 @@ function useGamesData() {
         onGet: async(key) => {
             try {
                 if (window.navigator.onLine && zipcode) {
-                    const remoteGames = await fetchApi({url : `${apiBaseUrl}/games/${zipcode}/1/20`, method : 'GET'});
+                    const remoteGames = await fetchApi({url : `${apiBaseUrl}/games/${zipcode}/1/9`, method : 'GET'});
                     if (remoteGames && remoteGames.data?.games != null && remoteGames.data?.games != '') {
                       localStoragePersistor.onSet(key, remoteGames.data.games);
                       return remoteGames.data.games;
@@ -80,7 +80,7 @@ function useGamesData() {
 
   const updateGamesData = async (newZipcode, result) => {
     setLoading(true);
-    const newGamesData = await fetchApi({url : `${apiBaseUrl}/games/${newZipcode}/1/20`, method : 'GET'});
+    const newGamesData = await fetchApi({url : `${apiBaseUrl}/games/${newZipcode}/1/9`, method : 'GET'});
     if (newGamesData && newGamesData.data?.games != null && newGamesData.data?.games != '') {
       setGames(newGamesData.data.games)
       localStoragePersistor.onSet(KEY, newGamesData.data.games);

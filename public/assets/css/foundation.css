@@ -6525,6 +6525,11 @@ a[href^="https://maps.google.com/maps"] {
     margin-top: 27px !important;
 }
 
+.no-suggestion-found{
+    text-align: center;
+    color: #fff;
+}
+
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
     .mobile-menu-div {

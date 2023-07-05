@@ -44,10 +44,10 @@ const options = {
   autoplay: true,
   responsive: {
     0: {
-      items: 1
+      items: 2
     },
     576: {
-      items: 1
+      items: 2
     },
     768: {
       items: 2
@@ -64,7 +64,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
-  const { banner_image,icon, category_name, category_caption, category_description, video } = categoryDetails
+  const { banner_image, icon, category_name, category_caption, category_description, video } = categoryDetails
 
   const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);

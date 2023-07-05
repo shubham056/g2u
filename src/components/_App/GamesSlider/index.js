@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import trimString from '@/utils/trimString'
 import dynamic from 'next/dynamic';
 import useGamesData from '@/states/stores/games-data';
-import Link from 'next/link'
-
-
+import GamesCard from '@/components/GamesCard';
 const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 
 const options = {
@@ -54,18 +52,20 @@ const GamesSlider = () => {
                             (!loading && games && games.categories.list && games?.affiliate != undefined && games.categories.list.length > 0)
                                 ?
                                 games?.categories.list.map(item => {
+                                    const { id, slug, image, icon, category_name } = item
                                     return (
-                                        <div className="col-ie-4 ti-box game-1" data-original="true" key={`game-slider-${item.id}`}>
-                                            <Link href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`}>
-                                                <div className="box-heading video-game-theater" >
-                                                    <img src={item.image != '' ? item.image : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
-                                                </div>
-                                                <div className="circle-img"><img src={item.icon != '' ? item.icon : "/assets/img/ico-video-theater-2x.png"} /></div>
-                                                <h3>{item.category_name}</h3>
-                                                <p>{trimString(item.category_caption, 85)}</p>
-                                                <span className="explore-link">Explore {item.category_name} »</span>
-                                            </Link>
-                                        </div>
+                                        <GamesCard
+                                            key={id}
+                                            dynamicClass={"col-ie-4 ti-box game-1"}
+                                            id={id}
+                                            link={games.affiliate.city.toLowerCase()}
+                                            slug={slug}
+                                            imgSrc={image}
+                                            icon={icon}
+                                            categoryName={category_name}
+                                            caption={trimString(item.category_caption, 85)}
+
+                                        />
                                     )
                                 })
                                 :

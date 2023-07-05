@@ -29,7 +29,7 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
                                 video && video != ''
                                     ?
                                     <div className="text-center">
-                                        <a href="javascript:void(0);" class="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => playVideo(video)}><i class="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</a>
+                                        <a href="javascript:void(0);" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => playVideo(video)}><i className="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</a>
                                     </div>
                                     :
                                     null

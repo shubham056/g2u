@@ -3,6 +3,7 @@ import GamesSlider from '../../GamesSlider';
 import Link from 'next/link';
 import BrandLogo from '../../BrandLogo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
+import LoadMoreButton from '@/components/LoadMoreButton';
 
 const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, investors }) => {
     const [isLoading, setisLoading] = useState(false);
@@ -69,16 +70,13 @@ const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, i
                             }
                         </div>
                         {
-                            console.log("updated data len", eventsData.length, pagination.total)
-                        }
-                        {
                             (eventsData && pagination && (eventsData.length != pagination.total))
                                 ?
-                                <div className="row load-more-btn">
-                                    <div className="limited-width text-center">
-                                        <button type='button' onClick={() => { getMoreEvents() }} className="ti-yellow-button">{isLoading ? <i class="fa fa-refresh fa-spin"></i> : null} {loadingBtnText}</button>
-                                    </div>
-                                </div>
+                                <LoadMoreButton
+                                    getMoreData={getMoreEvents}
+                                    isLoading={isLoading}
+                                    loadingBtnText={loadingBtnText}
+                                />
                                 : null
                         }
 
