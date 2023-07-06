@@ -2817,10 +2817,11 @@ a.location-button {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
     vertical-align: super;
     text-transform: uppercase;
+    border: 0;
 }
 
 .green-button {
-    color: #ffffff;
+    color: #ffffff !important;
     background: #69c85e !important;
 }
 
@@ -6525,7 +6526,7 @@ a[href^="https://maps.google.com/maps"] {
     margin-top: 27px !important;
 }
 
-.no-suggestion-found{
+.no-suggestion-found {
     text-align: center;
     color: #fff;
 }

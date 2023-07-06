@@ -6,14 +6,6 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
     const [open, setOpen] = useState(false);
     const onCloseModal = () => setOpen(false);
 
-    const playVideo = (video) => {
-        //console.log("video", video)
-
-
-        setOpen(true)
-
-    }
-
     return (
         <>
             <div className="row no-padding not-home game-page video-game-theater" id="headerBanner">
@@ -29,7 +21,7 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
                                 video && video != ''
                                     ?
                                     <div className="text-center">
-                                        <a href="javascript:void(0);" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => playVideo(video)}><i className="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</a>
+                                        <a href="javascript:void(0);" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => setOpen(true)}><i className="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</a>
                                     </div>
                                     :
                                     null
@@ -39,20 +31,22 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
                     </div>
                 </div>
             </div>
+            {
+                open && <Modal
+                    open={open}
+                    onClose={onCloseModal}
+                    closeOnOverlayClick={false}
+                >
+                    <div id="videoModal" style={{ display: 'block', cursor: 'pointer' }}>
+                        <span id="videoModalClose" onClick={() => onCloseModal()}>Close X</span>
+                        <video preload="preload" id="video" autoplay="autoplay" loop="loop" controls muted="muted" >
+                            <source src={video} type="video/mp4" />
+                        </video>
+                    </div>
 
-            <Modal
-                open={open}
-                onClose={onCloseModal}
-                closeOnOverlayClick={false}
-                classNames={{ modal: 'play-video',closeButton: 'close-video-icon' }}
-            >
-                <div className="container-modal">
-                    <video preload="preload" id="video" autoplay="autoplay" loop="loop" controls muted="muted" >
-                        <source src={video} type="video/mp4" />
-                    </video>
-                </div>
+                </Modal>
+            }
 
-            </Modal>
         </>
 
     )

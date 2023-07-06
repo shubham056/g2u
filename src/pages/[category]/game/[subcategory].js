@@ -60,11 +60,11 @@ const options = {
 
 const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
   const router = useRouter();
-  console.log("categoryDetails", categoryDetails)
+  console.log("categoryDetails !!!!!", categoryDetails)
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
-  const { banner_image, icon, category_name, category_caption, category_description, video } = categoryDetails
+  const { banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, participants_range, age_range } = categoryDetails
 
   const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
@@ -153,7 +153,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="https://www.g2u.com/assets/img/ico-starting-price-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Starting Price</h3>
-                  <p>as low as <strong> $99</strong>
+                  <p>as low as <strong> {price_per_hour && "$" + `${price_per_hour}`}</strong>
                     per hour <button type="button" className="btn btn-link"><i className="fa fa-question-circle-o" data-toggle="modal" data-target="#priceModal" /></button>
                   </p>
                 </div>
@@ -164,7 +164,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-ages-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Recommended Age Range</h3>
-                  <p><strong>6 &amp; Older</strong></p>
+                  <p><strong>{age_range && age_range} &amp; Older</strong></p>
                 </div>
               </div>
               <div className="ti-box-spacer" />
@@ -172,7 +172,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-participants-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Number of Participants</h3>
-                  <p><strong>20+ players</strong> at a time!</p>
+                  <p><strong>{participants_range && participants_range} players</strong> at a time!</p>
                 </div>
               </div>
             </div>

@@ -14,33 +14,127 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup';
 
 const viewSuggestionsSchema = Yup.object().shape({
-  sAgeRange: Yup.string().required('First name is required.'),
-  sGroupSize: Yup.string().required('Last name is required.'),
+  sAgeRange: Yup.string().required('Age range name is required.'),
+  sGroupSize: Yup.string().required('Participants is required.'),
 })
 
 const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelectOptionData }) => {
   const { zipcode, games, loading, error } = useGamesData(); // ftech initail games data  
 
   const [isLoading, setisLoading] = useState(false);
+  const [isSuggestedGamesLoading, setIsSuggestedGamesLoading] = useState(false);
   const [isLoadingViewSuggestion, setisLoadingViewSuggestion] = useState(false);
   const [loadingBtnText, setLoadingBtnText] = useState('Load More');
+  const [loadingSuggGameBtnText, setLoadingSuggGameBtnText] = useState('Load More');
   const [viewSuggestionBtnText, setViewSuggestionBtnText] = useState('View Suggestion');
   const [page, setPage] = useState(1);
+  const [suggGamepage, setSuggGamePage] = useState(1);
   const [gamesData, setGamesData] = useState([]);
-  const [ageRangeVal, setAgeRangeVal] = useState('')
-  const [participantsVal, setParticipantsVal] = useState('')
   const [showSuggestionData, setShowSuggestionData] = useState(false)
-  const [suggestionData, setSuggestionData] = useState([])
+  const [suggestionData, setSuggestionData] = useState([]);
+  const [suggestionDataPagination, setSuggestionDataPagination] = useState({});
+  const [ageRange, setAgeRange] = useState(null)
+  const [participantsRange, setParticipantsRange] = useState(null)
 
   const suggestionFormOptions = { resolver: yupResolver(viewSuggestionsSchema) }
   const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(suggestionFormOptions);
 
+  // for complete game catalog
   useEffect(() => {
     if (!loading && games && games.categories.list.length > 0) {
       setGamesData(games.categories.list)
       setPage(games.categories.pagination.next)
     }
   }, [games])
+
+  // for suggested games
+  useEffect(() => {
+    if (suggestionDataPagination && Object.keys(suggestionDataPagination).length > 0) {
+      setSuggestionDataPagination(suggestionDataPagination.total)
+      setSuggGamePage(suggestionDataPagination?.next ?? 1)
+    }
+  }, [suggestionDataPagination])
+
+
+
+  // load more suggested  games
+  const getMoreSuggestedGames = async () => {
+    if (ageRange != null && participantsRange != null) {
+      setIsSuggestedGamesLoading(true)
+      setLoadingSuggGameBtnText('Loading...')
+      const payload = {
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": ageRange, "participants_range_id": participantsRange, "page_limit": 1, "page_record": suggGamepage }
+      }
+      const response = await fetchApi(payload); // call event list API
+      const responseData = response.data.games;
+      //merging two arrays
+      if (responseData && responseData.categories.list.length > 0) {
+        setSuggestionData([...suggestionData, ...responseData.categories.list])
+        setSuggestionDataPagination(responseData.categories.pagination)
+        setSuggGamePage(page + 1)
+        setIsSuggestedGamesLoading(false)
+        setLoadingSuggGameBtnText('Load More')
+      } else {
+        setSuggestionData(suggestionData)
+        setIsSuggestedGamesLoading(false)
+        setLoadingSuggGameBtnText('Load More')
+      }
+    } else {
+      console.log("Pagenation: select options is null, please section any option first")
+    }
+  }
+
+  // get more games data
+  const getMoreGames = async () => {
+    setisLoading(true)
+    setLoadingBtnText('Loading...')
+    const payload = { url: `${apiBaseUrl}/games/${zipcode}/${page}/3`, method: 'GET' }
+    const response = await fetchApi(payload); // call event list API
+    const responseData = response.data.games;
+    //merging two arrays
+    if (responseData && responseData.categories.list.length > 0) {
+      setGamesData([...gamesData, ...responseData.categories.list])
+      setPage(page + 1)
+      setisLoading(false)
+      setLoadingBtnText('Load More')
+    } else {
+      setGamesData(gamesData)
+      setisLoading(false)
+      setLoadingBtnText('Load More')
+    }
+  };
+
+  // filter suggested games
+  const onSubmit = async (data) => {
+    const { sAgeRange, sGroupSize } = data
+    if (sAgeRange != '' && sGroupSize != '') {
+      setAgeRange(sAgeRange)
+      setParticipantsRange(sGroupSize)
+      setisLoadingViewSuggestion(true)
+      setViewSuggestionBtnText("Loading...")
+
+      const payload = {
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": sAgeRange, "participants_range_id": sGroupSize, "page_limit": 1, "page_record": 1 }
+      }
+      const response = await fetchApi(payload); //call filter API
+      const responseData = response.data.games;
+      if (responseData && responseData.categories.list.length > 0) {
+        setSuggestionData(responseData.categories.list)
+        setSuggestionDataPagination(responseData.categories.pagination)
+        setisLoadingViewSuggestion(false)
+        setViewSuggestionBtnText("View Suggestion")
+        setShowSuggestionData(true)
+      } else {
+        setSuggestionData([])
+        setSuggestionDataPagination({})
+        setisLoadingViewSuggestion(false)
+        setViewSuggestionBtnText("View Suggestion")
+        setShowSuggestionData(true)
+      }
+    } else {
+      console.log("select options is null, please section any option first")
+    }
+  }
 
   const SEO = {
     title: "Our Games | Video Game Trucks, Laser Tag & More | Games2U",
@@ -65,60 +159,6 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       site: '@g2u',
       cardType: 'summary_large_image'
     },
-  }
-
-  // function for get more events data
-  const getMoreGames = async () => {
-    setisLoading(true)
-    setLoadingBtnText('Loading...')
-    const payload = { url: `${apiBaseUrl}/games/${zipcode}/${page}/3`, method: 'GET' }
-    const response = await fetchApi(payload); // call event list API
-    const responseData = response.data.games;
-    //merging two arrays
-    if (responseData && responseData.categories.list.length > 0) {
-      setGamesData([...gamesData, ...responseData.categories.list])
-      setPage(page + 1)
-      setisLoading(false)
-      setLoadingBtnText('Load More')
-    } else {
-      setGamesData(gamesData)
-      setisLoading(false)
-      setLoadingBtnText('Load More')
-    }
-  };
-
-  const handleChangeAgeRange = (event) => {
-    setAgeRangeVal(event.target.value);
-  };
-  const handleChangeParticipants = (event) => {
-    setParticipantsVal(event.target.value);
-  };
-  //handle View Suggestion function
-  const onSubmit = async (data) => {
-    const { sAgeRange, sGroupSize } = data
-    if (sAgeRange != '' && sGroupSize != '') {
-      setisLoadingViewSuggestion(true)
-      setViewSuggestionBtnText("Loading...")
-      //call filter API here
-      const payload = {
-        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": sAgeRange, "participants_range_id": sGroupSize, "page_limit": 3, "page_record": 1 }
-      }
-      const response = await fetchApi(payload); // call event list API
-      const responseData = response.data.games;
-      if (responseData && responseData.categories.list.length > 0) {
-        setSuggestionData(responseData.categories.list)
-        setisLoadingViewSuggestion(false)
-        setViewSuggestionBtnText("View Suggestion")
-        setShowSuggestionData(true)
-      } else {
-        setisLoadingViewSuggestion(false)
-        setViewSuggestionBtnText("View Suggestion")
-        setShowSuggestionData(true)
-      }
-    } else {
-      console.log("select options is null, please section any option first")
-    }
-
   }
 
   return (
@@ -212,6 +252,18 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                             </div>
                           }
                         </div>
+                        {
+                          (suggestionData && suggestionDataPagination && (suggestionDataPagination > suggestionData.length))
+                            ?
+                            <LoadMoreButton
+                              getMoreData={getMoreSuggestedGames}
+                              isLoading={isSuggestedGamesLoading}
+                              loadingBtnText={loadingSuggGameBtnText}
+                            />
+                            :
+                            null
+                        }
+
                         <div className="row ti-view-all-row">
                           <div className="col-xs-12">
                             <Link href={"/our-games#allGamesContent"}>
