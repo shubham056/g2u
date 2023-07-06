@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import useGamesData from '@/states/stores/games-data';
@@ -35,9 +35,15 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
   const [suggestionDataPagination, setSuggestionDataPagination] = useState({});
   const [ageRange, setAgeRange] = useState(null)
   const [participantsRange, setParticipantsRange] = useState(null)
+  const ref = useRef(null);
 
   const suggestionFormOptions = { resolver: yupResolver(viewSuggestionsSchema) }
   const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(suggestionFormOptions);
+  
+  // scroll to view all catelog
+  const scrollToAllCatelog = () => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   // for complete game catalog
   useEffect(() => {
@@ -63,7 +69,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       setIsSuggestedGamesLoading(true)
       setLoadingSuggGameBtnText('Loading...')
       const payload = {
-        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": ageRange, "participants_range_id": participantsRange, "page_limit": 1, "page_record": suggGamepage }
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": ageRange, "participants_range_id": participantsRange, "page_limit": 9, "page_record": suggGamepage }
       }
       const response = await fetchApi(payload); // call event list API
       const responseData = response.data.games;
@@ -114,7 +120,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       setViewSuggestionBtnText("Loading...")
 
       const payload = {
-        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": sAgeRange, "participants_range_id": sGroupSize, "page_limit": 1, "page_record": 1 }
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": sAgeRange, "participants_range_id": sGroupSize, "page_limit": 9, "page_record": 1 }
       }
       const response = await fetchApi(payload); //call filter API
       const responseData = response.data.games;
@@ -266,9 +272,9 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
 
                         <div className="row ti-view-all-row">
                           <div className="col-xs-12">
-                            <Link href={"/our-games#allGamesContent"}>
-                              <div className="continue-to-site view-all-games"><span className="ti-sprite yellow-chevron-down" /> view entire game catalog <span className="ti-sprite yellow-chevron-down" /></div>
-                            </Link>
+                            {/* <Link href={"/our-games#allGamesContent"}> */}
+                            <div className="continue-to-site view-all-games" onClick={scrollToAllCatelog}><span className="ti-sprite yellow-chevron-down" /> view entire game catalog <span className="ti-sprite yellow-chevron-down" /></div>
+                            {/* </Link> */}
                           </div>
                         </div>
                       </div>
@@ -292,7 +298,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
 
       {/* Our Complete Game Catalog section start */}
       <div className="container-fluid no-padding">
-        <div className="row ti-row ti-orange-background clearfix" id="allGamesContent">
+        <div className="row ti-row ti-orange-background clearfix" id="allGamesContent" ref={ref}>
           <div className="limited-width">
             <h2>Our Complete Game Catalog</h2>
             <div className="row">
