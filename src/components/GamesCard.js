@@ -1,3 +1,4 @@
+import trimString from '@/utils/trimString'
 import Link from 'next/link'
 
 const GamesCard = ({ dynamicClass, id, link, slug, imgSrc, icon, categoryName, caption }) => {
@@ -9,9 +10,9 @@ const GamesCard = ({ dynamicClass, id, link, slug, imgSrc, icon, categoryName, c
                 </div>
                 <div className="circle-img"><img src={icon != '' ? icon : "/assets/img/ico-video-theater-2x.png"} alt={slug} />
                 </div>
-                <h3>{categoryName}</h3>
-                <p>{caption}</p>
-                <span className="explore-link">Explore {categoryName} »</span>
+                <h3 className='singile-line'>{categoryName}</h3>
+                <p className='multiline-ellipsis'>{trimString(caption, 85)}</p>
+                <span className="explore-link singile-line">Explore {categoryName} »</span>
             </Link>
         </div>
     )

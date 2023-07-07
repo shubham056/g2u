@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import useGamesData from '@/states/stores/games-data';
-import trimString from '@/utils/trimString'
-import Link from 'next/link';
 import Footer from '@/components/_App/Footer/Footer';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import BrandLogo from '@/components/_App/BrandLogo';
@@ -248,7 +246,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                                   imgSrc={image}
                                   icon={icon}
                                   categoryName={category_name}
-                                  caption={trimString(item.category_caption, 85)}
+                                  caption={item.category_caption}
                                 />
                               )
                             })
@@ -317,7 +315,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                         imgSrc={image}
                         icon={icon}
                         categoryName={category_name}
-                        caption={trimString(item.category_caption, 85)}
+                        caption={item.category_caption}
                       />
                     )
                   })

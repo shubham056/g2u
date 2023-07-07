@@ -5028,7 +5028,7 @@ body {
     }
 
     .container-fluid .box-heading {
-        height: 150px;
+        height: 181px;
     }
 
     .container-fluid .ti-small-banner {
@@ -6530,6 +6530,23 @@ a[href^="https://maps.google.com/maps"] {
     text-align: center;
     color: #fff;
 }
+
+.singile-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.multiline-ellipsis {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    /* start showing ellipsis when 3rd line is reached */
+    white-space: pre-wrap;
+    /* let the text wrap preserving spaces */
+}
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {

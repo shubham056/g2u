@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const PlanYourParty = () => {
+const PlanYourParty = ({siteSettings}) => {
     return (
         <div className="row ti-blue-background ti-row-top no-margin" id="planYourParty">
             <div className="col-xs-12">
@@ -24,7 +24,7 @@ const PlanYourParty = () => {
                             </div>
                             <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10">
                                 <h3>Schedule Your Party</h3>
-                                <p>Call us toll-free at <a href="tel:18007142637" className="linkOnBlue">1-800-71-GAMES</a>
+                                <p>Call us toll-free at <a href={`tel:${siteSettings?.phone ?? "18007142637"}`} className="linkOnBlue">1-800-71-GAMES</a>
                                     or <a href="#footerContact" className="linkOnBlue">Click Here</a> to request more
                                     information. We can help you plan the perfect event and
                                     we're experts in entertaining groups of any size and people of every age!</p>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import trimString from '@/utils/trimString'
 import dynamic from 'next/dynamic';
 import useGamesData from '@/states/stores/games-data';
 import GamesCard from '@/components/GamesCard';
@@ -7,8 +6,9 @@ const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 
 const options = {
     loop: true,
+    center: true,
     nav: true,
-    startPosition: 0,
+    //startPosition: 0,
     navText:
         [
             '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
@@ -16,18 +16,21 @@ const options = {
         ],
     dots: false,
     smartSpeed: 500,
-    margin: 30,
+    margin: 25,
     autoplayHoverPause: true,
     autoplay: false,
     responsive: {
         0: {
-            items: 2
+            items: 1.6,
+            margin:0,
         },
         576: {
-            items: 2
+            items: 2,
+            margin:0,
         },
         768: {
-            items: 2
+            items: 2,
+            margin:0,
         },
         1200: {
             items: 4
@@ -63,7 +66,7 @@ const GamesSlider = () => {
                                             imgSrc={image}
                                             icon={icon}
                                             categoryName={category_name}
-                                            caption={trimString(item.category_caption, 85)}
+                                            caption={item.category_caption}
 
                                         />
                                     )
