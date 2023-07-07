@@ -8,7 +8,13 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
 
     return (
         <>
-            <div className="row no-padding not-home game-page video-game-theater" id="headerBanner">
+            <div
+                className="row no-padding not-home-additional content-banner"
+                id="headerBanner"
+                style={{
+                    backgroundImage: `url(${banner && banner != '' ? banner : '/assets/img/game-banner.jpg'})`
+                }}
+            >
                 <div className="ti-page-header row clearfix">
                     <div className="row ti-row">
                         <div className="limited-width">

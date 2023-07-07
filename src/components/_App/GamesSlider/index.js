@@ -8,7 +8,6 @@ const options = {
     loop: true,
     center: true,
     nav: true,
-    //startPosition: 0,
     navText:
         [
             '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
@@ -22,15 +21,18 @@ const options = {
     responsive: {
         0: {
             items: 1.6,
-            margin:0,
+            margin: 0,
+            autoplay: false,
         },
         576: {
             items: 2,
-            margin:0,
+            margin: 0,
+            autoplay: false,
         },
         768: {
             items: 2,
-            margin:0,
+            margin: 0,
+            autoplay: false,
         },
         1200: {
             items: 4

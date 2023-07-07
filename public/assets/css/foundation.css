@@ -1077,7 +1077,8 @@ textarea {
 }
 
 #headerBanner.not-home-additional p {
-    font-size: 22px;
+    font-size: 15px;
+    padding: 0 15px;
 }
 
 .content-banner {
@@ -1102,6 +1103,10 @@ textarea {
 }
 
 #headerBanner.not-home.game-page {
+    padding: 70px 0;
+}
+
+#headerBanner.not-home-additional {
     padding: 70px 0;
 }
 
@@ -4411,6 +4416,10 @@ body {
     }
 
     #headerBanner.not-home.game-page {
+        padding: 0;
+    }
+
+    #headerBanner.not-home-additional {
         padding: 0;
     }
 
