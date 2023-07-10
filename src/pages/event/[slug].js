@@ -152,6 +152,10 @@ export default EventDetails
 
 export const getServerSideProps = async ({ params: { slug }, res }) => {
     try {
+        res.setHeader(
+            'Cache-Control',
+            'public, s-maxage=10, stale-while-revalidate=59'
+        )
         const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
