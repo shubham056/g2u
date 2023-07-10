@@ -13,6 +13,7 @@ const FranchiseReqSchema = Yup.object().shape({
         .phone("US", "Please enter a valid phone number.")
         .required("A phone number is required."),
     email: Yup.string().email('Please enter valid email.').required('Please enter your email.'),
+    hear_form: Yup.string().required("Select option field is required."),
     comments: Yup.string().required('Please enter your comment.'),
     acceptTerms: Yup.bool()
         .oneOf([true], 'Accept Ts & Cs is required')
@@ -33,6 +34,8 @@ const FranchiseRequest = ({ investors }) => {
         setIsLoader(true)
         setSubmitBtnText("Submiting...")
         delete formValue.acceptTerms // delete acceptTerms key
+        delete formValue.hear_form // delete acceptTerms key
+        console.log("formValue", formValue)
         try {
             const payload = { url: `${apiBaseUrl}/franchise/request-info`, method: 'POST', data: formValue }
             const res = await fetchApi(payload)
@@ -131,10 +134,13 @@ const FranchiseRequest = ({ investors }) => {
                                     </div>
                                     <div className="row">
                                         <div className="ti-input col-xs-12 required">
-                                            <select id="hearAboutUs" className="inactive">
-                                                <option disabled selected defaultValue="How did you hear about us?">How did you hear about us?*</option>
+                                            <select id="hearAboutUs" className="inactive" {...register("hear_form")}>
+                                                <option value="">Please Select option</option>
+                                                <option value="How did you hear about us?">How did you hear about us?*</option>
                                             </select>
                                             <span className="ti-sprite select-arrows" />
+                                            <span style={{ color: 'red' }}>{errors.hear_form?.message}</span>
+                                            {/* <span className={`ti-sprite ${errors.hear_form ? 'input-error-icon' : ''}`}></span> */}
                                         </div>
                                     </div>
                                     <div className="row">
@@ -195,7 +201,7 @@ const FranchiseRequest = ({ investors }) => {
                                         ?
                                         investors.map(item => {
                                             return (
-                                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-6">
+                                                <div className="col-xs-6 col-sm-3 col-md-6 col-lg-6" key={item.id}>
                                                     <span className="space-helper" />
                                                     <img src={item.logo} alt={item.investor_name} />)
                                                 </div>

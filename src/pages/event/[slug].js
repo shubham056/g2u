@@ -7,9 +7,13 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import RequestInfo from '@/components/_App/RequestInfo';
 import Footer from '@/components/_App/Footer/Footer';
 import BrandLogo from '@/components/_App/BrandLogo';
+import ErrorPage from 'next/error';
 
 
 const EventDetails = ({ eventDetails, testimonialsData, investorsData, siteSettingData }) => {
+    if (!eventDetails.event_name || Object.keys(eventDetails).length == 0) {
+        return <ErrorPage statusCode={404} withDarkMode={false} />
+    }
     const SEO = {
         title: "Game Truck Video Games Parties | #1 Rated from Games2U",
         description: "America's most trusted provider of video game trucks for birthday parties, school carnivals and fairs, summer camps, corporate team-building events and more!",
@@ -124,34 +128,35 @@ const EventDetails = ({ eventDetails, testimonialsData, investorsData, siteSetti
 
 export default EventDetails
 
-export const getStaticPaths = async () => {
-    try {
-        const payload = { url: `${apiBaseUrl}/events/get-all-slug`, method: 'GET' }
-        let events = await fetchApi(payload);
-        events = events.data.slug
-        if (events && events.length > 0) {
-            const slugs = events.map(category => category.slug);
-            const paths = slugs.map(slug => ({ params: { slug } }));
-            // console.log("path!!!!!", paths)
-            return {
-                paths,
-                fallback: false
-            };
-        } else {
-            return { paths: [], fallback: false };
-        }
-    } catch (error) {
-        return { paths: [], fallback: false };
-    }
+// export const getStaticPaths = async () => {
+//     try {
+//         const payload = { url: `${apiBaseUrl}/events/get-all-slug`, method: 'GET' }
+//         let events = await fetchApi(payload);
+//         events = events.data.slug
+//         if (events && events.length > 0) {
+//             const slugs = events.map(category => category.slug);
+//             const paths = slugs.map(slug => ({ params: { slug } }));
+//             // console.log("path!!!!!", paths)
+//             return {
+//                 paths,
+//                 fallback: false
+//             };
+//         } else {
+//             return { paths: [], fallback: false };
+//         }
+//     } catch (error) {
+//         return { paths: [], fallback: false };
+//     }
 
-};
+// };
 
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getServerSideProps = async ({ params: { slug }, res }) => {
     try {
         const payload = { url: `${apiBaseUrl}/events/event-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
         const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
+        console.log("e p", pa)
 
         const events = await fetchApi(payload); // call event-details API
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
@@ -171,10 +176,14 @@ export const getStaticProps = async ({ params: { slug } }) => {
                 investorsData,
                 siteSettingData,
             },
-            revalidate: 10, // In seconds
         };
     } catch (error) {
-        console.log('error in detail api call', error)
+        res.statusCode = 404
+        return {
+            props: {
+                eventDetails: {}
+            }
+        }
     }
 
 };
