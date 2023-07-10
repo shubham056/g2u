@@ -254,6 +254,7 @@ textarea {
 }
 
 .ti-sprite.select-arrows {
+    user-select: auto;
     background-position: -181px -29px;
     width: 10px;
     height: 16px;
@@ -2577,6 +2578,7 @@ a.location-button {
 #alternativeContact select,
 .ti-input select {
     height: 52px;
+    appearance: auto;
     -webkit-appearance: none;
     -moz-appearance: none;
     background: #FFFFFF;
@@ -6051,10 +6053,6 @@ body {
         width: 90%;
     }
 
-    .content-padding {
-        /* padding: 30px 45px !important; */
-    }
-
     .home-game-name {
         max-width: 85%;
     }
@@ -6124,10 +6122,6 @@ body {
 
     #recentlyViewed {
         padding: 30px 0;
-    }
-
-    #splashPage .splash-wrapper {
-        /* top: 0; */
     }
 
     .as-seen-title,
@@ -6318,7 +6312,7 @@ body {
     white-space: nowrap;
     display: inline-block;
     position: relative;
-    float: left;
+    /* float: left; */
     padding-left: 40px;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -6342,7 +6336,7 @@ body {
     width: 30%;
     height: 100px;
     display: inline-block;
-    float: left;
+    /* float: left; */
     margin: 0;
 }
 
