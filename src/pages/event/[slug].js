@@ -156,7 +156,6 @@ export const getServerSideProps = async ({ params: { slug }, res }) => {
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
         const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
-        console.log("e p", pa)
 
         const events = await fetchApi(payload); // call event-details API
         const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
