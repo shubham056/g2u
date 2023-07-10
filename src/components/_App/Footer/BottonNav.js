@@ -21,10 +21,10 @@ const BottonNav = ({ siteSettings }) => {
                         </ul>
                     </div>
                     <div className="social-media-links col-md-3 col-sm-4 col-xs-12">
-                        <Link href={siteSettings?.facebook_urll ?? "https://www.facebook.com/Games2UEntertainment"} target="_blank"><span className="ti-sprite facebook-icon" /></Link>
-                        <Link href={siteSettings?.twitter_url ?? "https://twitter.com/Games2U"} target="_blank"><span className="ti-sprite twitter-icon" /></Link>
-                        <Link href={siteSettings?.youtube_url ?? "https://www.youtube.com/user/webmin007g2u"} target="_blank"><span className="ti-sprite youtube-icon" /></Link>
-                        <Link href={siteSettings?.instagram_url ?? "https://www.instagram.com/games2u_usa/?hl=en"} target="_blank"><span className="ti-sprite instagram-icon" /></Link>
+                        <Link href={siteSettings?.facebook_urll ?? "https://www.facebook.com/Games2UEntertainment"} target="_blank" aria-label="Facebook"><span className="ti-sprite facebook-icon" /></Link>
+                        <Link href={siteSettings?.twitter_url ?? "https://twitter.com/Games2U"} target="_blank" aria-label="Twitter"><span className="ti-sprite twitter-icon"  /></Link>
+                        <Link href={siteSettings?.youtube_url ?? "https://www.youtube.com/user/webmin007g2u"} target="_blank" aria-label="Youtube"><span className="ti-sprite youtube-icon" /></Link>
+                        <Link href={siteSettings?.instagram_url ?? "https://www.instagram.com/games2u_usa/?hl=en"} target="_blank" aria-label="Instagram"><span className="ti-sprite instagram-icon" /></Link>
                     </div>
                 </div>
             </div>
