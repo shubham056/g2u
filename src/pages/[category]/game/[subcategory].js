@@ -60,7 +60,6 @@ const options = {
 
 const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
   const router = useRouter();
-  console.log("categoryDetails !!!!!", categoryDetails)
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
