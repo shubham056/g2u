@@ -109,7 +109,7 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                 </ul>
                             </li>
                         </ul>
-                        <br /><br />
+                        {/* <br /><br /> */}
                         {/* <ul className="sitemap">
                             <li><Link href="/austintexas"><b>Games2U Austin, Texas</b></Link>
                                 <br /><br />
