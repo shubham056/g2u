@@ -165,7 +165,7 @@ const Header = ({ siteSettings }) => {
                         <a href="#" className="visible-sm" id="mobileLocationIcon">
                             <span className="ti-sprite blue-location-pin" />
                         </a>
-                        <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon">
+                        <a href="tel:18007142637" className="visible-xs visible-sm" id="mobilePhoneIcon" aria-label="mobile-phone-icon">
                             <span className="ti-sprite blue-phone" />
                         </a>
 

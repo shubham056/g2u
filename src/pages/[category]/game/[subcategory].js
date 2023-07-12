@@ -63,7 +63,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
-  const { banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, participants_range, age_range } = categoryDetails
+  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, participants_range, age_range } = categoryDetails
 
   const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
