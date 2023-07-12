@@ -63,7 +63,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
-  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, participants_range, age_range } = categoryDetails
+  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, min_age, max_age, min_participants, max_participants, } = categoryDetails
 
   const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
@@ -163,7 +163,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-ages-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Recommended Age Range</h3>
-                  <p><strong>{age_range && age_range} &amp; Older</strong></p>
+                  <p><strong>{(min_age && max_age) ? (max_age > 40) ? `${min_age} &amp; Older` : `${min_age} to ${max_age}` : null} </strong></p>
                 </div>
               </div>
               <div className="ti-box-spacer" />
@@ -171,7 +171,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-participants-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Number of Participants</h3>
-                  <p><strong>{participants_range && participants_range} players</strong> at a time!</p>
+                  <p><strong>{(min_participants && max_participants) ? `${min_participants}-${max_participants} players at a time!` : null} </strong></p>
                 </div>
               </div>
             </div>
