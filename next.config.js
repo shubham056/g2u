@@ -11,7 +11,7 @@ const nextConfig = {
   ],
   images: {
     domains: ["localhost", "g2u.cwsbuild.com"],
-    minimumCacheTTL: 31536000, // 1 year
+    minimumCacheTTL: 1000 * 60 * 60 * 24 * 30,
   },
   compress: true,
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
