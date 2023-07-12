@@ -15,7 +15,7 @@ const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, i
     const getMoreEvents = async () => {
         setisLoading(true)
         setLoadingBtnText('Loading...')
-        const enevtPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 9, page_record: page } }
+        const enevtPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 15, page_record: page } }
         const response = await fetchApi(enevtPayload); // call event list API
         const responseData = response.data;
         //merging two arrays

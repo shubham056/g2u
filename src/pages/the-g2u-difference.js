@@ -78,7 +78,7 @@ export default theg2udifference;
 export async function getStaticProps() {
   try {
     const g2uDifferencePayload = { url: `${apiBaseUrl}/content/the-g2u-difference`, method: 'GET' }
-    const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 9, page_record: 1 } }
+    const enevtListPayload = { url: `${apiBaseUrl}/events`, method: 'POST', data: { page_limit: 15, page_record: 1 } }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };

@@ -92,7 +92,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
   const getMoreGames = async () => {
     setisLoading(true)
     setLoadingBtnText('Loading...')
-    const payload = { url: `${apiBaseUrl}/games/${zipcode}/${page}/3`, method: 'GET' }
+    const payload = { url: `${apiBaseUrl}/games/${zipcode}/${page}/24`, method: 'GET' }
     const response = await fetchApi(payload); // call event list API
     const responseData = response.data.games;
     //merging two arrays
