@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
 
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet" />
 
         {/* <script src="/assets/js/jquery-2.2.4.min.js"></script> */}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -21,7 +21,7 @@ export default function Document() {
 
         <link rel="stylesheet" href="/assets/css/modal.css" />
         <script src="/assets/js/bootstrap-3-latest.min.js"></script>
-        
+
       </Head>
       <body>
 
