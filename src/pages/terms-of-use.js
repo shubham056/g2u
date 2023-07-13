@@ -14,14 +14,14 @@ const termsofuse = ({ content, page_name, page_caption, banner_img, meta_title, 
             title: meta_title && meta_title != '' ? meta_title : 'Privacy Policy | Games2U Mobile Entertainment',
             description: meta_description && meta_description != '' ? meta_description : "View the privacy policy for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
             url: 'https://www.g2u.com',
-            // images: [
-            //   {
-            //     url: `${assetsURL}${metaImage}`,
-            //     width: 800,
-            //     height: 600,
-            //     alt: 'Og Image Alt',
-            //   }
-            // ],
+            images: [
+              {
+                url: "/assets/img/g2u-logo.png",
+                width: 800,
+                height: 600,
+                alt: 'Og Image Alt',
+              }
+            ],
         },
         twitter: {
             handle: '@g2u',

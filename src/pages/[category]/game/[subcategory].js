@@ -1,20 +1,3 @@
-// import { useRouter } from "next/router";
-// // pages/category/[category]/[subcategory].tsx
-// const SubCategoryPage = () => {
-//   const router = useRouter();
-//   // Navigating to category/webdevelopment/react will return category = webdevelopment and subcategory = react
-//   // Navigating to /category/webdevelopment/react/anothercategory will result in a 404 error
-//   const { category, subcategory } = router.query;
-//   return (
-//     <div>
-//       <pre>
-//         Category: {category} , Subcategory: {subcategory}
-//       </pre>
-//     </div>
-//   );
-// };
-// export default SubCategoryPage;
-
 import React, { useState, useEffect } from 'react';
 import { NextSeo } from 'next-seo';
 import Header from '@/components/_App/Header';
@@ -28,6 +11,7 @@ import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
 import BrandLogo from '@/components/_App/BrandLogo';
 import ErrorPage from 'next/error';
+import useSWR from "swr";
 
 const options = {
   loop: true,
@@ -63,9 +47,12 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
   if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
-  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, min_age, max_age, min_participants, max_participants, } = categoryDetails
 
-  const { category, subcategory } = router.query;
+  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, min_age, max_age, min_participants, max_participants, } = categoryDetails //extract data from category detals
+
+  const fetcher = (url) => fetchApi({ url, method: 'GET' });
+  const { data, error, loading } = useSWR(`${apiBaseUrl}/games/slider-images/${id}`, fetcher);
+  // const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
   useEffect(() => {
     setDisplay(true);
@@ -163,7 +150,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-ages-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Recommended Age Range</h3>
-                  <p><strong>{(min_age && max_age) ? (max_age > 40) ? `${min_age} &amp; Older` : `${min_age} to ${max_age}` : null} </strong></p>
+                  <p><strong>{(min_age && max_age) ? (max_age > 40) ? `${min_age} & Older` : `${min_age} to ${max_age}` : null} </strong></p>
                 </div>
               </div>
               <div className="ti-box-spacer" />
@@ -180,10 +167,14 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
         <div className="row ti-row no-padding no-side-margin remove-overflow" id="tiImageSlider">
           <div className="ti-slider-parents ti-slider-gallery">
             {
-              display ?
-                <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
-                  <CommonSlider />
-                </OwlCarousel> : ''
+              (!loading && data && data.data?.slider_images != undefined && data.data?.slider_images != "")
+                ?
+                display ?
+                  <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
+                    <CommonSlider images={data.data.slider_images} />
+                  </OwlCarousel> : ''
+                :
+                null
             }
           </div>
         </div>

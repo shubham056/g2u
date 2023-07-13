@@ -1,26 +1,28 @@
-const seo = (seoData) => {
+const seo = (data) => {
+    const { title, description, canonical, openGraph: { type, title: openGtitle, description: openGdescription, url }, twitter: { handle, site, cardType } } = data
+    console.log("seoData!!!", data)
     let seoData = {
-        title: "About Us | Games2U Mobile Entertainment",
-        description: "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
-        canonical: "https://www.g2u.com/about-us",
+        title,
+        description,
+        canonical,
         openGraph: {
-            type: 'website',
-            title: 'About Us | Games2U Mobile Entertainment',
-            description: "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
-            url: 'https://www.g2u.com',
-            // images: [
-            //   {
-            //     url: `${assetsURL}${metaImage}`,
-            //     width: 800,
-            //     height: 600,
-            //     alt: 'Og Image Alt',
-            //   }
-            // ],
+            type,
+            title: openGtitle,
+            description: openGdescription,
+            url,
+            images: [
+              {
+                url: "/assets/img/g2u-logo.png",
+                width: 800,
+                height: 600,
+                alt: 'Og Image Alt',
+              }
+            ],
         },
         twitter: {
-            handle: '@g2u',
-            site: '@g2u',
-            cardType: 'summary_large_image'
+            handle,
+            site,
+            cardType
         },
     }
 

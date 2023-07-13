@@ -10,6 +10,7 @@ import GamesCard from '@/components/GamesCard';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup';
+import seo from '@/utils/seo';
 
 const viewSuggestionsSchema = Yup.object().shape({
   sAgeRange: Yup.string().required('Age range name is required.'),
@@ -31,13 +32,13 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
   const [showSuggestionData, setShowSuggestionData] = useState(false)
   const [suggestionData, setSuggestionData] = useState([]);
   const [suggestionDataPagination, setSuggestionDataPagination] = useState({});
-  const [ageRange, setAgeRange] = useState(null)
-  const [participantsRange, setParticipantsRange] = useState(null)
+  const [ageRangeArr, setAgeRangeArr] = useState(null)
+  const [participantsRangeArr, setParticipantsRangeArr] = useState(null)
   const ref = useRef(null);
 
   const suggestionFormOptions = { resolver: yupResolver(viewSuggestionsSchema) }
   const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(suggestionFormOptions);
-  
+
   // scroll to view all catelog
   const scrollToAllCatelog = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -63,11 +64,11 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
 
   // load more suggested  games
   const getMoreSuggestedGames = async () => {
-    if (ageRange != null && participantsRange != null) {
+    if (ageRangeArr.length > 0 && participantsRangeArr.length > 0) {
       setIsSuggestedGamesLoading(true)
       setLoadingSuggGameBtnText('Loading...')
       const payload = {
-        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": ageRange, "participants_range_id": participantsRange, "page_limit": 9, "page_record": suggGamepage }
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "min_age": ageRangeArr[0], max_age: ageRangeArr[1], "min_participants": participantsRangeArr[0], max_participants: participantsRangeArr[1], "page_limit": 9, "page_record": suggGamepage }
       }
       const response = await fetchApi(payload); // call event list API
       const responseData = response.data.games;
@@ -111,17 +112,19 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
   // filter suggested games
   const onSubmit = async (data) => {
     const { sAgeRange, sGroupSize } = data
-    if (sAgeRange != '' && sGroupSize != '') {
-      setAgeRange(sAgeRange)
-      setParticipantsRange(sGroupSize)
+    let ageRangeArr = sAgeRange.split("-");
+    let sGroupSizeArr = sGroupSize.split("-");
+    if (ageRangeArr.length > 0 && sGroupSizeArr.length > 0) {
+      setAgeRangeArr(ageRangeArr)
+      setParticipantsRangeArr(sGroupSizeArr)
       setisLoadingViewSuggestion(true)
       setViewSuggestionBtnText("Loading...")
-
       const payload = {
-        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "age_range_id": sAgeRange, "participants_range_id": sGroupSize, "page_limit": 9, "page_record": 1 }
+        url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "min_age": ageRangeArr[0], max_age: ageRangeArr[1], "min_participants": sGroupSizeArr[0], max_participants: sGroupSizeArr[1], "page_limit": 9, "page_record": 1 }
       }
       const response = await fetchApi(payload); //call filter API
       const responseData = response.data.games;
+      console.log(responseData)
       if (responseData && responseData.categories.list.length > 0) {
         setSuggestionData(responseData.categories.list)
         setSuggestionDataPagination(responseData.categories.pagination)
@@ -140,7 +143,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
     }
   }
 
-  const SEO = {
+  const SEO = seo({
     title: "Our Games | Video Game Trucks, Laser Tag & More | Games2U",
     description: "See a complete listing of games and activities from America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book today for an experience they'll never forget!",
     canonical: "https://www.g2u.com/ourgames",
@@ -149,21 +152,45 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       title: 'Our Games | Video Game Trucks, Laser Tag & More | Games2U',
       description: "See a complete listing of games and activities from America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book today for an experience they'll never forget!",
       url: 'https://www.g2u.com',
-      // images: [
-      //   {
-      //     url: `${assetsURL}${metaImage}`,
-      //     width: 800,
-      //     height: 600,
-      //     alt: 'Og Image Alt',
-      //   }
-      // ],
+      images: [
+        {
+          url: "/assets/img/g2u-logo.png",
+          width: 800,
+          height: 600,
+          alt: 'Og Image Alt',
+        }
+      ],
     },
     twitter: {
       handle: '@g2u',
       site: '@g2u',
       cardType: 'summary_large_image'
     },
-  }
+  })
+  // const SEO = {
+  //   title: "Our Games | Video Game Trucks, Laser Tag & More | Games2U",
+  //   description: "See a complete listing of games and activities from America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book today for an experience they'll never forget!",
+  //   canonical: "https://www.g2u.com/ourgames",
+  //   openGraph: {
+  //     type: 'website',
+  //     title: 'Our Games | Video Game Trucks, Laser Tag & More | Games2U',
+  //     description: "See a complete listing of games and activities from America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book today for an experience they'll never forget!",
+  //     url: 'https://www.g2u.com',
+  //     // images: [
+  //     //   {
+  //     //     url: `${assetsURL}${metaImage}`,
+  //     //     width: 800,
+  //     //     height: 600,
+  //     //     alt: 'Og Image Alt',
+  //     //   }
+  //     // ],
+  //   },
+  //   twitter: {
+  //     handle: '@g2u',
+  //     site: '@g2u',
+  //     cardType: 'summary_large_image'
+  //   },
+  // }
 
   return (
     <>
@@ -190,7 +217,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                           {
                             gamesSelectOptionData && gamesSelectOptionData.age_range_list.length > 0
                               ?
-                              gamesSelectOptionData.age_range_list.map(item => <option key={item.id} value={item.id}>{item.age_range}</option>)
+                              gamesSelectOptionData.age_range_list.map(item => <option key={item.id} value={`${item.min_age}-${item.max_age}`}>{item.age_range}</option>)
                               :
                               null
                           }
@@ -205,7 +232,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                           {
                             gamesSelectOptionData && gamesSelectOptionData.participants_range_list.length > 0
                               ?
-                              gamesSelectOptionData.participants_range_list.map(item => <option key={item.id} value={item.id}>{item.participants_range} Attendees</option>)
+                              gamesSelectOptionData.participants_range_list.map(item => <option key={item.id} value={`${item.min_participants}-${item.max_participants}`}>{item.participants_range} Attendees</option>)
                               :
                               null
                           }
