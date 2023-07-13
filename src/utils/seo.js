@@ -1,6 +1,5 @@
 const seo = (data) => {
     const { title, description, canonical, openGraph: { type, title: openGtitle, description: openGdescription, url }, twitter: { handle, site, cardType } } = data
-    console.log("seoData!!!", data)
     let seoData = {
         title,
         description,
