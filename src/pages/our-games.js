@@ -154,7 +154,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       url: 'https://www.g2u.com',
       images: [
         {
-          url: "/assets/img/g2u-logo.png",
+          url: "https://www.g2u.com/assets/img/g2u-logo.png",
           width: 800,
           height: 600,
           alt: 'Og Image Alt',

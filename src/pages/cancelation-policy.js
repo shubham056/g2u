@@ -15,12 +15,12 @@ const cancelationpolicy = ({ content, page_name, page_caption, banner_img, meta_
             description: meta_description && meta_description != '' ? meta_description : "America's #1 Rated provider of video game trucks, laser tag equipment, human hamster balls, and more! Book your Games2U event today for an experience theyâ€™ll never forget!",
             url: 'https://www.g2u.com',
             images: [
-              {
-                url: "/assets/img/g2u-logo.png",
-                width: 800,
-                height: 600,
-                alt: 'Og Image Alt',
-              }
+                {
+                    url: "https://www.g2u.com/assets/img/g2u-logo.png",
+                    width: 800,
+                    height: 600,
+                    alt: 'Og Image Alt',
+                }
             ],
         },
         twitter: {

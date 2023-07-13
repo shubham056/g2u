@@ -20,12 +20,12 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
             description: "View the site map for the website for Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
             url: 'https://www.g2u.com',
             images: [
-              {
-                url: "/assets/img/g2u-logo.png",
-                width: 800,
-                height: 600,
-                alt: 'Og Image Alt',
-              }
+                {
+                    url: "https://www.g2u.com/assets/img/g2u-logo.png",
+                    width: 800,
+                    height: 600,
+                    alt: 'Og Image Alt',
+                }
             ],
         },
         twitter: {
@@ -91,26 +91,26 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                                             }
 
 
-                                        </ul>
-                                    </li>
-                                    :
-                                    null
+                                                        </ul>
+                                                    </li>
+                                                    :
+                                                    null
                                             }
 
-                                    <li><Link href="/corporate-events">Corporate Events</Link></li>
-                                    <li><Link href="/about-us">About Us</Link></li>
-                                    <li><Link href="/contact-us">Contact Us</Link></li>
-                                    <li><Link href="/faq">Frequently Asked Questions</Link></li>
-                                    <li><Link href="/franchise-information">Own a Franchise</Link></li>
-                                    <li><Link href="/terms-of-use">Terms of Use</Link></li>
-                                    <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-                                    <li><Link href="/cancelation-policy">Our Cancelation Policy</Link></li>
-                                    <li><Link href="/your-party-could-be-free">Your Party Could be Free!</Link></li>
+                                            <li><Link href="/corporate-events">Corporate Events</Link></li>
+                                            <li><Link href="/about-us">About Us</Link></li>
+                                            <li><Link href="/contact-us">Contact Us</Link></li>
+                                            <li><Link href="/faq">Frequently Asked Questions</Link></li>
+                                            <li><Link href="/franchise-information">Own a Franchise</Link></li>
+                                            <li><Link href="/terms-of-use">Terms of Use</Link></li>
+                                            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                                            <li><Link href="/cancelation-policy">Our Cancelation Policy</Link></li>
+                                            <li><Link href="/your-party-could-be-free">Your Party Could be Free!</Link></li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                        {/* <br /><br /> */}
-                        {/* <ul className="sitemap">
+                                {/* <br /><br /> */}
+                                {/* <ul className="sitemap">
                             <li><Link href="/austintexas"><b>Games2U Austin, Texas</b></Link>
                                 <br /><br />
                                 <ul className="sitemap">
@@ -326,19 +326,19 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                 </ul>
                             </li>
                         </ul> */}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div >
+                </div >
             </div >
 
 
-    {/* content section end */ }
+            {/* content section end */}
 
-    < Footer
-testimonials = { testimonialsData }
-siteSettings = { siteSettingData }
-    />
+            < Footer
+                testimonials={testimonialsData}
+                siteSettings={siteSettingData}
+            />
         </>)
 }
 
