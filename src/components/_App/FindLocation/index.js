@@ -10,6 +10,7 @@ const modalSchema = Yup.object().shape({
 })
 
 const FindLocation = () => {
+    const currentYear = new Date().getFullYear()
     const router = useRouter()
     const [changeLocation, setChangeLocation] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
@@ -83,7 +84,7 @@ const FindLocation = () => {
                     </div>
                     <div className="location-information">
                         <h3>Locally Owned &amp; Operated</h3>
-                        <p className="ti-orange-text">  {games && games?.affiliate.total_events ? Intl.NumberFormat('en-US').format(games.affiliate.total_events) : 100}+ events since {games?.affiliate.start_year ?? "2008"}</p>
+                        <p className="ti-orange-text">  {games && games?.affiliate.total_events ? Intl.NumberFormat('en-US').format(games.affiliate.total_events) : 1}+ events since {games.affiliate.start_year != '' ? games.affiliate.start_year : currentYear}</p>
                         <div>
                             <a href="#testimonialContent">
                                 <span className={`ti-sprite ${games.affiliate.star_rating >= 1 ? 'large-yellow-star' : null} `} />
