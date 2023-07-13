@@ -21,6 +21,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
   const { zipcode, games, loading, error } = useGamesData(); // ftech initail games data  
 
   const [isLoading, setisLoading] = useState(false);
+  const [isDisablebtn, setisDisablebtn] = useState(false);
   const [isSuggestedGamesLoading, setIsSuggestedGamesLoading] = useState(false);
   const [isLoadingViewSuggestion, setisLoadingViewSuggestion] = useState(false);
   const [loadingBtnText, setLoadingBtnText] = useState('Load More');
@@ -118,6 +119,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       setAgeRangeArr(ageRangeArr)
       setParticipantsRangeArr(sGroupSizeArr)
       setisLoadingViewSuggestion(true)
+      setisDisablebtn(true)
       setViewSuggestionBtnText("Loading...")
       const payload = {
         url: `${apiBaseUrl}/games/search`, method: 'POST', data: { "zipcode": zipcode, "min_age": ageRangeArr[0], max_age: ageRangeArr[1], "min_participants": sGroupSizeArr[0], max_participants: sGroupSizeArr[1], "page_limit": 9, "page_record": 1 }
@@ -131,12 +133,14 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
         setisLoadingViewSuggestion(false)
         setViewSuggestionBtnText("View Suggestion")
         setShowSuggestionData(true)
+        setisDisablebtn(false)
       } else {
         setSuggestionData([])
         setSuggestionDataPagination({})
         setisLoadingViewSuggestion(false)
         setViewSuggestionBtnText("View Suggestion")
         setShowSuggestionData(true)
+        setisDisablebtn(false)
       }
     } else {
       console.log("select options is null, please section any option first")
@@ -242,7 +246,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                     </div>
                     <div className="ti-inline-block">
                       <div className="ti-input">
-                        <button type="submit" className="ti-yellow-button view-suggestions">   {isLoadingViewSuggestion ? <i className="fa fa-refresh fa-spin"></i> : null} {viewSuggestionBtnText}</button>
+                        <button type="submit" disabled={isDisablebtn} className="ti-yellow-button view-suggestions">   {isLoadingViewSuggestion ? <i className="fa fa-refresh fa-spin"></i> : null} {viewSuggestionBtnText}</button>
                       </div>
                     </div>
                   </form>
