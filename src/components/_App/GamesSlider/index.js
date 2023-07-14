@@ -35,7 +35,8 @@ const options = {
             autoplay: false,
         },
         1200: {
-            items: 4
+            items: 4,
+            autoplay: false,
         }
     }
 };

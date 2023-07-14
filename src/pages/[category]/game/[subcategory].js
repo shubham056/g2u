@@ -263,6 +263,7 @@ export const getServerSideProps = async ({ params: { subcategory }, res }) => {
       }
     };
   } catch (error) {
+    console.log("errr!!!!!!!!!", error)
     res.statusCode = 404
     return {
       props: {

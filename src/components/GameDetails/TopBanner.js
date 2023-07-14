@@ -26,8 +26,8 @@ const TopBanner = ({ banner, icon, title, caption, video }) => {
                             {
                                 video && video != ''
                                     ?
-                                    <div className="text-center">
-                                        <a href="javascript:void(0);" className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => setOpen(true)}><i className="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</a>
+                                    <div className="text-center padding-from">
+                                        <button type='button' className="ti-yellow-button green-button video-trigger" data-video="https://www.g2u.com/assets/video/g2u-hamster-ball.mp4" onClick={() => setOpen(true)}><i className="fa fa-lg fa-play-circle-o" aria-hidden="true"></i> SEE IT IN ACTION!</button>
                                     </div>
                                     :
                                     null

@@ -1078,8 +1078,12 @@ textarea {
 }
 
 #headerBanner.not-home-additional p {
-    font-size: 15px;
+    font-size: 22px;
     padding: 0 15px;
+}
+
+.padding-from {
+    padding: 25px;
 }
 
 .content-banner {
