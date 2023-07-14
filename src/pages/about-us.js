@@ -3,9 +3,10 @@ import Header from '@/components/_App/Header'
 import { NextSeo } from 'next-seo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import Footer from '@/components/_App/Footer/Footer';
+import seo from '@/utils/seo';
 
 const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, meta_description, testimonialsData, siteSettingData }) => {
-  const SEO = {
+  const SEO = seo({
     title: meta_title && meta_title != '' ? meta_title : "About Us | Games2U Mobile Entertainment",
     description: meta_description && meta_description != '' ? meta_description : "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
     canonical: "https://www.g2u.com/about-us",
@@ -14,21 +15,21 @@ const aboutus = ({ content, page_name, page_caption, banner_img, meta_title, met
       title: meta_title && meta_title != '' ? meta_title : "About Us | Games2U Mobile Entertainment",
       description: meta_description && meta_description != '' ? meta_description : "Learn more about Games2U, America's most trusted provider of mobile entertainment including video game trucks, laser tag equipment, human hamster balls, and more!",
       url: 'https://www.g2u.com',
-      // images: [
-      //   {
-      //     url: `${assetsURL}${metaImage}`,
-      //     width: 800,
-      //     height: 600,
-      //     alt: 'Og Image Alt',
-      //   }
-      // ],
+      images: [
+        {
+          url: "https://www.g2u.com/assets/img/g2u-logo.png",
+          width: 800,
+          height: 600,
+          alt: 'Og Image Alt',
+        }
+      ],
     },
     twitter: {
       handle: '@g2u',
       site: '@g2u',
       cardType: 'summary_large_image'
     },
-  }
+  })
 
   return (
     <>

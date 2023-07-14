@@ -37,7 +37,8 @@ export default function Home({ content, page_name, testimonialsData, investorsDa
         {/* ----------- Start section for Video, Find a Location and Brand Logo ------ */}
         <div className="row no-padding " id="headerBanner">
           <div className="ti-page-header row clearfix">
-            <Video />
+
+            <Video siteSettings={siteSettingData}/>
 
             <FindLocation />
 

@@ -158,7 +158,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
                 <img src="/assets/img/ico-participants-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Number of Participants</h3>
-                  <p><strong>{(min_participants && max_participants) ? `${min_participants}-${max_participants} players at a time!` : null} </strong></p>
+                  <p><strong>{(min_participants && max_participants) ? `${min_participants} - ${max_participants} players at a time!` : null} </strong></p>
                 </div>
               </div>
             </div>
