@@ -52,7 +52,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
 
   const fetcher = (url) => fetchApi({ url, method: 'GET' });
   const { data, error, loading } = useSWR(`${apiBaseUrl}/games/slider-images/${id}`, fetcher);
-  // const { category, subcategory } = router.query;
+  const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
   useEffect(() => {
     setDisplay(true);

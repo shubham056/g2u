@@ -1,7 +1,7 @@
 import trimString from '@/utils/trimString'
 import Link from 'next/link'
 
-const GamesCard = ({ dynamicClass, id, link, slug, imgSrc, icon, categoryName, caption }) => {
+const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, categoryName, caption }) => {
     return (
         <div className={dynamicClass} data-original="true">
             <Link href={`/${link}/game/${slug}`}>

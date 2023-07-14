@@ -62,7 +62,6 @@ const GamesSlider = () => {
                                         <GamesCard
                                             key={id}
                                             dynamicClass={"col-ie-4 ti-box game-1"}
-                                            id={id}
                                             link={games.affiliate.city.toLowerCase()}
                                             slug={slug}
                                             imgSrc={image}
