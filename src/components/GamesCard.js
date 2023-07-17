@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, categoryName, caption }) => {
     return (
-        <div className={dynamicClass} data-original="true" style={{ width: '100%', display: 'inline-block'}}>
+        <div className={dynamicClass} data-original="true">
             <Link href={`/${link}/game/${slug}`}>
                 <div className="box-heading video-game-theater" >
                     <img src={imgSrc != '' ? imgSrc : "/assets/img/ico-video-theater-2x.png"} height={"100%"} />
