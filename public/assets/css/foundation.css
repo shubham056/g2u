@@ -1393,7 +1393,7 @@ a.location-button {
 }
 
 .something-for-everyone .excited-kid {
-    background: url(../img/excited-kid-2x.png) no-repeat;
+    /* background: url(../img/excited-kid-2x.png) no-repeat; */
     background-size: cover;
     height: 600px;
     width: 78%;
@@ -1688,7 +1688,7 @@ a.location-button {
 }
 
 #planYourParty .excited-woman {
-    background: url(../img/cheering-woman-2x.png) no-repeat;
+    /* background: url(../img/cheering-woman-2x.png) no-repeat; */
     background-size: cover;
     height: 600px;
     width: 100%;
@@ -5215,7 +5215,7 @@ body {
     }
 
     .something-for-everyone .excited-kid {
-        background: url(../img/excited-kid-mobile-2x.png) no-repeat;
+        /* background: url(../img/excited-kid-mobile-2x.png) no-repeat; */
         background-size: contain;
         height: 440px;
         right: -92px;

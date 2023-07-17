@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const PlanYourParty = ({siteSettings}) => {
+const PlanYourParty = ({ siteSettings }) => {
     return (
         <div className="row ti-blue-background ti-row-top no-margin" id="planYourParty">
             <div className="col-xs-12">
@@ -45,6 +45,7 @@ const PlanYourParty = ({siteSettings}) => {
                     <div className="col-sm-6 excited-woman-parent">
                         <div className="excited-woman">
                             {/* Large Girl Image */}
+                            <Image src="/assets/img/cheering-woman-2x.png" width={500} height={500} style={{backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute', bottom: 0, right: 0}} />
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import Image from "next/image";
 
 const GamesForEveryOne = ({ heading, description }) => {
     return (
@@ -11,7 +11,9 @@ const GamesForEveryOne = ({ heading, description }) => {
                         <a href="#footerContact" className="hidden-xs ti-yellow-button">Request Info</a>
                     </div>
                     <div className="col-xs-6 excited-kid-parent">
-                        <div className="excited-kid" />
+                        <div className="excited-kid" >
+                            <Image src="/assets/img/excited-kid-2x.png" width={500} height={500} style={{ backgroundSize: 'cover', height: '100%', width: '100%', position: 'absolute', bottom: 0, right: 0 }} />
+                        </div>
                     </div>
                     <div className="visible-xs col-xs-12 text-center"><a href="#footerContact" className="ti-yellow-button">Request Info</a></div>
                 </div>
