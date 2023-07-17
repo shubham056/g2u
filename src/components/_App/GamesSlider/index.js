@@ -6,7 +6,6 @@ const OwlCarousel = dynamic(import('react-owl-carousel'), { ssr: false });
 
 const options = {
     loop: true,
-    center: true,
     nav: true,
     navText:
         [
