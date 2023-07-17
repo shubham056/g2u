@@ -6548,10 +6548,14 @@ a[href^="https://maps.google.com/maps"] {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     /* start showing ellipsis when 3rd line is reached */
     white-space: pre-wrap;
     /* let the text wrap preserving spaces */
+}
+
+.games-sub-title {
+    height: 60px;
 }
 
 
