@@ -15,6 +15,8 @@ import RequestInfo from "@/components/_App/RequestInfo";
 import GamesForEveryOne from "@/components/_App/GamesForEveryOne";
 import GamesList from "@/components/_App/GamesList";
 import GamesSlider from "@/components/_App/GamesSlider";
+import dynamic from 'next/dynamic'
+const DynamicVideo = dynamic(() => import('@/components/_App/Video'))
 
 export default function Home({ content, page_name, testimonialsData, investorsData, siteSettingData, }) {
   return (
@@ -38,7 +40,8 @@ export default function Home({ content, page_name, testimonialsData, investorsDa
         <div className="row no-padding " id="headerBanner">
           <div className="ti-page-header row clearfix">
 
-            <Video siteSettings={siteSettingData}/>
+            {/* <Video siteSettings={siteSettingData}/> */}
+            <DynamicVideo siteSettings={siteSettingData} />
 
             <FindLocation />
 

@@ -6558,6 +6558,12 @@ a[href^="https://maps.google.com/maps"] {
     height: 60px;
 }
 
+.fit-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
