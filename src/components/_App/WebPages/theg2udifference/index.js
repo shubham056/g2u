@@ -4,6 +4,7 @@ import Link from 'next/link';
 import BrandLogo from '../../BrandLogo';
 import { apiBaseUrl, fetchApi } from "@/utils/fetchApi";
 import LoadMoreButton from '@/components/LoadMoreButton';
+import Image from 'next/image';
 
 const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, investors }) => {
     const [isLoading, setisLoading] = useState(false);
@@ -58,7 +59,7 @@ const Theg2udifferenceContent = ({ content, eventList: { events, pagination }, i
                                     eventsData.map(item => {
                                         return (
                                             <Link className="col-md-4 col-sm-6" href={`event/${item.slug}`} key={item.id}>
-                                                <div><img src={`${item.icon}`} /></div>
+                                                <div><Image src={`${item.icon}`} width={500} height={500} alt={item.slug} /></div>
                                                 <div>{item.event_name}</div>
                                             </Link>
                                         )
