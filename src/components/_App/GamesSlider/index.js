@@ -52,7 +52,7 @@ const GamesSlider = () => {
         <>
             {
                 display ?
-                    <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} >
+                    <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} stageOuterClass={"owl-stage-outer game-outer"}>
                         {
                             (!loading && games && games.categories.list && games?.affiliate != undefined && games.categories.list.length > 0)
                                 ?

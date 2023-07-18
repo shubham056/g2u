@@ -6564,7 +6564,7 @@ a[href^="https://maps.google.com/maps"] {
     object-fit: cover;
 }
 
-.owl-stage-outer {
+.game-outer {
     height: 485px;
 }
 
@@ -6583,7 +6583,7 @@ a[href^="https://maps.google.com/maps"] {
         height: unset;
     }
 
-    .owl-stage-outer {
+    .game-outer {
         height: unset;
     }
 }
@@ -6602,7 +6602,7 @@ a[href^="https://maps.google.com/maps"] {
         height: unset;
     }
 
-    .owl-stage-outer {
+    .game-outer {
         height: unset;
     }
 }
@@ -6621,7 +6621,7 @@ a[href^="https://maps.google.com/maps"] {
         height: unset;
     }
 
-    .owl-stage-outer {
+    .game-outer {
         height: unset;
     }
 }
