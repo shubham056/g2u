@@ -6558,10 +6558,14 @@ a[href^="https://maps.google.com/maps"] {
     height: 85px;
 }
 
-.fit-image{
+.fit-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.owl-stage-outer {
+    height: 485px;
 }
 
 
@@ -6574,6 +6578,14 @@ a[href^="https://maps.google.com/maps"] {
     .desktop-menu-div {
         display: none;
     }
+
+    .games-sub-title {
+        height: unset;
+    }
+
+    .owl-stage-outer {
+        height: unset;
+    }
 }
 
 /* Media Query for low resolution  Tablets, Ipads */
@@ -6585,6 +6597,14 @@ a[href^="https://maps.google.com/maps"] {
     .desktop-menu-div {
         display: none;
     }
+
+    .games-sub-title {
+        height: unset;
+    }
+
+    .owl-stage-outer {
+        height: unset;
+    }
 }
 
 /* Media Query for Tablets Ipads portrait mode */
@@ -6595,5 +6615,13 @@ a[href^="https://maps.google.com/maps"] {
 
     .desktop-menu-div {
         display: none;
+    }
+
+    .games-sub-title {
+        height: unset;
+    }
+
+    .owl-stage-outer {
+        height: unset;
     }
 }

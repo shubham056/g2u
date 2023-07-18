@@ -19,18 +19,18 @@ const options = {
     autoplay: false,
     responsive: {
         0: {
-            items: 1.6,
-            margin: 0,
+            items: 2,
+            margin: 10,
             autoplay: false,
         },
         576: {
             items: 2,
-            margin: 0,
+            margin: 10,
             autoplay: false,
         },
         768: {
             items: 2,
-            margin: 0,
+            margin: 10,
             autoplay: false,
         },
         1200: {
