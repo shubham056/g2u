@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import useGamesData from '@/states/stores/games-data';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { FallbackImage } from '@/components/FallbackImage';
 
 const modalSchema = Yup.object().shape({
     zipcode: Yup.string().matches(/^[0-9]{5}$/, 'Zip code must be 5 digits.'),
@@ -37,6 +38,11 @@ const Header = ({ siteSettings }) => {
     const { register, setValue, formState: { errors, isSubmitting, isDirty, isValid }, handleSubmit } = useForm(modalFormOptions);
     const { register: registerOne, setValue: setValueOne, formState: { errors: errorsOne, isSubmitting: isSubmittingOne, isDirty: isDirtyOne, isValid: isValidOne }, handleSubmit: handleSubmitOne } = useForm(modalFormOptions);
     const { register: registerTwo, setValue: setValueTwo, formState: { errors: errorsTwo, isSubmitting: isSubmittingTwo, isDirty: isDirtyTwo, isValid: isValidTwo }, handleSubmit: handleSubmitTwo } = useForm(modalFormOptions);
+    const [imgSrc, setImgSrc] = useState(siteSettings?.logo ?? '')
+    useEffect(() => {
+        setImgSrc(siteSettings?.logo)
+    }, [siteSettings?.logo])
+
     //Main popup submit handler
     const onSubmit = async formValue => {
         const { zipcode } = formValue
@@ -112,7 +118,19 @@ const Header = ({ siteSettings }) => {
         <>
             <div id="navigation" className="clearfix">
                 <div className="col-sm-4 ti-main-logo">
-                    <Link href="/"><Image src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} /></Link>
+                    <Link href="/">
+                        <FallbackImage
+                            src={imgSrc ? imgSrc : "/assets/img/g2u-logo.png"}
+                            className='g2u-logo'
+                            alt="g2u-logo"
+                            width={483}
+                            height={151}
+                            notFoundImg={"/assets/img/g2u-logo.png"}
+                        />
+                        {/* <Image src={imgSrc ? imgSrc : "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo-edit" width={483} height={151} onError={() => {
+                            setImgSrc('/assets/img/g2u-logo.png')
+                        }} /> */}
+                    </Link>
                 </div>
                 <div className="col-md-8 col-sm-12">
                     <div className="ti-underline-element clearfix hidden-sm hidden-xs">
@@ -208,20 +226,45 @@ const Header = ({ siteSettings }) => {
                                         <Link href="/our-games" className="ti-orange-text pull-right ti-inline-block">View All
                                             Available Games</Link>
                                     </div>
-                                    <div className="col-md-4 padding-top">
-                                        {
-                                            (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
-                                                ?
-                                                games.categories.list.map(item => {
-                                                    return (
-                                                        <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
-                                                    )
-                                                })
+                                    {
+                                        (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
+                                            ?
+                                            Object.values(
+                                                games?.categories.list.map((x, i) => ({ grp: Math.floor(i / 8), val: x }))
+                                                    .reduce((acc, i) => {
+                                                        acc[i.grp] ||= [];
+                                                        acc[i.grp].push(i.val);
+                                                        return acc;
+                                                    }, {})
+                                            ).slice(0, 3).map((val, i) => {
+                                                return (
+                                                    <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
+                                                        {val.map(item => {
+                                                            return (
+                                                                <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                            )
+                                                        })}
 
-                                                :
-                                                null
-                                        }
-                                    </div>
+                                                    </div>
+
+                                                )
+                                            })
+
+                                            //         games.categories.list.map((item, i) => {
+
+                                            //             return (
+                                            // <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
+                                            //     <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                            // </div>
+                                            // )
+
+
+                                            //         })
+
+                                            :
+                                            null
+
+                                    }
                                 </div>
                             </div>
                             <div className="no-padding" id="g2uExperience">
