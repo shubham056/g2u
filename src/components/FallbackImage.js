@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export const FallbackImage = ({ src, ...rest }) => {
     //console.log("fallback image data", src, { ...rest })
-    const { notFoundImg } = { ...rest }
+    const { notfoundimg } = { ...rest }
     const [imgSrc, setImgSrc] = useState(src)
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export const FallbackImage = ({ src, ...rest }) => {
     return (
         <Image
             {...rest}
-            src={imgSrc ? imgSrc : notFoundImg}
+            src={imgSrc ? imgSrc : notfoundimg}
             onError={() => {
                 setImgSrc(notFoundImg)
             }}

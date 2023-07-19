@@ -125,7 +125,7 @@ const Header = ({ siteSettings }) => {
                             alt="g2u-logo"
                             width={483}
                             height={151}
-                            notFoundImg={"/assets/img/g2u-logo.png"}
+                            notfoundimg={"/assets/img/g2u-logo.png"}
                         />
                     </Link>
                 </div>
