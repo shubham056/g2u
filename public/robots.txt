@@ -11,4 +11,3 @@ Host: https://g2u.vercel.app/
 
 # Sitemaps
 Sitemap: https://g2u.vercel.app/sitemap.xml
-Sitemap: https://g2u.vercel.app/server-sitemap.xml

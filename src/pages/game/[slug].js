@@ -52,7 +52,6 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
 
   const fetcher = (url) => fetchApi({ url, method: 'GET' });
   const { data, error, loading } = useSWR(`${apiBaseUrl}/games/slider-images/${id}`, fetcher);
-  const { category, subcategory } = router.query;
   const [display, setDisplay] = useState(false);
   useEffect(() => {
     setDisplay(true);
@@ -230,47 +229,56 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
 
 export default GamesDetails
 
-
-
-export const getServerSideProps = async ({ params: { subcategory }, res }) => {
-  try {
-    res.setHeader(
-      'Cache-Control',
-      'public, s-maxage=10, stale-while-revalidate=59'
-    )
-    const payload = { url: `${apiBaseUrl}/categoty/category-details/${subcategory}`, method: 'GET' }
-    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
-    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
-    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
-
-    const categories = await fetchApi(payload);
-    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
-    const investorsContent = await fetchApi(investorsPayload); // call investors API
-    const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
-
-    const testimonialsData = testimonialsContent.data.testimonials;
-    const categoriesData = categories.data
-    const investorsData = investorsContent.data.investors;
-    const siteSettingData = siteSettingContent.data.settings;
-
-    const { categoryDetails } = categoriesData
-    return {
-      props: {
-        categoryDetails,
-        testimonialsData,
-        investorsData,
-        siteSettingData,
-      }
-    };
-  } catch (error) {
-    console.log("errr!!!!!!!!!", error)
-    res.statusCode = 404
-    return {
-      props: {
-        categoryDetails: {}
-      }
+export const getStaticPaths = async () => {
+    try {
+        const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
+        let categories = await fetchApi(payload);
+        categories = categories.data.slug
+        if (categories && categories.length > 0) {
+            const slugs = categories.map(category => category.slug);
+            const paths = slugs.map(slug => ({ params: { slug } }));
+            return {
+                paths,
+                fallback: false
+            };
+        } else {
+            return { paths: [], fallback: false };
+        }
+    } catch (error) {
+        return { paths: [], fallback: false };
     }
-  }
+};
+
+export const getStaticProps = async ({ params: { slug } }) => {
+    try {
+        const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+        const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
+
+        const categories = await fetchApi(payload);
+        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+        const investorsContent = await fetchApi(investorsPayload); // call investors API
+        const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
+
+        const testimonialsData = testimonialsContent.data.testimonials;
+        const categoriesData = categories.data
+        const investorsData = investorsContent.data.investors;
+        const siteSettingData = siteSettingContent.data.settings;
+
+        const { categoryDetails } = categoriesData
+        return {
+            props: {
+                categoryDetails,
+                testimonialsData,
+                investorsData,
+                siteSettingData,
+            },
+            revalidate: 10,
+        };
+    } catch (error) {
+        console.log('error in detail api call', error)
+    }
 
 };
 

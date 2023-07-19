@@ -73,7 +73,7 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                                 <li><Link href="/ourgames">Our Games</Link>
                                                     <br /><br />
                                                     <ul className="sitemap">
-                                                        {games.categories.list.map(item => <li><Link href={`/${games.affiliate.city.toLowerCase()}/game/${item.slug}`} key={`game-cat-${item.id}`}>{item.category_name}</Link></li>)}
+                                                        {games.categories.list.map(item => <li><Link href={`/game/${item.slug}`} key={`game-cat-${item.id}`}>{item.category_name}</Link></li>)}
                                                     </ul>
                                                 </li>
                                                 :

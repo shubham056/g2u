@@ -1,9 +1,10 @@
 const siteUrl = process.env.NEXT_PUBLIC_DOMAIN_URL;
 module.exports = {
     siteUrl,
-    exclude: ["/404"],
+    exclude: ['/404', '/server-sitemap.xml'],
     generateRobotsTxt: true,
-    generateIndexSitemap:false,
+    generateIndexSitemap: false,
+    sitemapSize: 5000,
     robotsTxtOptions: {
         policies: [
             {
@@ -14,7 +15,7 @@ module.exports = {
         ],
         additionalSitemaps: [
             `${siteUrl}sitemap.xml`,
-            `${siteUrl}server-sitemap.xml`,
+            // `${siteUrl}server-sitemap.xml`,
         ],
     },
 };
