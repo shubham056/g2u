@@ -141,7 +141,7 @@ const ZipCodeFormFooter = ({ phoneNumberLabel }) => {
                                                 <span className={`ti-sprite ${errors.zipcode ? 'input-error-icon' : ''}`}></span>
                                             </div>
                                             <div className="ti-textarea col-xs-12">
-                                                <textarea {...register("about_event")} rows={4} placeholder='Tell us more about your event' />
+                                                <textarea className='form-control' {...register("about_event")} rows={4} placeholder='Tell us more about your event' />
                                             </div>
                                             <input id="btnBook" name="btnBook" type="submit" defaultValue="Request Info" className="ti-yellow-button pull-right" disabled={isSubmitting} />
                                         </form>

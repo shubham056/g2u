@@ -127,9 +127,6 @@ const Header = ({ siteSettings }) => {
                             height={151}
                             notFoundImg={"/assets/img/g2u-logo.png"}
                         />
-                        {/* <Image src={imgSrc ? imgSrc : "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo-edit" width={483} height={151} onError={() => {
-                            setImgSrc('/assets/img/g2u-logo.png')
-                        }} /> */}
                     </Link>
                 </div>
                 <div className="col-md-8 col-sm-12">

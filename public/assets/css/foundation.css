@@ -6568,6 +6568,13 @@ a[href^="https://maps.google.com/maps"] {
     height: 485px;
 }
 
+.owl-theme .owl-nav {
+    margin-top: 0;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    height: 0px !important;
+}
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
