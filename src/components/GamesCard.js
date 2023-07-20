@@ -12,9 +12,9 @@ const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, categoryName, capti
                 <div className="circle-img">
                     <Image src={icon != '' ? icon : "/assets/img/ico-video-theater-2x.png"} width={500} height={500} alt={slug} />
                 </div>
-                <h3 className='singile-line'>{categoryName}</h3>
+                <h3 className='single-line'>{categoryName}</h3>
                 <p className='multiline-ellipsis games-sub-title'>{trimString(caption, 85)}</p>
-                <span className="explore-link singile-line">Explore {categoryName} »</span>
+                <span className="explore-link single-line">Explore {categoryName} »</span>
             </Link>
         </div>
     )

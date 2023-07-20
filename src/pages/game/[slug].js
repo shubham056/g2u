@@ -231,7 +231,7 @@ export default GamesDetails
 
 export const getStaticPaths = async () => {
     try {
-        const payload = { url: `${apiBaseUrl}/categoty/get-all-slug`, method: 'GET' }
+        const payload = { url: `${apiBaseUrl}/category/get-all-slug`, method: 'GET' }
         let categories = await fetchApi(payload);
         categories = categories.data.slug
         if (categories && categories.length > 0) {
@@ -251,7 +251,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
     try {
-        const payload = { url: `${apiBaseUrl}/categoty/category-details/${slug}`, method: 'GET' }
+        const payload = { url: `${apiBaseUrl}/category/category-details/${slug}`, method: 'GET' }
         const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
         const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
         const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };

@@ -238,7 +238,7 @@ const Header = ({ siteSettings }) => {
                                                     <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
                                                         {val.map(item => {
                                                             return (
-                                                                <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                                <Link className='single-line' onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                             )
                                                         })}
 
