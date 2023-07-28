@@ -16,7 +16,7 @@ import GamesForEveryOne from "@/components/_App/GamesForEveryOne";
 import GamesList from "@/components/_App/GamesList";
 import GamesSlider from "@/components/_App/GamesSlider";
 
-export default function Home({ content, page_name, testimonialsData, investorsData, siteSettingData, }) {
+export default function Home({ content, page_name, testimonialsData, investorsData, siteSettingData, planningYourPartyData }) {
   return (
     <>
       <Head>
@@ -95,7 +95,10 @@ export default function Home({ content, page_name, testimonialsData, investorsDa
           classNameStyle="ti-dark-orange-background"
         />
 
-        <PlanYourParty siteSettings={siteSettingData} />
+        <PlanYourParty
+          siteSettings={siteSettingData}
+          planningYourParty={planningYourPartyData}
+        />
 
         <RequestInfo
           content="Book Today and be the Hero of Your Next Event!"
@@ -114,16 +117,19 @@ export default function Home({ content, page_name, testimonialsData, investorsDa
 export async function getStaticProps() {
   try {
     const gamesForEveryonePayload = { url: `${apiBaseUrl}/content/games-for-everyone`, method: "GET" };
+    const PlanningYourPartyPayload = { url: `${apiBaseUrl}/content/planning-your-party`, method: "GET" };
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
     const gamesForEveryone = await fetchApi(gamesForEveryonePayload); // call contact us API
+    const planningYourParty = await fetchApi(PlanningYourPartyPayload); // call PlanningYourParty API
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
     const investorsContent = await fetchApi(investorsPayload); // call investors API
     const siteSettingContent = await fetchApi(siteSettingsPayload); // call investors API
 
     const gamesForEveryoneData = gamesForEveryone.data.content;
+    const planningYourPartyData = planningYourParty.data.content;
     const testimonialsData = testimonialsContent.data.testimonials;
     const investorsData = investorsContent.data.investors;
     const siteSettingData = siteSettingContent.data.settings;
@@ -136,6 +142,7 @@ export async function getStaticProps() {
         testimonialsData,
         investorsData,
         siteSettingData,
+        planningYourPartyData,
       },
       revalidate: 10, // In seconds
     };
