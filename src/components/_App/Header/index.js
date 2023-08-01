@@ -21,6 +21,7 @@ const bg = {
 
 const Header = ({ siteSettings }) => {
     const router = useRouter()
+    const { slug } = router.query;
     const [isOpenHamburger, setisOpenHamburger] = useState(false)
     const [zipCodeServiceStaus, setZipCodeServiceStaus] = useState('Enter your zip code.')
     const { zipcode, setZipcode, games, loading, error, updateGamesData } = useGamesData();
@@ -238,7 +239,7 @@ const Header = ({ siteSettings }) => {
                                                     <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
                                                         {val.map(item => {
                                                             return (
-                                                                <Link className='single-line' onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                                <Link className={`single-line ${slug == `${item.slug}` ? 'active_menu' : ''}`} onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
                                                             )
                                                         })}
 
@@ -264,17 +265,18 @@ const Header = ({ siteSettings }) => {
                                     }
                                 </div>
                             </div>
+                            {console.log("ddd", router.pathname)}
                             <div className="no-padding" id="g2uExperience">
-                                <Link href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
+                                <Link className={`${router.pathname == '/the-g2u-difference' ? 'active' : ''}`} href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
                             </div>
                             <div className="no-padding" id="corporateEventsNav">
-                                <Link href="/corporate-events">CORPORATE EVENTS</Link>
+                                <Link className={`${router.pathname == '/corporate-events' ? 'active' : ''}`} href="/corporate-events">CORPORATE EVENTS</Link>
                             </div>
                             <div className="no-padding" id="franchiseNav">
-                                <Link href="/franchise-information">OWN A FRANCHISE</Link>
+                                <Link className={`${router.pathname == '/franchise-information' ? 'active' : ''}`} href="/franchise-information">OWN A FRANCHISE</Link>
                             </div>
                             <div className="no-padding" id="freePartyNav">
-                                <Link href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
+                                <Link className={`${router.pathname == '/your-party-could-be-free' ? 'active' : ''}`} href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
                             </div>
                         </div>
 

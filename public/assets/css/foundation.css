@@ -697,8 +697,12 @@ textarea {
     height: auto;
 }
 
-#navLinks a:hover,
-#navLinks a.active {
+#navLinks a:hover {
+    background: #D35E13;
+    color: #fff;
+}
+
+#navLinks a.actives {
     background: #D35E13;
     color: #fff;
 }
@@ -6573,6 +6577,11 @@ a[href^="https://maps.google.com/maps"] {
     text-align: center;
     -webkit-tap-highlight-color: transparent;
     height: 0px !important;
+}
+
+#navLinks .links-container div.sub-menu a.active_menu {
+    color: #EC7624;
+    background: none;
 }
 
 
