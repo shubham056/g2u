@@ -265,7 +265,6 @@ const Header = ({ siteSettings }) => {
                                     }
                                 </div>
                             </div>
-                            {console.log("ddd", router.pathname)}
                             <div className="no-padding" id="g2uExperience">
                                 <Link className={`${router.pathname == '/the-g2u-difference' ? 'active' : ''}`} href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
                             </div>
@@ -392,7 +391,7 @@ const Header = ({ siteSettings }) => {
                                         className="submit btn-bg-color jsBtnPopupSubmit"
                                         //id="submit-button"
                                         target
-                                        disabled={!isDirty || !isValid}
+                                        ///disabled={!isDirty || !isValid}
                                     >Submit</button>
                                 </div>
                             </form>
