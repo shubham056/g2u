@@ -1,7 +1,6 @@
 import Image from "next/image"
 
 const PlanYourParty = ({ siteSettings, planningYourParty }) => {
-    console.log("planningYourParty", planningYourParty)
     return (
         <div className="row ti-blue-background ti-row-top no-margin" id="planYourParty">
             <div className="col-xs-12">
