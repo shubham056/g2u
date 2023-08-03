@@ -170,7 +170,9 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
             </div>
           </div>
         </div>
-        <div className="row ti-row no-padding no-side-margin remove-overflow" id="tiImageSlider">
+        <div className="row ti-row no-padding no-side-margin remove-overflow"
+          // id="tiImageSlider"
+        >
           <div className="ti-slider-parents ti-slider-gallery">
             {
               (!loading && data && data.data?.slider_images != undefined && data.data?.slider_images != "")
