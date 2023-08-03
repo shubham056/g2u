@@ -14,32 +14,39 @@ import ErrorPage from 'next/error';
 import useSWR from "swr";
 
 const options = {
-  loop: true,
-  nav: true,
-  navText:
-    [
-      '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-      '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-    ],
-  dots: false,
-  smartSpeed: 500,
-  // margin: 30,
-  autoplayHoverPause: true,
-  autoplay: true,
-  responsive: {
-    0: {
-      items: 2
-    },
-    576: {
-      items: 2
-    },
-    768: {
-      items: 2
-    },
-    1200: {
-      items: 4
+    loop: true,
+    nav: true,
+    navText:
+        [
+            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
+            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
+        ],
+    dots: false,
+    smartSpeed: 500,
+    margin: 25,
+    autoplayHoverPause: true,
+    autoplay: false,
+    responsive: {
+        0: {
+            items: 2,
+            margin: 10,
+            autoplay: false,
+        },
+        576: {
+            items: 2,
+            margin: 10,
+            autoplay: false,
+        },
+        768: {
+            items: 2,
+            margin: 10,
+            autoplay: false,
+        },
+        1200: {
+            items: 4,
+            autoplay: false,
+        }
     }
-  }
 };
 
 const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
