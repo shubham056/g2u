@@ -9,22 +9,10 @@ const PlanYourParty = ({ siteSettings, planningYourParty }) => {
                         {planningYourParty && planningYourParty.page_name != '' ? <h2>{planningYourParty.page_name} <span className="force-break">1, 2, 3!</span></h2> : null}
 
                         <div className="row ti-row-top">
-                            {planningYourParty && <div dangerouslySetInnerHTML={{ __html: planningYourParty.content }}></div>}
+                            {planningYourParty && <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10" dangerouslySetInnerHTML={{ __html: planningYourParty.content }}></div>}
 
                         </div>
-
-                        {/* <div className="row ti-row-top">
-                            <div className="col-lg-1 col-sm-2 col-xs-12 col-ie-2">
-                                <Image src="/assets/img/two-2x.png" alt="two-2x" width={40} height={40} />
-                            </div>
-                            <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10">
-                                <h3>Schedule Your Party</h3>
-                                <p>Call us toll-free at <a href={`tel:${siteSettings?.phone ?? "18007142637"}`} className="linkOnBlue">1-800-71-GAMES</a>
-                                    or <a href="#footerContact" className="linkOnBlue">Click Here</a> to request more
-                                    information. We can help you plan the perfect event and
-                                    we're experts in entertaining groups of any size and people of every age!</p>
-                            </div>
-                        </div> */}
+                       
 
                         {/* <div className="row ti-row-top">
                             <div className="col-lg-1 col-sm-2 col-xs-12 col-ie-2">
