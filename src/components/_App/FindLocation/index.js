@@ -54,7 +54,7 @@ const FindLocation = () => {
                         <div className="location-holder location-update-wrap" id="locationBox">
                             <div className="selected-location" style={{ display: changeLocation ? 'none' : 'block' }}>
                                 <div className="ti-inline-block">
-                                    <img src={games && games?.affiliate.logo != '' ? games && games?.affiliate.logo : "https://www.g2u.com/assets/img/franchise/franchise-swa.png"} />
+                                    <img src={games && games?.affiliate.logo != '' ? games && games?.affiliate.logo : "https://www.g2u.com/assets/img/franchise/franchise-swa.png"} alt='affiliate-logo' />
                                 </div>
                                 <div className="ti-inline-block location-holder-place">
                                     <h3> <span id="locationBoxName"><strong>{games && games?.affiliate.company_name}</strong></span></h3>
