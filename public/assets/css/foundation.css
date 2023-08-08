@@ -1610,7 +1610,7 @@ a.location-button {
 
 #allGamesContent:before {
     background: url(../img/cheering-people-gradient.png);
-    height: 262px;
+    /* height: 262px; */
     opacity: 1.0;
 }
 
@@ -4832,9 +4832,9 @@ body {
         font-size: 22px;
     }
 
-    #tiImageSlider {
+    /* #tiImageSlider {
         height: 280px;
-    }
+    } */
 
     /* footer */
     #bottomNav .page-link-columns {
@@ -5008,7 +5008,7 @@ body {
     }
 
     .ti-box {
-        width: 100%;
+        width: 100% !important;
         display: block;
         margin: 0 auto 15px;
     }
@@ -6595,12 +6595,16 @@ a[href^="https://maps.google.com/maps"] {
         display: none;
     }
 
-    .games-sub-title {
+    /* .games-sub-title {
         height: unset;
-    }
+    } */
 
     .game-outer {
         height: unset;
+    }
+
+    .games-sub-title {
+        height: 76px;
     }
 }
 
@@ -6614,12 +6618,16 @@ a[href^="https://maps.google.com/maps"] {
         display: none;
     }
 
-    .games-sub-title {
+    /* .games-sub-title {
         height: unset;
-    }
+    } */
 
     .game-outer {
         height: unset;
+    }
+
+    .games-sub-title {
+        height: 76px;
     }
 }
 
@@ -6633,11 +6641,15 @@ a[href^="https://maps.google.com/maps"] {
         display: none;
     }
 
-    .games-sub-title {
+    /* .games-sub-title {
         height: unset;
-    }
+    } */
 
     .game-outer {
         height: unset;
+    }
+
+    .games-sub-title {
+        height: 76px;
     }
 }

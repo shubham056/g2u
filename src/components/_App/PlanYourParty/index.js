@@ -8,7 +8,7 @@ const PlanYourParty = ({ siteSettings, planningYourParty }) => {
                     <div className="col-md-6">
                         {planningYourParty && planningYourParty.page_name != '' ? <h2>{planningYourParty.page_name} <span className="force-break">1, 2, 3!</span></h2> : null}
 
-                        <div className="row ti-row-top">
+                        <div className="row ti-row-top">b 
                             {planningYourParty && <div className="col-lg-11 col-sm-10 col-xs-12 col-ie-10" dangerouslySetInnerHTML={{ __html: planningYourParty.content }}></div>}
 
                         </div>

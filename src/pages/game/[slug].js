@@ -14,39 +14,34 @@ import ErrorPage from 'next/error';
 import useSWR from "swr";
 
 const options = {
-    loop: true,
-    nav: true,
-    navText:
-        [
-            '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
-            '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
-        ],
-    dots: false,
-    smartSpeed: 500,
-    margin: 25,
-    autoplayHoverPause: true,
-    autoplay: false,
-    responsive: {
-        0: {
-            items: 2,
-            margin: 10,
-            autoplay: false,
-        },
-        576: {
-            items: 2,
-            margin: 10,
-            autoplay: false,
-        },
-        768: {
-            items: 2,
-            margin: 10,
-            autoplay: false,
-        },
-        1200: {
-            items: 4,
-            autoplay: false,
-        }
+  loop: true,
+  nav: true,
+  navText:
+    [
+      '<div class="ti-left-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-left"></span></div>',
+      '<div class="ti-right-slider slick-arrow" style="display: block;"><span class="ti-sprite blue-arrow-right"></span></div>'
+    ],
+  dots: false,
+  smartSpeed: 500,
+  //margin: 0,
+  autoWidth: false,
+  merge:true,
+  autoplayHoverPause: true,
+  autoplay: true,
+  responsive: {
+    0: {
+      items: 1
+    },
+    576: {
+      items: 1
+    },
+    768: {
+      items: 3
+    },
+    1200: {
+      items: 4
     }
+  }
 };
 
 const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
@@ -170,9 +165,7 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
             </div>
           </div>
         </div>
-        <div className="row ti-row no-padding no-side-margin remove-overflow"
-          // id="tiImageSlider"
-        >
+        <div className="row ti-row no-padding no-side-margin remove-overflow" id="tiImageSlider">
           <div className="ti-slider-parents ti-slider-gallery">
             {
               (!loading && data && data.data?.slider_images != undefined && data.data?.slider_images != "")
@@ -239,55 +232,55 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
 export default GamesDetails
 
 export const getStaticPaths = async () => {
-    try {
-        const payload = { url: `${apiBaseUrl}/category/get-all-slug`, method: 'GET' }
-        let categories = await fetchApi(payload);
-        categories = categories.data.slug
-        if (categories && categories.length > 0) {
-            const slugs = categories.map(category => category.slug);
-            const paths = slugs.map(slug => ({ params: { slug } }));
-            return {
-                paths,
-                fallback: false
-            };
-        } else {
-            return { paths: [], fallback: false };
-        }
-    } catch (error) {
-        return { paths: [], fallback: false };
+  try {
+    const payload = { url: `${apiBaseUrl}/category/get-all-slug`, method: 'GET' }
+    let categories = await fetchApi(payload);
+    categories = categories.data.slug
+    if (categories && categories.length > 0) {
+      const slugs = categories.map(category => category.slug);
+      const paths = slugs.map(slug => ({ params: { slug } }));
+      return {
+        paths,
+        fallback: false
+      };
+    } else {
+      return { paths: [], fallback: false };
     }
+  } catch (error) {
+    return { paths: [], fallback: false };
+  }
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-    try {
-        const payload = { url: `${apiBaseUrl}/category/category-details/${slug}`, method: 'GET' }
-        const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
-        const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
-        const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
+  try {
+    const payload = { url: `${apiBaseUrl}/category/category-details/${slug}`, method: 'GET' }
+    const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
+    const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
+    const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
-        const categories = await fetchApi(payload);
-        const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
-        const investorsContent = await fetchApi(investorsPayload); // call investors API
-        const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
+    const categories = await fetchApi(payload);
+    const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
+    const investorsContent = await fetchApi(investorsPayload); // call investors API
+    const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
 
-        const testimonialsData = testimonialsContent.data.testimonials;
-        const categoriesData = categories.data
-        const investorsData = investorsContent.data.investors;
-        const siteSettingData = siteSettingContent.data.settings;
+    const testimonialsData = testimonialsContent.data.testimonials;
+    const categoriesData = categories.data
+    const investorsData = investorsContent.data.investors;
+    const siteSettingData = siteSettingContent.data.settings;
 
-        const { categoryDetails } = categoriesData
-        return {
-            props: {
-                categoryDetails,
-                testimonialsData,
-                investorsData,
-                siteSettingData,
-            },
-            revalidate: 10,
-        };
-    } catch (error) {
-        console.log('error in detail api call', error)
-    }
+    const { categoryDetails } = categoriesData
+    return {
+      props: {
+        categoryDetails,
+        testimonialsData,
+        investorsData,
+        siteSettingData,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.log('error in detail api call', error)
+  }
 
 };
 
