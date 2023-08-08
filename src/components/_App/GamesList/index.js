@@ -65,7 +65,7 @@ const GamesList = () => {
                                 <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3" key={`game-list-${item.id}`}>
                                     <div className="ti-inline-block home-icon">
                                         <Link href={`/game/${item.slug}`}>
-                                            <Image src={item.icon_dark != '' ? item.icon_dark : "assets/img/ico-video-game-theater-blue-2x.png"} width={500} height={500} />
+                                            <Image src={item.icon_dark != '' ? item.icon_dark : "assets/img/ico-video-game-theater-blue-2x.png"} width={500} height={500} alt={item.slug? item.slug: 'game-image'} />
                                         </Link>
                                     </div>
                                     <div className="ti-inline-block home-game-name">

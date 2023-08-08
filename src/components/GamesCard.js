@@ -7,7 +7,7 @@ const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, categoryName, capti
         <div className={dynamicClass} data-original="true">
             <Link href={`/game/${slug}`}>
                 <div className="box-heading video-game-theater" >
-                    <Image src={imgSrc != '' ? imgSrc : "/assets/img/ico-video-theater-2x.png"} height={"500"} width={"500"} style={{ width: "100%", height: "100%", objectFit: 'cover' }} />
+                    <Image src={imgSrc != '' ? imgSrc : "/assets/img/ico-video-theater-2x.png"} height={"500"} width={"500"} style={{ width: "100%", height: "100%", objectFit: 'cover' }} alt={categoryName} />
                 </div>
                 <div className="circle-img">
                     <Image src={icon != '' ? icon : "/assets/img/ico-video-theater-2x.png"} width={500} height={500} alt={slug} />
