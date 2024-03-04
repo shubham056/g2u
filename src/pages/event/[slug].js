@@ -134,7 +134,7 @@ export default EventDetails
 //         let events = await fetchApi(payload);
 //         events = events.data.slug
 //         if (events && events.length > 0) {
-//             const slugs = events.map(category => category.slug);
+//             const slugs = events.map(activity => activity.slug);
 //             const paths = slugs.map(slug => ({ params: { slug } }));
 //             // console.log("path!!!!!", paths)
 //             return {

@@ -47,9 +47,9 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
 
   // for complete game catalog
   useEffect(() => {
-    if (!loading && games && games.categories.list.length > 0) {
-      setGamesData(games.categories.list)
-      setPage(games.categories.pagination.next)
+    if (!loading && games && games.activities.list.length > 0) {
+      setGamesData(games.activities.list)
+      setPage(games.activities.pagination.next)
     }
   }, [games])
 
@@ -74,9 +74,9 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       const response = await fetchApi(payload); // call event list API
       const responseData = response.data.games;
       //merging two arrays
-      if (responseData && responseData.categories.list.length > 0) {
-        setSuggestionData([...suggestionData, ...responseData.categories.list])
-        setSuggestionDataPagination(responseData.categories.pagination)
+      if (responseData && responseData.activities.list.length > 0) {
+        setSuggestionData([...suggestionData, ...responseData.activities.list])
+        setSuggestionDataPagination(responseData.activities.pagination)
         setSuggGamePage(page + 1)
         setIsSuggestedGamesLoading(false)
         setLoadingSuggGameBtnText('Load More')
@@ -98,8 +98,8 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
     const response = await fetchApi(payload); // call event list API
     const responseData = response.data.games;
     //merging two arrays
-    if (responseData && responseData.categories.list.length > 0) {
-      setGamesData([...gamesData, ...responseData.categories.list])
+    if (responseData && responseData.activities.list.length > 0) {
+      setGamesData([...gamesData, ...responseData.activities.list])
       setPage(page + 1)
       setisLoading(false)
       setLoadingBtnText('Load More')
@@ -127,9 +127,9 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
       const response = await fetchApi(payload); //call filter API
       const responseData = response.data.games;
       console.log(responseData)
-      if (responseData && responseData.categories.list.length > 0) {
-        setSuggestionData(responseData.categories.list)
-        setSuggestionDataPagination(responseData.categories.pagination)
+      if (responseData && responseData.activities.list.length > 0) {
+        setSuggestionData(responseData.activities.list)
+        setSuggestionDataPagination(responseData.activities.pagination)
         setisLoadingViewSuggestion(false)
         setViewSuggestionBtnText("View Suggestion")
         setShowSuggestionData(true)
@@ -266,7 +266,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                           {(suggestionData && suggestionData.length > 0)
                             ?
                             suggestionData.map(item => {
-                              const { id, slug, image, icon, category_name } = item
+                              const { id, slug, image, icon, activity_name } = item
                               return (
                                 <GamesCard
                                   key={id}
@@ -276,8 +276,8 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                                   slug={slug}
                                   imgSrc={image}
                                   icon={icon}
-                                  categoryName={category_name}
-                                  caption={item.category_caption}
+                                  activityName={activity_name}
+                                  caption={item.activity_caption}
                                 />
                               )
                             })
@@ -335,7 +335,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                 (gamesData && gamesData.length > 0)
                   ?
                   gamesData.map(item => {
-                    const { id, slug, image, icon, category_name } = item
+                    const { id, slug, image, icon, activity_name } = item
                     return (
                       <GamesCard
                         key={id}
@@ -345,8 +345,8 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                         slug={slug}
                         imgSrc={image}
                         icon={icon}
-                        categoryName={category_name}
-                        caption={item.category_caption}
+                        activityName={activity_name}
+                        caption={item.activity_caption}
                       />
                     )
                   })
@@ -355,7 +355,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
               }
             </div>
             {
-              (gamesData && games && (gamesData.length != games.categories.pagination.total))
+              (gamesData && games && (gamesData.length != games.activities.pagination.total))
                 ?
                 <LoadMoreButton
                   getMoreData={getMoreGames}

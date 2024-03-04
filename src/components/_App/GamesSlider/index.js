@@ -44,7 +44,7 @@ const GamesSlider = () => {
     const { zipcode, games, loading, error } = useGamesData();
 
     const [display, setDisplay] = useState(false);
-    if (!loading && games && games.categories.list && games.categories.list.length > 0) {
+    if (!loading && games && games.activities.list && games.activities.list.length > 0) {
         display ? '' : setDisplay(true)
     }
 
@@ -54,10 +54,10 @@ const GamesSlider = () => {
                 display ?
                     <OwlCarousel className="clients-slides owl-carousel owl-theme " {...options} stageOuterClass={"owl-stage-outer game-outer"}>
                         {
-                            (!loading && games && games.categories.list && games?.affiliate != undefined && games.categories.list.length > 0)
+                            (!loading && games && games.activities.list && games?.affiliate != undefined && games.activities.list.length > 0)
                                 ?
-                                games?.categories.list.map(item => {
-                                    const { id, slug, image, icon, category_name } = item
+                                games?.activities.list.map(item => {
+                                    const { id, slug, image, icon, activity_name } = item
                                     return (
                                         <GamesCard
                                             key={id}
@@ -66,8 +66,8 @@ const GamesSlider = () => {
                                             slug={slug}
                                             imgSrc={image}
                                             icon={icon}
-                                            categoryName={category_name}
-                                            caption={item.category_caption}
+                                            activityName={activity_name}
+                                            caption={item.activity_caption}
 
                                         />
                                     )

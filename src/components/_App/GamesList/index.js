@@ -19,9 +19,9 @@ const GamesList = () => {
 
     // for complete game catalog
     useEffect(() => {
-        if (!loading && games && games.categories.list.length > 0) {
-            setGamesData(games.categories.list)
-            setPage(games.categories.pagination.next)
+        if (!loading && games && games.activities.list?.length > 0) {
+            setGamesData(games.activities.list)
+            setPage(games.activities.pagination.next)
         }
     }, [games])
 
@@ -41,8 +41,8 @@ const GamesList = () => {
         const response = await fetchApi(payload); // call event list API
         const responseData = response.data.games;
         //merging two arrays
-        if (responseData && responseData.categories.list.length > 0) {
-            setGamesData([...gamesData, ...responseData.categories.list])
+        if (responseData && responseData.activities.list.length > 0) {
+            setGamesData([...gamesData, ...responseData.activities.list])
             setPage(page + 1)
             setisLoading(false)
             setLoadingBtnText('Load More')
@@ -70,7 +70,7 @@ const GamesList = () => {
                                     </div>
                                     <div className="ti-inline-block home-game-name">
                                         <Link href={`/game/${item.slug}`}>
-                                            <p>{item.category_name}</p>
+                                            <p>{item.activity_name}</p>
                                         </Link>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@ const GamesList = () => {
                 </div>
                 <div className='row'>
                     {
-                        (gamesData && games && (gamesData.length != games.categories.pagination.total))
+                        (gamesData && games && games.activities && (gamesData.length != games.activities.pagination?.total))
                             ?
                             <LoadMoreButton
                                 getMoreData={getMoreGames}

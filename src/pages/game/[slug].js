@@ -44,13 +44,13 @@ const options = {
   }
 };
 
-const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSettingData }) => {
+const GamesDetails = ({ activityDetails, testimonialsData, investorsData, siteSettingData }) => {
   const router = useRouter();
-  if (!categoryDetails.category_name || Object.keys(categoryDetails).length == 0) {
+  if (!activityDetails.activity_name || Object.keys(activityDetails).length == 0) {
     return <ErrorPage statusCode={404} withDarkMode={false} />
   }
 
-  const { id, banner_image, icon, category_name, category_caption, category_description, video, price_per_hour, min_age, max_age, min_participants, max_participants, } = categoryDetails //extract data from category detals
+  const { id, banner_image, icon, activity_name, activity_caption, activity_description, video, price_per_hour, min_age, max_age, min_participants, max_participants, } = activityDetails //extract data from activity detals
 
   const fetcher = (url) => fetchApi({ url, method: 'GET' });
   const { data, error, loading } = useSWR(`${apiBaseUrl}/games/slider-images/${id}`, fetcher);
@@ -111,11 +111,11 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
         <Header siteSettings={siteSettingData} />
         {/* <!-- header section end with mobile naviagtion  --> */}
 
-        {categoryDetails && <TopBanner
+        {activityDetails && <TopBanner
           banner={banner_image}
           icon={icon}
-          title={category_name}
-          caption={category_caption}
+          title={activity_name}
+          caption={activity_caption}
           video={video}
         />}
 
@@ -181,10 +181,10 @@ const GamesDetails = ({ categoryDetails, testimonialsData, investorsData, siteSe
         </div>
         <div className="row ti-row game-content">
           <div className="limited-width">
-            <h2 className="orange-border ti-dark-blue-text">{categoryDetails && category_name}</h2>
+            <h2 className="orange-border ti-dark-blue-text">{activityDetails && activity_name}</h2>
             <div className="row">
               <div className="col-md-12">
-                {categoryDetails && <div dangerouslySetInnerHTML={{ __html: category_description }}></div>}
+                {activityDetails && <div dangerouslySetInnerHTML={{ __html: activity_description }}></div>}
               </div>
             </div>
           </div>
@@ -233,11 +233,11 @@ export default GamesDetails
 
 export const getStaticPaths = async () => {
   try {
-    const payload = { url: `${apiBaseUrl}/category/get-all-slug`, method: 'GET' }
-    let categories = await fetchApi(payload);
-    categories = categories.data.slug
-    if (categories && categories.length > 0) {
-      const slugs = categories.map(category => category.slug);
+    const payload = { url: `${apiBaseUrl}/activity/get-all-slug`, method: 'GET' }
+    let activities = await fetchApi(payload);
+    activities = activities.data.slug
+    if (activities && activities.length > 0) {
+      const slugs = activities.map(activity => activity.slug);
       const paths = slugs.map(slug => ({ params: { slug } }));
       return {
         paths,
@@ -253,25 +253,25 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
   try {
-    const payload = { url: `${apiBaseUrl}/category/category-details/${slug}`, method: 'GET' }
+    const payload = { url: `${apiBaseUrl}/activity/activity-details/${slug}`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
 
-    const categories = await fetchApi(payload);
+    const activities = await fetchApi(payload);
     const testimonialsContent = await fetchApi(testimonialsPayload); // call testimonials API
     const investorsContent = await fetchApi(investorsPayload); // call investors API
     const siteSettingContent = await fetchApi(siteSettingsPayload); // call site setting API
 
     const testimonialsData = testimonialsContent.data.testimonials;
-    const categoriesData = categories.data
+    const activitiesData = activities.data
     const investorsData = investorsContent.data.investors;
     const siteSettingData = siteSettingContent.data.settings;
 
-    const { categoryDetails } = categoriesData
+    const { activityDetails } = activitiesData
     return {
       props: {
-        categoryDetails,
+        activityDetails,
         testimonialsData,
         investorsData,
         siteSettingData,

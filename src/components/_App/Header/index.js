@@ -225,10 +225,10 @@ const Header = ({ siteSettings }) => {
                                             Available Games</Link>
                                     </div>
                                     {
-                                        (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
+                                        (!loading && games && games?.activities.list != undefined && games?.affiliate != undefined && games?.activities.list.length > 0)
                                             ?
                                             Object.values(
-                                                games?.categories.list.map((x, i) => ({ grp: Math.floor(i / 8), val: x }))
+                                                games?.activities.list.map((x, i) => ({ grp: Math.floor(i / 8), val: x }))
                                                     .reduce((acc, i) => {
                                                         acc[i.grp] ||= [];
                                                         acc[i.grp].push(i.val);
@@ -239,7 +239,7 @@ const Header = ({ siteSettings }) => {
                                                     <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
                                                         {val.map(item => {
                                                             return (
-                                                                <Link className={`single-line ${slug == `${item.slug}` ? 'active_menu' : ''}`} onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                                <Link className={`single-line ${slug == `${item.slug}` ? 'active_menu' : ''}`} onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
                                                             )
                                                         })}
 
@@ -248,11 +248,11 @@ const Header = ({ siteSettings }) => {
                                                 )
                                             })
 
-                                            //         games.categories.list.map((item, i) => {
+                                            //         games.activities.list.map((item, i) => {
 
                                             //             return (
                                             // <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
-                                            //     <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                            //     <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
                                             // </div>
                                             // )
 
@@ -324,11 +324,11 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                     <div className="col-md-4 padding-top">
                                         {
-                                            (!loading && games && games?.categories.list != undefined && games?.affiliate != undefined && games?.categories.list.length > 0)
+                                            (!loading && games && games?.activities.list != undefined && games?.affiliate != undefined && games?.activities.list.length > 0)
                                                 ?
-                                                games.categories.list.map(item => {
+                                                games.activities.list.map(item => {
                                                     return (
-                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.category_name}</Link>
+                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
                                                     )
                                                 })
 
