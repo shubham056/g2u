@@ -15,6 +15,7 @@ const GamesList = () => {
     const [suggestionDataPagination, setSuggestionDataPagination] = useState({});
     const [page, setPage] = useState(1);
     const [gamesData, setGamesData] = useState([]);
+    const [zSlug, setZSlug] = useState('');
 
 
     // for complete game catalog
@@ -22,6 +23,7 @@ const GamesList = () => {
         if (!loading && games && games.activities.list?.length > 0) {
             setGamesData(games.activities.list)
             setPage(games.activities.pagination.next)
+            setZSlug(games.affiliate?.z_slug)
         }
     }, [games])
 
@@ -64,12 +66,12 @@ const GamesList = () => {
                             return (
                                 <div className="col-md-3 col-sm-6 col-xs-12 col-ie-3" key={`game-list-${item.id}`}>
                                     <div className="ti-inline-block home-icon">
-                                        <Link href={`/game/${item.slug}`}>
+                                        <Link href={`${zSlug}/activities/${item.slug}`}>
                                             <Image src={item.icon_dark != '' ? item.icon_dark : "assets/img/ico-video-game-theater-blue-2x.png"} width={500} height={500} alt={item.slug? item.slug: 'game-image'} />
                                         </Link>
                                     </div>
                                     <div className="ti-inline-block home-game-name">
-                                        <Link href={`/game/${item.slug}`}>
+                                        <Link href={`${zSlug}/activities/${item.slug}`}>
                                             <p>{item.activity_name}</p>
                                         </Link>
                                     </div>

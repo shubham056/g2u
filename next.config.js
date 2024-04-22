@@ -3,12 +3,6 @@ const webpack = require("webpack");
 
 const nextConfig = {
   reactStrictMode: true,
-  headers: [
-    {
-      key: 'Cache-Control',
-      value: 'public, max-age=31536000, immutable',
-    }
-  ],
   images: {
     domains: ["localhost", "g2u.cwsbuild.com"],
     minimumCacheTTL: 1000 * 60 * 60 * 24 * 30,
@@ -22,6 +16,41 @@ const nextConfig = {
         "window.jQuery": "jquery",
       }));
     return config;
+  },
+  async headers() {
+    return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          }
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: '/the-g2u-difference',
+        destination: '/',
+        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: '/your-party-could-be-free',
+        destination: '/',
+        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: '/franchise-information',
+        destination: '/become-an-affiliate',
+        permanent: true,
+        statusCode: 301,
+      },
+    ]
   },
 }
 

@@ -8,7 +8,6 @@ const BottomFooter = ({ siteSettings }) => {
                 <div className="pull-left" id="bottomFooterNav">
                     <Link href="/terms-of-use">Terms of Use</Link>
                     <Link href="/privacy-policy">Privacy Policy</Link>
-                    <Link href="/cancelation-policy">Our Cancelation Policy</Link>
                     <Link href="/site-map">Site Map</Link>
                 </div>
                 <div className="pull-right" id="bottomFooterCopyright">

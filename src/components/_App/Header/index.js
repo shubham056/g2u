@@ -215,8 +215,7 @@ const Header = ({ siteSettings }) => {
                                 </span>
                             </div>
                             <div className="no-padding" id="ourGamesNav" onMouseEnter={() => setIsShownMenu(true)} onMouseLeave={() => setIsShownMenu(false)}>
-                                <a href="#footerContact" className="visible-sm visible-xs ti-blue-background">BOOK YOUR
-                                    EVENT</a>
+                                <a href="#footerContact" className="visible-sm visible-xs ti-blue-background">BOOK YOUR EVENT</a>
                                 <Link href="/our-games">OUR GAMES</Link>
                                 <div className="sub-menu" style={{ display: isShownMenu ? 'block' : 'none' }}>
                                     <div className="ti-sub-head clearfix">
@@ -265,18 +264,21 @@ const Header = ({ siteSettings }) => {
                                     }
                                 </div>
                             </div>
-                            <div className="no-padding" id="g2uExperience">
+                            {/* <div className="no-padding" id="g2uExperience">
                                 <Link className={`${router.pathname == '/the-g2u-difference' ? 'active' : ''}`} href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
-                            </div>
+                            </div> */}
                             <div className="no-padding" id="corporateEventsNav">
                                 <Link className={`${router.pathname == '/corporate-events' ? 'active' : ''}`} href="/corporate-events">CORPORATE EVENTS</Link>
                             </div>
                             <div className="no-padding" id="franchiseNav">
+                                <Link className={`${router.pathname == '/become-an-affiliate' ? 'active' : ''}`} href="/become-an-affiliate">BECOME AN AFFILIATE</Link>
+                            </div>
+                            {/* <div className="no-padding" id="franchiseNav">
                                 <Link className={`${router.pathname == '/franchise-information' ? 'active' : ''}`} href="/franchise-information">OWN A FRANCHISE</Link>
-                            </div>
-                            <div className="no-padding" id="freePartyNav">
+                            </div> */}
+                            {/* <div className="no-padding" id="freePartyNav">
                                 <Link className={`${router.pathname == '/your-party-could-be-free' ? 'active' : ''}`} href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="links-container mobile-menu-div"
@@ -338,18 +340,21 @@ const Header = ({ siteSettings }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="no-padding" id="g2uExperience">
+                            {/* <div className="no-padding" id="g2uExperience">
                                 <Link href="/the-g2u-difference">THE G2U DIFFERENCE</Link>
-                            </div>
+                            </div> */}
                             <div className="no-padding" id="corporateEventsNav">
                                 <Link href="/corporate-events">CORPORATE EVENTS</Link>
                             </div>
                             <div className="no-padding" id="franchiseNav">
+                                <Link className={`${router.pathname == '/become-an-affiliate' ? 'active' : ''}`} href="/become-an-affiliate">Become An Affiliate</Link>
+                            </div>
+                            {/* <div className="no-padding" id="franchiseNav">
                                 <Link href="/franchise-information">OWN A FRANCHISE</Link>
-                            </div>
-                            <div className="no-padding" id="freePartyNav">
+                            </div> */}
+                            {/* <div className="no-padding" id="freePartyNav">
                                 <Link href="/your-party-could-be-free">YOUR PARTY COULD BE FREE</Link>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

@@ -9,11 +9,10 @@ const BottonNav = ({ siteSettings }) => {
                     <div className="page-links col-md-9 col-sm-8 col-xs-12">
                         <ul className="page-link-columns">
                             <li className="ti-nav-content"><Link href="/our-games">Our Games</Link></li>
-                            <li className="ti-nav-content"><Link href="/the-g2u-difference">The G2U Difference</Link></li>
                             <li className="ti-nav-content"><Link href="/corporate-events">Corporate Events</Link></li>
                         </ul>
                         <ul className="page-link-columns">
-                            <li className="ti-nav-content"><Link href="/franchise-information">Own a Franchise</Link></li>
+                            <li className="ti-nav-content"><Link href="/become-an-affiliate">Become An Affiliate</Link></li>
                             <li className="ti-nav-content"><Link href="/contact-us">Contact Us</Link></li>
                             <li className="ti-nav-content"><Link href="/about-us">About Us</Link></li>
                             <li className="ti-nav-content"><Link href="/faq">FAQ</Link></li>
