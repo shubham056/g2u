@@ -2,10 +2,10 @@ import trimString from '@/utils/trimString'
 import Link from 'next/link'
 import Image from 'next/image'
 
-const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, activityName, caption }) => {
+const GamesCard = ({ dynamicClass, link, slug, imgSrc, icon, activityName, caption, zSlug='' }) => {
     return (
         <div className={dynamicClass} data-original="true">
-            <Link href={`/${slug}`}>
+            <Link href={`/${zSlug}/activities/${slug}`}>
                 <div className="box-heading video-game-theater" >
                     <Image src={imgSrc != '' ? imgSrc : "/assets/img/ico-video-theater-2x.png"} height={"500"} width={"500"} style={{ width: "100%", height: "100%", objectFit: 'cover' }} alt={activityName} />
                 </div>

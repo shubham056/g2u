@@ -63,12 +63,12 @@ const GamesSlider = () => {
                                             key={id}
                                             dynamicClass={`col-ie-4 ti-box game-${id}`}
                                             link={games.affiliate.city.toLowerCase()}
-                                            slug={`${games.affiliate.z_slug}/activities/${slug}`}
+                                            slug={slug}
                                             imgSrc={image}
                                             icon={icon}
                                             activityName={activity_name}
                                             caption={item.activity_caption}
-
+                                            zSlug={games.affiliate.z_slug}
                                         />
                                     )
                                 })

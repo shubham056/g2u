@@ -220,8 +220,7 @@ const Header = ({ siteSettings }) => {
                                 <div className="sub-menu" style={{ display: isShownMenu ? 'block' : 'none' }}>
                                     <div className="ti-sub-head clearfix">
                                         <h2 className="no-border ti-dark-blue-text pull-left">Games They'll Love!</h2>
-                                        <Link href="/our-games" className="ti-orange-text pull-right ti-inline-block">View All
-                                            Available Games</Link>
+                                        <Link href="/our-games" className="ti-orange-text pull-right ti-inline-block">View All Available Games</Link>
                                     </div>
                                     {
                                         (!loading && games && games?.activities.list != undefined && games?.affiliate != undefined && games?.activities.list.length > 0)
@@ -238,7 +237,7 @@ const Header = ({ siteSettings }) => {
                                                     <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
                                                         {val.map(item => {
                                                             return (
-                                                                <Link className={`single-line ${slug == `${item.slug}` ? 'active_menu' : ''}`} onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
+                                                                <Link className={`single-line ${slug == `${item.slug}` ? 'active_menu' : ''}`} onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.z_slug}/activities/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
                                                             )
                                                         })}
 
@@ -246,18 +245,6 @@ const Header = ({ siteSettings }) => {
 
                                                 )
                                             })
-
-                                            //         games.activities.list.map((item, i) => {
-
-                                            //             return (
-                                            // <div className={`col-md-4 ${i == 0 ? 'padding-top' : ''}`}>
-                                            //     <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
-                                            // </div>
-                                            // )
-
-
-                                            //         })
-
                                             :
                                             null
 
@@ -330,7 +317,7 @@ const Header = ({ siteSettings }) => {
                                                 ?
                                                 games.activities.list.map(item => {
                                                     return (
-                                                        <Link onClick={() => setIsShownMenu(false)} href={`/game/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
+                                                        <Link onClick={() => setIsShownMenu(false)} href={`/${games.affiliate.z_slug}/activities/${item.slug}`} key={`game-cat-${item.id}`}><img src={item.icon != '' ? item.icon : "assets/img/ico-video-game-theater-blue-2x.png"} />{item.activity_name}</Link>
                                                     )
                                                 })
 
@@ -347,7 +334,7 @@ const Header = ({ siteSettings }) => {
                                 <Link href="/corporate-events">CORPORATE EVENTS</Link>
                             </div>
                             <div className="no-padding" id="franchiseNav">
-                                <Link className={`${router.pathname == '/become-an-affiliate' ? 'active' : ''}`} href="/become-an-affiliate">Become An Affiliate</Link>
+                                <Link className={`${router.pathname == '/become-an-affiliate' ? 'active' : ''}`} href="/become-an-affiliate">BECOME AN AFFILIATE</Link>
                             </div>
                             {/* <div className="no-padding" id="franchiseNav">
                                 <Link href="/franchise-information">OWN A FRANCHISE</Link>

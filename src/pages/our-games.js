@@ -278,6 +278,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                                   icon={icon}
                                   activityName={activity_name}
                                   caption={item.activity_caption}
+                                  zSlug={games.affiliate.z_slug}
                                 />
                               )
                             })
@@ -347,6 +348,7 @@ const ourgames = ({ testimonialsData, investorsData, siteSettingData, gamesSelec
                         icon={icon}
                         activityName={activity_name}
                         caption={item.activity_caption}
+                        zSlug={games.affiliate.z_slug}
                       />
                     )
                   })
