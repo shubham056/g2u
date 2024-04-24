@@ -68,7 +68,7 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                     <li><Link href="/"><b>Games2U Mobile Entertainment</b></Link>
                                         <br /><br />
                                         <ul className="sitemap">
-                                            {(!loading && games && games?.activities.list != undefined && games?.affiliate != undefined && games?.activities.list.length > 0)
+                                            {/* {(!loading && games && games?.activities.list != undefined && games?.affiliate != undefined && games?.activities.list.length > 0)
                                                 ?
                                                 <li><Link href="/our-games">Our Games</Link>
                                                     <br /><br />
@@ -78,7 +78,7 @@ const sitemap = ({ eventListData: { events, pagination }, testimonialsData, site
                                                 </li>
                                                 :
                                                 null
-                                            }
+                                            } */}
 
                                             {
                                                 events && events.length > 0
