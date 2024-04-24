@@ -358,8 +358,7 @@ const Header = ({ siteSettings }) => {
                         <Image data-em="logo" src={siteSettings?.logo ?? "/assets/img/g2u-logo.png"} className='g2u-logo' alt="g2u-logo" width={483} height={151} />
                     </div>
                     <div className="text-container">
-                        <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you
-                            with local pricing and options:</div>
+                        <div data-em="text-line-1" className="zip-text-line-1">Please enter your zipcode so we can provide you with local pricing and options:</div>
                         <div className="border-container">
                             <span className="arrow arrow-bg-color" />
                             <form onSubmit={handleSubmit(onSubmit)}>

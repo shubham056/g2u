@@ -252,9 +252,9 @@ export default GamesDetails
 //   }
 // };
 
-export const getServerSideProps = async ({ params: { slug } }) => {
+export const getServerSideProps = async ({ params: { z_slug, slug } }) => {
   try {
-    const payload = { url: `${apiBaseUrl}/activity/activity-details/${slug}`, method: 'GET' }
+    const payload = { url: `${apiBaseUrl}/activity/activity-details/${z_slug}/${slug}`, method: 'GET' }
     const testimonialsPayload = { url: `${apiBaseUrl}/testimonials`, method: 'POST', data: { page_limit: 20, page_record: 1 } }
     const investorsPayload = { url: `${apiBaseUrl}/investors`, method: "POST", data: { page_limit: 20, page_record: 1 } };
     const siteSettingsPayload = { url: `${apiBaseUrl}/site-settings`, method: "GET", };
