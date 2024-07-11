@@ -136,7 +136,7 @@ const GamesDetails = ({ activityDetails, testimonialsData, investorsData, siteSe
               great fit for your next event.</p>
             </h2>
             <div className="row ti-box-row">
-              <div className="ti-box">
+              {/* <div className="ti-box">
                 <img src="https://www.g2u.com/assets/img/ico-starting-price-2x.png" />
                 <div>
                   <h3 className="text-uppercase">Starting Price</h3>
@@ -144,7 +144,7 @@ const GamesDetails = ({ activityDetails, testimonialsData, investorsData, siteSe
                     per hour <button type="button" className="btn btn-link"><i className="fa fa-question-circle-o" data-toggle="modal" data-target="#priceModal" /></button>
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="ti-box-spacer" />
               <div className="ti-box">
