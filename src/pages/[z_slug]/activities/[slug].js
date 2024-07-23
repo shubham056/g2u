@@ -132,8 +132,7 @@ const GamesDetails = ({ activityDetails, testimonialsData, investorsData, siteSe
         </div>
         <div className="row ti-row ti-orange-background ti-box-container">
           <div className="limited-width">
-            <h2>Get the Stats! <p className="ti-white-text">Check out these stats to see if the Video Game Truck Party is a
-              great fit for your next event.</p>
+            <h2>Get the Stats! <p className="ti-white-text">Check out these stats to see if the Video Game Truck Party is a great fit for your next event.</p>
             </h2>
             <div className="row ti-box-row">
               {/* <div className="ti-box">
