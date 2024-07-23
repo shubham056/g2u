@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost", "g2u.cwsdev1.com"],
+    domains: ["localhost", "g2u.cwsbuild.com"],
     minimumCacheTTL: 1000 * 60 * 60 * 24 * 30,
   },
   compress: true,
